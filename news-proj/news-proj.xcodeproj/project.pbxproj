@@ -11,6 +11,7 @@
 		E592E49B20F680DC006DBA90 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E592E49920F680DC006DBA90 /* Main.storyboard */; };
 		E592E49D20F680DE006DBA90 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E592E49C20F680DE006DBA90 /* Assets.xcassets */; };
 		E592E4A020F680DE006DBA90 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E592E49E20F680DE006DBA90 /* LaunchScreen.storyboard */; };
+		E592E4B220F6A15C006DBA90 /* NewsProj.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E592E4B020F6A15C006DBA90 /* NewsProj.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +21,7 @@
 		E592E49C20F680DE006DBA90 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E592E49F20F680DE006DBA90 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E592E4A120F680DE006DBA90 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E592E4B120F6A15C006DBA90 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +54,9 @@
 		E592E49420F680DC006DBA90 /* news-proj */ = {
 			isa = PBXGroup;
 			children = (
+				E592E4A720F6A11B006DBA90 /* Business Logic Layer */,
+				E592E4A920F6A11B006DBA90 /* Core Layer */,
+				E592E4AD20F6A11B006DBA90 /* Presentation Layer */,
 				E592E49520F680DC006DBA90 /* AppDelegate.swift */,
 				E592E49920F680DC006DBA90 /* Main.storyboard */,
 				E592E49C20F680DE006DBA90 /* Assets.xcassets */,
@@ -59,6 +64,68 @@
 				E592E4A120F680DE006DBA90 /* Info.plist */,
 			);
 			path = "news-proj";
+			sourceTree = "<group>";
+		};
+		E592E4A720F6A11B006DBA90 /* Business Logic Layer */ = {
+			isa = PBXGroup;
+			children = (
+				E592E4A820F6A11B006DBA90 /* Новая папка */,
+			);
+			path = "Business Logic Layer";
+			sourceTree = "<group>";
+		};
+		E592E4A820F6A11B006DBA90 /* Новая папка */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Новая папка";
+			sourceTree = "<group>";
+		};
+		E592E4A920F6A11B006DBA90 /* Core Layer */ = {
+			isa = PBXGroup;
+			children = (
+				E592E4AA20F6A11B006DBA90 /* Core Data */,
+				E592E4AB20F6A11B006DBA90 /* Networking */,
+				E592E4AC20F6A11B006DBA90 /* Models */,
+			);
+			path = "Core Layer";
+			sourceTree = "<group>";
+		};
+		E592E4AA20F6A11B006DBA90 /* Core Data */ = {
+			isa = PBXGroup;
+			children = (
+				E592E4AF20F6A150006DBA90 /* Classes */,
+				E592E4B020F6A15C006DBA90 /* NewsProj.xcdatamodeld */,
+			);
+			path = "Core Data";
+			sourceTree = "<group>";
+		};
+		E592E4AB20F6A11B006DBA90 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		E592E4AC20F6A11B006DBA90 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		E592E4AD20F6A11B006DBA90 /* Presentation Layer */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Presentation Layer";
+			sourceTree = "<group>";
+		};
+		E592E4AF20F6A150006DBA90 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -133,6 +200,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E592E49620F680DC006DBA90 /* AppDelegate.swift in Sources */,
+				E592E4B220F6A15C006DBA90 /* NewsProj.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -330,6 +398,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		E592E4B020F6A15C006DBA90 /* NewsProj.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				E592E4B120F6A15C006DBA90 /* Model.xcdatamodel */,
+			);
+			currentVersion = E592E4B120F6A15C006DBA90 /* Model.xcdatamodel */;
+			path = NewsProj.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = E592E48A20F680DC006DBA90 /* Project object */;
 }
