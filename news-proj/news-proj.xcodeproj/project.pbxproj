@@ -15,6 +15,14 @@
 		E592E4B520F6A377006DBA90 /* News+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E592E4B320F6A377006DBA90 /* News+CoreDataClass.swift */; };
 		E592E4B620F6A377006DBA90 /* News+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E592E4B420F6A377006DBA90 /* News+CoreDataProperties.swift */; };
 		E592E4B820F6A419006DBA90 /* NewsPlainObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E592E4B720F6A419006DBA90 /* NewsPlainObject.swift */; };
+		E592E4BB20F6A9AE006DBA90 /* WebRequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E592E4BA20F6A9AE006DBA90 /* WebRequestData.swift */; };
+		E592E4BE20F6AA41006DBA90 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = E592E4BD20F6AA41006DBA90 /* HTTPMethod.swift */; };
+		E592E4C020F6AAEC006DBA90 /* HTTPParametersEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E592E4BF20F6AAEC006DBA90 /* HTTPParametersEncoder.swift */; };
+		E592E4C920F6B445006DBA90 /* URLParameterEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E592E4C720F6B445006DBA90 /* URLParameterEncoder.swift */; };
+		E592E4CA20F6B445006DBA90 /* JSONParameterEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E592E4C820F6B445006DBA90 /* JSONParameterEncoder.swift */; };
+		E592E4CC20F6B4A0006DBA90 /* URLRequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E592E4CB20F6B4A0006DBA90 /* URLRequestBuilder.swift */; };
+		E592E4CE20F76531006DBA90 /* ApplicationConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E592E4CD20F76531006DBA90 /* ApplicationConstants.swift */; };
+		E592E4D020F76776006DBA90 /* HTTPParameterEncodeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E592E4CF20F76776006DBA90 /* HTTPParameterEncodeError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +36,14 @@
 		E592E4B320F6A377006DBA90 /* News+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "News+CoreDataClass.swift"; sourceTree = "<group>"; };
 		E592E4B420F6A377006DBA90 /* News+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "News+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		E592E4B720F6A419006DBA90 /* NewsPlainObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsPlainObject.swift; sourceTree = "<group>"; };
+		E592E4BA20F6A9AE006DBA90 /* WebRequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRequestData.swift; sourceTree = "<group>"; };
+		E592E4BD20F6AA41006DBA90 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
+		E592E4BF20F6AAEC006DBA90 /* HTTPParametersEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPParametersEncoder.swift; sourceTree = "<group>"; };
+		E592E4C720F6B445006DBA90 /* URLParameterEncoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLParameterEncoder.swift; sourceTree = "<group>"; };
+		E592E4C820F6B445006DBA90 /* JSONParameterEncoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONParameterEncoder.swift; sourceTree = "<group>"; };
+		E592E4CB20F6B4A0006DBA90 /* URLRequestBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLRequestBuilder.swift; sourceTree = "<group>"; };
+		E592E4CD20F76531006DBA90 /* ApplicationConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationConstants.swift; sourceTree = "<group>"; };
+		E592E4CF20F76776006DBA90 /* HTTPParameterEncodeError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPParameterEncodeError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +79,7 @@
 				E592E4A720F6A11B006DBA90 /* Business Logic Layer */,
 				E592E4A920F6A11B006DBA90 /* Core Layer */,
 				E592E4AD20F6A11B006DBA90 /* Presentation Layer */,
+				E592E4CD20F76531006DBA90 /* ApplicationConstants.swift */,
 				E592E49520F680DC006DBA90 /* AppDelegate.swift */,
 				E592E49920F680DC006DBA90 /* Main.storyboard */,
 				E592E49C20F680DE006DBA90 /* Assets.xcassets */,
@@ -109,6 +126,9 @@
 		E592E4AB20F6A11B006DBA90 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				E592E4B920F6A9A1006DBA90 /* Protocols */,
+				E592E4BC20F6AA39006DBA90 /* Enums */,
+				E592E4C120F6AE71006DBA90 /* Classes */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -135,6 +155,42 @@
 				E592E4B420F6A377006DBA90 /* News+CoreDataProperties.swift */,
 			);
 			path = Classes;
+			sourceTree = "<group>";
+		};
+		E592E4B920F6A9A1006DBA90 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				E592E4BA20F6A9AE006DBA90 /* WebRequestData.swift */,
+				E592E4BF20F6AAEC006DBA90 /* HTTPParametersEncoder.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		E592E4BC20F6AA39006DBA90 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				E592E4BD20F6AA41006DBA90 /* HTTPMethod.swift */,
+				E592E4CF20F76776006DBA90 /* HTTPParameterEncodeError.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		E592E4C120F6AE71006DBA90 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				E592E4C620F6B445006DBA90 /* Encoders */,
+				E592E4CB20F6B4A0006DBA90 /* URLRequestBuilder.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		E592E4C620F6B445006DBA90 /* Encoders */ = {
+			isa = PBXGroup;
+			children = (
+				E592E4C720F6B445006DBA90 /* URLParameterEncoder.swift */,
+				E592E4C820F6B445006DBA90 /* JSONParameterEncoder.swift */,
+			);
+			path = Encoders;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -208,11 +264,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E592E4CC20F6B4A0006DBA90 /* URLRequestBuilder.swift in Sources */,
+				E592E4CA20F6B445006DBA90 /* JSONParameterEncoder.swift in Sources */,
+				E592E4CE20F76531006DBA90 /* ApplicationConstants.swift in Sources */,
+				E592E4BB20F6A9AE006DBA90 /* WebRequestData.swift in Sources */,
 				E592E4B820F6A419006DBA90 /* NewsPlainObject.swift in Sources */,
+				E592E4D020F76776006DBA90 /* HTTPParameterEncodeError.swift in Sources */,
+				E592E4BE20F6AA41006DBA90 /* HTTPMethod.swift in Sources */,
 				E592E4B620F6A377006DBA90 /* News+CoreDataProperties.swift in Sources */,
 				E592E49620F680DC006DBA90 /* AppDelegate.swift in Sources */,
 				E592E4B220F6A15C006DBA90 /* NewsProj.xcdatamodeld in Sources */,
+				E592E4C020F6AAEC006DBA90 /* HTTPParametersEncoder.swift in Sources */,
 				E592E4B520F6A377006DBA90 /* News+CoreDataClass.swift in Sources */,
+				E592E4C920F6B445006DBA90 /* URLParameterEncoder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
