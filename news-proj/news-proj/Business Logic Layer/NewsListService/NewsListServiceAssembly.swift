@@ -14,9 +14,13 @@ class NewsListServiceAssembly {
         
         // Creating components
         let newsListService = NewsListServiceImplementation()
+        let networkComponent = NetworkComponent()
+        let requestBuilder = URLRequestBuilder()
         
         // Injecting properties
         newsListService.output = output
+        newsListService.networkComponent = networkComponent
+        newsListService.requestBuilder = requestBuilder
         
         return newsListService
         

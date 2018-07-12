@@ -15,6 +15,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
+        let service = NewsListServiceAssembly().buildNewsListService(output: nil)
+        service.reloadNews(pageSize: 20)
+        
         NewsListModuleAssembly().buildNewsListModule { (viewController, moduleInput) in
             
             window = UIWindow(frame: UIScreen.main.bounds)

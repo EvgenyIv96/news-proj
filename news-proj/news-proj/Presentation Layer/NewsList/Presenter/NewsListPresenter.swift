@@ -8,11 +8,17 @@
 
 import Foundation
 
+fileprivate let PageSize = 20
+
 class NewsListPresenter {
     
     weak var view: NewsListViewInput!
     
     weak var router: NewsListModuleRouting!
+    
+    var newsListService: NewsListServiceInput!
+    
+    fileprivate var currentNewsListPage: Int = 0
 
 }
 
@@ -22,6 +28,8 @@ extension NewsListPresenter: NewsListViewOutput {
     func didTriggerViewReadyEvent() {
         
         view.setupInitialState()
+        
+        newsListService.loadCachedNews()
 
     }
     
@@ -34,4 +42,9 @@ extension NewsListPresenter: NewsListModuleInput {
 
     }
 
+}
+
+// MARK: - NewsListServiceOutput
+extension NewsListPresenter: NewsListServiceOutput {
+    
 }
