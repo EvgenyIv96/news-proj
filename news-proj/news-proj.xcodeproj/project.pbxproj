@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E556460220F7F7A3002EF0E6 /* NewsListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E556460120F7F7A3002EF0E6 /* NewsListResponse.swift */; };
 		E592E49620F680DC006DBA90 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E592E49520F680DC006DBA90 /* AppDelegate.swift */; };
 		E592E49D20F680DE006DBA90 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E592E49C20F680DE006DBA90 /* Assets.xcassets */; };
 		E592E4A020F680DE006DBA90 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E592E49E20F680DE006DBA90 /* LaunchScreen.storyboard */; };
@@ -42,6 +43,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E556460120F7F7A3002EF0E6 /* NewsListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsListResponse.swift; sourceTree = "<group>"; };
 		E592E49220F680DC006DBA90 /* news-proj.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "news-proj.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E592E49520F680DC006DBA90 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E592E49C20F680DE006DBA90 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -89,6 +91,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E556460020F7F78F002EF0E6 /* NewsList */ = {
+			isa = PBXGroup;
+			children = (
+				E556460120F7F7A3002EF0E6 /* NewsListResponse.swift */,
+			);
+			path = NewsList;
+			sourceTree = "<group>";
+		};
 		E592E48920F680DC006DBA90 = {
 			isa = PBXGroup;
 			children = (
@@ -316,17 +326,9 @@
 		E592E51020F7E2F4006DBA90 /* Request Data Objects */ = {
 			isa = PBXGroup;
 			children = (
-				E592E51120F7E2F4006DBA90 /* NewsDetail */,
 				E592E51220F7E2F4006DBA90 /* NewsList */,
 			);
 			path = "Request Data Objects";
-			sourceTree = "<group>";
-		};
-		E592E51120F7E2F4006DBA90 /* NewsDetail */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = NewsDetail;
 			sourceTree = "<group>";
 		};
 		E592E51220F7E2F4006DBA90 /* NewsList */ = {
@@ -340,6 +342,7 @@
 		E592E51620F7EA88006DBA90 /* Network Response Objects */ = {
 			isa = PBXGroup;
 			children = (
+				E556460020F7F78F002EF0E6 /* NewsList */,
 			);
 			path = "Network Response Objects";
 			sourceTree = "<group>";
@@ -433,6 +436,7 @@
 				E592E4BB20F6A9AE006DBA90 /* WebRequestData.swift in Sources */,
 				E592E50820F7DB74006DBA90 /* NewsListModuleRouting.swift in Sources */,
 				E592E4D020F76776006DBA90 /* HTTPParameterEncodeError.swift in Sources */,
+				E556460220F7F7A3002EF0E6 /* NewsListResponse.swift in Sources */,
 				E592E4BE20F6AA41006DBA90 /* HTTPMethod.swift in Sources */,
 				E592E4E520F790F3006DBA90 /* NetworkComponent.swift in Sources */,
 				E592E50C20F7DB74006DBA90 /* NewsListModuleInput.swift in Sources */,

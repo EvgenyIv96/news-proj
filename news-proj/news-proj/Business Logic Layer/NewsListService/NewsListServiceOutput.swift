@@ -10,4 +10,8 @@ import Foundation
 
 protocol NewsListServiceOutput: class {
     
+//    func update
+    
+    func 
+    
 }

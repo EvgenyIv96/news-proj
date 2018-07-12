@@ -8,7 +8,7 @@
 
 import Foundation
 
-public typealias NetworkComponentCompletion = (_ data: Data?,_ response: URLResponse?,_ error: Error?) -> ()
+public typealias NetworkComponentCompletion = (_ dataTask: URLSessionTask?, _ data: Data?,_ response: URLResponse?,_ error: Error?) -> ()
 
 public class NetworkComponent {
     
@@ -17,8 +17,8 @@ public class NetworkComponent {
     
     func makeRequest(request: URLRequest, completion: @escaping NetworkComponentCompletion) {
         
-        task = session.dataTask(with: request, completionHandler: { (data, response, error) in
-            completion(data, response, error)
+        task = session.dataTask(with: request, completionHandler: { [weak self] (data, response, error) in
+            completion(self?.task, data, response, error)
         })
         
         task?.resume()

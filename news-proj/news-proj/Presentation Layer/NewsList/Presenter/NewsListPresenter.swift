@@ -29,8 +29,12 @@ extension NewsListPresenter: NewsListViewOutput {
         
         view.setupInitialState()
         
-        newsListService.loadCachedNews()
+//        newsListService.loadCachedNews()
 
+    }
+    
+    func didTriggerItemAtIndexPathSelectedEvent(_ indexPath: IndexPath) {
+        
     }
     
 }

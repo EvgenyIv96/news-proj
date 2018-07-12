@@ -30,6 +30,49 @@ class NewsListViewController: UIViewController {
 
 }
 
+// MARK: - UITableViewDelegate
+extension NewsListViewController: UITableViewDelegate {
+    
+    public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        guard let newsCell = cell as? NewsListCell else { return }
+        
+        // Configure cell here
+        
+    }
+    
+    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return NewsListCell.height
+    }
+    
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        output.didTriggerItemAtIndexPathSelectedEvent(indexPath)
+        
+    }
+    
+}
+
+// MARK - UITableViewDataSource
+extension NewsListViewController: UITableViewDataSource {
+    
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 0
+    }
+    
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let newsListCell = tableView.dequeueReusableCell(withIdentifier: NewsListCell.reuseIdentifier, for: indexPath)
+        
+        return newsListCell
+        
+    }
+
+    
+}
+
 // MARK: - NewsListViewInput
 extension NewsListViewController: NewsListViewInput {
     

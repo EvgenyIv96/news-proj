@@ -13,4 +13,7 @@ protocol NewsListViewOutput: class {
     /// Method is used to tell presenter that view ready for work.
     func didTriggerViewReadyEvent()
     
+    /// Method is used to tell presenter that item at given index path was selected.
+    func didTriggerItemAtIndexPathSelectedEvent(_ indexPath: IndexPath)
+    
 }
