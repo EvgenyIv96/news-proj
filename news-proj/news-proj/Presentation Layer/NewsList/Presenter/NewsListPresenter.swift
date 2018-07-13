@@ -35,6 +35,7 @@ extension NewsListPresenter: NewsListViewOutput {
 
     }
     
+    
     func numberOfItems(in section: Int) -> Int {
         return newsListService.numberOfItems(in: section)
     }
@@ -52,6 +53,11 @@ extension NewsListPresenter: NewsListViewOutput {
     func didTriggerItemAtIndexPathSelectedEvent(_ indexPath: IndexPath) {
         let selectedNewsPlainObject = newsListService.newsPlainObject(at: indexPath)
         print(selectedNewsPlainObject.slug)
+    }
+    
+    func didTriggerPullToRefreshAction() {
+        view.setNetworkActivityIndicatorVisible(true)
+        view.setPullToRefreshLoadingIndicatorVisible(true)
     }
     
 }

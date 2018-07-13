@@ -31,7 +31,7 @@ protocol NewsListViewOutput: class {
     func didTriggerItemAtIndexPathSelectedEvent(_ indexPath: IndexPath)
     
     /// Method is used to tell presenter that pull to refresh action was triggered.
-//    func didTriggerPullToRefreshAction()
+    func didTriggerPullToRefreshAction()
     
     
     

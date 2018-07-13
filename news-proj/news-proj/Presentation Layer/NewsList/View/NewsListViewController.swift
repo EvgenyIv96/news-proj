@@ -15,7 +15,7 @@ class NewsListViewController: UIViewController {
     var output: NewsListViewOutput!
     
     @IBOutlet fileprivate var tableView: UITableView!
-    
+    fileprivate var refreshControl: UIRefreshControl!
     
     // MARK: Life Cycle
     override func viewDidLoad() {
@@ -31,6 +31,75 @@ class NewsListViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+}
+
+// MARK: - NewsListViewInput
+extension NewsListViewController: NewsListViewInput {
+    
+    func setupInitialState() {
+        
+        // Setup navigation title
+        navigationItem.title = ScreenName
+        
+        // Setup refresh control
+        let refreshControl = UIRefreshControl(frame: CGRect.zero)
+        refreshControl.addTarget(self, action: #selector(refreshControlAction), for: .valueChanged)
+        tableView.addSubview(refreshControl)
+        self.refreshControl = refreshControl
+        
+        // Register cell
+        tableView.register(UINib.init(nibName: String(describing: NewsListCell.self), bundle: nil), forCellReuseIdentifier: NewsListCell.reuseIdentifier)
+        
+    }
+    
+    func setNetworkActivityIndicatorVisible(_ visible: Bool) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = visible
+    }
+    
+    func setPullToRefreshLoadingIndicatorVisible(_ visible: Bool) {
+        
+        if visible {
+            refreshControl.beginRefreshing()
+        } else {
+            refreshControl.endRefreshing()
+        }
+        
+    }
+    
+    func setBottomLoadingIndicatorVisible(_ visible: Bool) {
+        
+    }
+    
+    func updateCellModels(_ cellModels: [NewsListCellModel], shouldReloadTableView: Bool) {
+        
+        
+        
+    }
+    
+    func beginTableUpdates() {
+        tableView.beginUpdates()
+    }
+    
+    func updateTableViewRow(updateType: NewsListTableViewRowUpdateType, indexPath: IndexPath?, newIndexPath: IndexPath?) {
+        
+        switch updateType {
+        case .insert:
+            tableView.insertRows(at: [newIndexPath!], with: .left)
+        case .delete:
+            tableView.deleteRows(at: [indexPath!], with: .top)
+        case .reload:
+            tableView.reloadRows(at: [indexPath!], with: .fade)
+        case .move:
+            tableView.deleteRows(at: [indexPath!], with: .top)
+            tableView.insertRows(at: [newIndexPath!], with: .left)
+        }
+        
+    }
+    
+    func endTableUpdates() {
+        tableView.endUpdates()
+    }
+    
 }
 
 // MARK: - UITableViewDelegate
@@ -77,59 +146,11 @@ extension NewsListViewController: UITableViewDataSource {
     
 }
 
-// MARK: - NewsListViewInput
-extension NewsListViewController: NewsListViewInput {
+// MARK: - Actions
+extension NewsListViewController {
     
-    func setupInitialState() {
-        
-        // Setup navigation title
-        navigationItem.title = ScreenName
-        
-        // Register cell
-        tableView.register(UINib.init(nibName: String(describing: NewsListCell.self), bundle: nil), forCellReuseIdentifier: NewsListCell.reuseIdentifier)
-        
-    }
-    
-    func setNetworkActivityIndicatorVisible(_ visible: Bool) {
-        UIApplication.shared.isNetworkActivityIndicatorVisible = visible
-    }
-    
-    func setPullToRefreshLoadingIndicatorVisible(_ visible: Bool) {
-        
-    }
-    
-    func setBottomLoadingIndicatorVisible(_ visible: Bool) {
-        
-    }
-    
-    func updateCellModels(_ cellModels: [NewsListCellModel], shouldReloadTableView: Bool) {
-        
-
-        
-    }
-    
-    func beginTableUpdates() {
-        tableView.beginUpdates()
-    }
-    
-    func updateTableViewRow(updateType: NewsListTableViewRowUpdateType, indexPath: IndexPath?, newIndexPath: IndexPath?) {
-        
-        switch updateType {
-        case .insert:
-            tableView.insertRows(at: [newIndexPath!], with: .left)
-        case .delete:
-            tableView.deleteRows(at: [indexPath!], with: .top)
-        case .reload:
-            tableView.reloadRows(at: [indexPath!], with: .fade)
-        case .move:
-            tableView.deleteRows(at: [indexPath!], with: .top)
-            tableView.insertRows(at: [newIndexPath!], with: .left)
-        }
-        
-    }
-    
-    func endTableUpdates() {
-        tableView.endUpdates()
+    @objc func refreshControlAction(_ refreshControl: UIRefreshControl) {
+        output.didTriggerPullToRefreshAction()
     }
     
 }
