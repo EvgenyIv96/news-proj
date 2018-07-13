@@ -17,10 +17,10 @@ extension News {
         return NSFetchRequest<News>(entityName: "News")
     }
 
-    @NSManaged public var slug: String?
-    @NSManaged public var title: NSObject?
+    @NSManaged public var slug: String
+    @NSManaged public var title: String?
     @NSManaged public var text: String?
     @NSManaged public var viewsCount: Int16
-    @NSManaged public var creationDate: NSDate?
+    @NSManaged public var creationDate: NSDate
 
 }
