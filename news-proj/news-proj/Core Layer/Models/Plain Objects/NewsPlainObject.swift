@@ -24,6 +24,14 @@ struct NewsPlainObject {
         self.viewsCount = viewsCount
     }
     
+    init(with news: News) {
+        slug = news.slug
+        title = news.title
+        text = news.text
+        creationDate = news.creationDate as Date
+        viewsCount = news.viewsCount
+    }
+    
 }
 
 extension NewsPlainObject: Decodable {
@@ -43,7 +51,6 @@ extension NewsPlainObject: Decodable {
         title = try container.decode(String.self, forKey: .title)
         text = try container.decode(String.self, forKey: .text)
         creationDate = try container.decode(Date.self, forKey: .creationDate)
-//        creationDate = Date()
         viewsCount = 0
         
     }
