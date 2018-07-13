@@ -25,8 +25,13 @@ public class News: NSManagedObject {
         return news
     }
     
-    static func sortedNewsFetchRequest() -> NSFetchRequest<News> {
+    static func newsFetchRequest() -> NSFetchRequest<News> {
         let fetchRequest = NSFetchRequest<News>(entityName: News.entity().name!)
+        return fetchRequest
+    }
+    
+    static func sortedNewsFetchRequest() -> NSFetchRequest<News> {
+        let fetchRequest = newsFetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "slug", ascending: false)
         fetchRequest.sortDescriptors = [sortDescriptor]
         return fetchRequest
