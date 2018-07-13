@@ -8,9 +8,58 @@
 
 import Foundation
 
+enum NewsListTableViewRowUpdateType {
+    case insert
+    case delete
+    case move
+    case reload
+}
+
 protocol NewsListViewInput: class {
+    
+    // MARK: Setup
     
     /// Method is used to set up view initial state.
     func setupInitialState()
+    
+    // MARK: Loading indicators
+    
+    /// Method is used to show or hide network activity indicator.
+    ///
+    /// - Parameter visible: Visibility flag. True if network activity indicator should be showed, otherwise false.
+    func setNetworkActivityIndicatorVisible(_ visible: Bool)
+    
+    /// Method is used to show or hide loading indicator in the top of the table.
+    ///
+    /// - Parameter visible: Visibility flag. True if loading indicator should be showed, otherwise false.
+    func setPullToRefreshLoadingIndicatorVisible(_ visible: Bool)
+    
+    /// Method is used to show or hide loading indicator in the bottom of the table.
+    ///
+    /// - Parameter visible: Visibility flag. True if loading indicator should be showed, otherwise false.
+    func setBottomLoadingIndicatorVisible(_ visible: Bool)
+    
+    // MARK: Table view updates
+    
+    /// Method is used to update cell models array.
+    ///
+    /// - Parameters:
+    ///   - cellModels: Cell models array.
+    ///   - shouldReloadTableView: Table view reload flag.
+    func updateCellModels(_ cellModels: [NewsListCellModel], shouldReloadTableView: Bool)
+    
+    /// Method tells to start update news list table
+    func beginTableUpdates()
+    
+    /// Method is used to update specific table view row. WARNING: Method doesn't change model, it's only used for redraw specific table view row. Update model with updateCellModels method before call this one.
+    ///
+    /// - Parameters:
+    ///   - updateType: Update type
+    ///   - indexPath: Index path. Used in delete, reload and move update.
+    ///   - newIndexPath: New index path. Used in insert and move update.
+    func updateTableViewRow(updateType: NewsListTableViewRowUpdateType, indexPath: IndexPath?, newIndexPath: IndexPath?)
+    
+    /// Method tells to end update news list table
+    func endTableUpdates()
     
 }
