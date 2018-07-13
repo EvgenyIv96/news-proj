@@ -17,4 +17,9 @@ public enum ApplicationConstants {
         static let internetConnectionError = "Ошибка интернет-соединения"
     }
     
+    struct CoreDataConstants {
+        static let storeFolderName = "Storage"
+        static let modelName = "NewsProj"
+    }
+    
 }
