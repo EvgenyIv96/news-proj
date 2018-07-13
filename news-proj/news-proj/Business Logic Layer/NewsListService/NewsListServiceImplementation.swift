@@ -7,14 +7,28 @@
 //
 
 import Foundation
+import CoreData
 
-class NewsListServiceImplementation {
-    weak var output: NewsListServiceOutput?
+class NewsListServiceImplementation: NSObject {
+    
+    weak var delegate: NewsListServiceDelegate?
     
     var networkComponent: NetworkComponent!
     var requestBuilder: URLRequestBuilder!
     
-    fileprivate var operationQueue = OperationQueue()
+    fileprivate var fetchedResultsController: NSFetchedResultsController<News>?
+    
+    func configureFetchedResultsController() {
+        
+        let fetchRequest = News.sortedNewsFetchRequest()
+        fetchRequest.returnsObjectsAsFaults = false
+        
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.mainContext, sectionNameKeyPath: nil, cacheName: nil)
+        fetchedResultsController?.delegate = self
+        try! fetchedResultsController?.performFetch()
+        
+    }
+    
 }
 
 // MARK: - NewsListServiceInput
@@ -51,7 +65,22 @@ extension NewsListServiceImplementation: NewsListServiceInput {
             
             if let data = data {
                 do {
+                    
                     let newsListResponse = try self?.decodeResponseData(data)
+                    
+                    CoreDataManager.shared.save(block: { (workerContext) in
+                        
+                        let _ = newsListResponse?.response.news.map({ (newsPlainObject) -> News in
+                            
+                            let news = News.insert(into: workerContext)
+                            news.fill(with: newsPlainObject)
+                            
+                            return news
+                            
+                        })
+                        
+                    })
+                    
                 } catch {
                     if let error = error as NSError? {
                         print(error)
@@ -71,6 +100,38 @@ extension NewsListServiceImplementation: NewsListServiceInput {
         networkComponent.makeRequest(request: request) { (task, data, response, error) in
             
         }
+        
+    }
+    
+}
+
+// MARK: - NSFetchedResultsControllerDelegate
+extension NewsListServiceImplementation: NSFetchedResultsControllerDelegate {
+    
+    public func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        
+        guard let news = anObject as? News else { fatalError("Invalid object type!") }
+        
+        let newsPlainObject = NewsPlainObject(with: news)
+        
+        switch type {
+        case .insert:
+            delegate?.newsListServiceDidChangeNews(newsPlainObject: newsPlainObject, changeType: .insert, index: nil, newIndex: newIndexPath!.row)
+        case .delete:
+            delegate?.newsListServiceDidChangeNews(newsPlainObject: newsPlainObject, changeType: .delete, index: indexPath!.row, newIndex: nil)
+        case .update:
+            delegate?.newsListServiceDidChangeNews(newsPlainObject: newsPlainObject, changeType: .update, index: indexPath!.row, newIndex: nil)
+        case .move:
+            delegate?.newsListServiceDidChangeNews(newsPlainObject: newsPlainObject, changeType: .move, index: indexPath!.row, newIndex: newIndexPath!.row)
+        }
+        
+    }
+    
+    public func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        
+    }
+    
+    public func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         
     }
     

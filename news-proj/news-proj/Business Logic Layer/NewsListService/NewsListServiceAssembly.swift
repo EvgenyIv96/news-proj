@@ -10,7 +10,7 @@ import Foundation
 
 class NewsListServiceAssembly {
     
-    func buildNewsListService(output: NewsListServiceOutput?) -> NewsListServiceInput {
+    func buildNewsListService(delegate: NewsListServiceDelegate?) -> NewsListServiceInput {
         
         // Creating components
         let newsListService = NewsListServiceImplementation()
@@ -18,7 +18,7 @@ class NewsListServiceAssembly {
         let requestBuilder = URLRequestBuilder()
         
         // Injecting properties
-        newsListService.output = output
+        newsListService.delegate = delegate
         newsListService.networkComponent = networkComponent
         newsListService.requestBuilder = requestBuilder
         
