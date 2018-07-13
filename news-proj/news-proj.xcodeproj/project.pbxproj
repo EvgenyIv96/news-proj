@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		E556460220F7F7A3002EF0E6 /* NewsListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E556460120F7F7A3002EF0E6 /* NewsListResponse.swift */; };
+		E556460520F80B4B002EF0E6 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = E556460420F80B4B002EF0E6 /* CoreDataStack.swift */; };
+		E556460920F882D2002EF0E6 /* NSManagedObjectContext+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E556460820F882D2002EF0E6 /* NSManagedObjectContext+Extensions.swift */; };
+		E556460C20F895CE002EF0E6 /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E556460B20F895CE002EF0E6 /* Array+Extensions.swift */; };
+		E556461020F8A5E1002EF0E6 /* NewsListCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E556460F20F8A5E1002EF0E6 /* NewsListCellModel.swift */; };
 		E592E49620F680DC006DBA90 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E592E49520F680DC006DBA90 /* AppDelegate.swift */; };
 		E592E49D20F680DE006DBA90 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E592E49C20F680DE006DBA90 /* Assets.xcassets */; };
 		E592E4A020F680DE006DBA90 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E592E49E20F680DE006DBA90 /* LaunchScreen.storyboard */; };
@@ -20,7 +24,7 @@
 		E592E4CE20F76531006DBA90 /* ApplicationConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E592E4CD20F76531006DBA90 /* ApplicationConstants.swift */; };
 		E592E4D020F76776006DBA90 /* HTTPParameterEncodeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E592E4CF20F76776006DBA90 /* HTTPParameterEncodeError.swift */; };
 		E592E4D420F78725006DBA90 /* NewsListServiceInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E592E4D320F78725006DBA90 /* NewsListServiceInput.swift */; };
-		E592E4D620F7872F006DBA90 /* NewsListServiceOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E592E4D520F7872F006DBA90 /* NewsListServiceOutput.swift */; };
+		E592E4D620F7872F006DBA90 /* NewsListServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E592E4D520F7872F006DBA90 /* NewsListServiceDelegate.swift */; };
 		E592E4D820F7873C006DBA90 /* NewsListServiceImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E592E4D720F7873C006DBA90 /* NewsListServiceImplementation.swift */; };
 		E592E4DA20F78745006DBA90 /* NewsListServiceAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = E592E4D920F78745006DBA90 /* NewsListServiceAssembly.swift */; };
 		E592E4E120F790E9006DBA90 /* URLRequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E592E4DD20F790E8006DBA90 /* URLRequestBuilder.swift */; };
@@ -44,6 +48,10 @@
 
 /* Begin PBXFileReference section */
 		E556460120F7F7A3002EF0E6 /* NewsListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsListResponse.swift; sourceTree = "<group>"; };
+		E556460420F80B4B002EF0E6 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		E556460820F882D2002EF0E6 /* NSManagedObjectContext+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+Extensions.swift"; sourceTree = "<group>"; };
+		E556460B20F895CE002EF0E6 /* Array+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
+		E556460F20F8A5E1002EF0E6 /* NewsListCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsListCellModel.swift; sourceTree = "<group>"; };
 		E592E49220F680DC006DBA90 /* news-proj.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "news-proj.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E592E49520F680DC006DBA90 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E592E49C20F680DE006DBA90 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -58,7 +66,7 @@
 		E592E4CD20F76531006DBA90 /* ApplicationConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationConstants.swift; sourceTree = "<group>"; };
 		E592E4CF20F76776006DBA90 /* HTTPParameterEncodeError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPParameterEncodeError.swift; sourceTree = "<group>"; };
 		E592E4D320F78725006DBA90 /* NewsListServiceInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsListServiceInput.swift; sourceTree = "<group>"; };
-		E592E4D520F7872F006DBA90 /* NewsListServiceOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsListServiceOutput.swift; sourceTree = "<group>"; };
+		E592E4D520F7872F006DBA90 /* NewsListServiceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsListServiceDelegate.swift; sourceTree = "<group>"; };
 		E592E4D720F7873C006DBA90 /* NewsListServiceImplementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsListServiceImplementation.swift; sourceTree = "<group>"; };
 		E592E4D920F78745006DBA90 /* NewsListServiceAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsListServiceAssembly.swift; sourceTree = "<group>"; };
 		E592E4DD20F790E8006DBA90 /* URLRequestBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLRequestBuilder.swift; sourceTree = "<group>"; };
@@ -99,6 +107,46 @@
 			path = NewsList;
 			sourceTree = "<group>";
 		};
+		E556460320F80B40002EF0E6 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				E556460420F80B4B002EF0E6 /* CoreDataStack.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		E556460720F882A8002EF0E6 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E556460820F882D2002EF0E6 /* NSManagedObjectContext+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		E556460A20F895BC002EF0E6 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E556460B20F895CE002EF0E6 /* Array+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		E556460D20F8A5D7002EF0E6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E556460E20F8A5D7002EF0E6 /* CellModel */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		E556460E20F8A5D7002EF0E6 /* CellModel */ = {
+			isa = PBXGroup;
+			children = (
+				E556460F20F8A5E1002EF0E6 /* NewsListCellModel.swift */,
+			);
+			path = CellModel;
+			sourceTree = "<group>";
+		};
 		E592E48920F680DC006DBA90 = {
 			isa = PBXGroup;
 			children = (
@@ -118,8 +166,8 @@
 		E592E49420F680DC006DBA90 /* news-proj */ = {
 			isa = PBXGroup;
 			children = (
-				E592E4A720F6A11B006DBA90 /* Business Logic Layer */,
 				E592E4A920F6A11B006DBA90 /* Core Layer */,
+				E592E4A720F6A11B006DBA90 /* Business Logic Layer */,
 				E592E4AD20F6A11B006DBA90 /* Presentation Layer */,
 				E592E4CD20F76531006DBA90 /* ApplicationConstants.swift */,
 				E592E49520F680DC006DBA90 /* AppDelegate.swift */,
@@ -142,6 +190,7 @@
 		E592E4A920F6A11B006DBA90 /* Core Layer */ = {
 			isa = PBXGroup;
 			children = (
+				E556460A20F895BC002EF0E6 /* Extensions */,
 				E592E4AA20F6A11B006DBA90 /* Core Data */,
 				E592E4AB20F6A11B006DBA90 /* Networking */,
 				E592E4AC20F6A11B006DBA90 /* Models */,
@@ -152,7 +201,9 @@
 		E592E4AA20F6A11B006DBA90 /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
-				E592E4AF20F6A150006DBA90 /* Classes */,
+				E556460720F882A8002EF0E6 /* Extensions */,
+				E556460320F80B40002EF0E6 /* Classes */,
+				E592E4AF20F6A150006DBA90 /* ManagedObject Subclasses */,
 				E592E4B020F6A15C006DBA90 /* NewsProj.xcdatamodeld */,
 			);
 			path = "Core Data";
@@ -186,13 +237,13 @@
 			path = "Presentation Layer";
 			sourceTree = "<group>";
 		};
-		E592E4AF20F6A150006DBA90 /* Classes */ = {
+		E592E4AF20F6A150006DBA90 /* ManagedObject Subclasses */ = {
 			isa = PBXGroup;
 			children = (
 				E592E4B320F6A377006DBA90 /* News+CoreDataClass.swift */,
 				E592E4B420F6A377006DBA90 /* News+CoreDataProperties.swift */,
 			);
-			path = Classes;
+			path = "ManagedObject Subclasses";
 			sourceTree = "<group>";
 		};
 		E592E4B920F6A9A1006DBA90 /* Protocols */ = {
@@ -233,7 +284,7 @@
 			isa = PBXGroup;
 			children = (
 				E592E4D320F78725006DBA90 /* NewsListServiceInput.swift */,
-				E592E4D520F7872F006DBA90 /* NewsListServiceOutput.swift */,
+				E592E4D520F7872F006DBA90 /* NewsListServiceDelegate.swift */,
 				E592E4D720F7873C006DBA90 /* NewsListServiceImplementation.swift */,
 				E592E4D920F78745006DBA90 /* NewsListServiceAssembly.swift */,
 			);
@@ -269,6 +320,7 @@
 		E592E4E620F7D631006DBA90 /* NewsList */ = {
 			isa = PBXGroup;
 			children = (
+				E556460D20F8A5D7002EF0E6 /* Models */,
 				E592E50220F7DB74006DBA90 /* Assembly */,
 				E592E50420F7DB74006DBA90 /* Presenter */,
 				E592E4FD20F7DB74006DBA90 /* View */,
@@ -429,9 +481,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E556461020F8A5E1002EF0E6 /* NewsListCellModel.swift in Sources */,
 				E592E50920F7DB74006DBA90 /* NewsListViewInput.swift in Sources */,
 				E592E50720F7DB74006DBA90 /* NewsListViewOutput.swift in Sources */,
-				E592E4D620F7872F006DBA90 /* NewsListServiceOutput.swift in Sources */,
+				E592E4D620F7872F006DBA90 /* NewsListServiceDelegate.swift in Sources */,
 				E592E4CE20F76531006DBA90 /* ApplicationConstants.swift in Sources */,
 				E592E4BB20F6A9AE006DBA90 /* WebRequestData.swift in Sources */,
 				E592E50820F7DB74006DBA90 /* NewsListModuleRouting.swift in Sources */,
@@ -440,10 +493,12 @@
 				E592E4BE20F6AA41006DBA90 /* HTTPMethod.swift in Sources */,
 				E592E4E520F790F3006DBA90 /* NetworkComponent.swift in Sources */,
 				E592E50C20F7DB74006DBA90 /* NewsListModuleInput.swift in Sources */,
+				E556460C20F895CE002EF0E6 /* Array+Extensions.swift in Sources */,
 				E592E51A20F7EC43006DBA90 /* NewsListCell.swift in Sources */,
 				E592E51520F7E312006DBA90 /* NewsListRequestData.swift in Sources */,
 				E592E4D420F78725006DBA90 /* NewsListServiceInput.swift in Sources */,
 				E592E4B620F6A377006DBA90 /* News+CoreDataProperties.swift in Sources */,
+				E556460520F80B4B002EF0E6 /* CoreDataStack.swift in Sources */,
 				E592E4E220F790E9006DBA90 /* URLParameterEncoder.swift in Sources */,
 				E592E49620F680DC006DBA90 /* AppDelegate.swift in Sources */,
 				E592E50B20F7DB74006DBA90 /* NewsListModuleAssembly.swift in Sources */,
@@ -454,6 +509,7 @@
 				E592E4E320F790E9006DBA90 /* JSONParameterEncoder.swift in Sources */,
 				E592E50D20F7DB74006DBA90 /* NewsListPresenter.swift in Sources */,
 				E592E50A20F7DB74006DBA90 /* NewsListViewController.swift in Sources */,
+				E556460920F882D2002EF0E6 /* NSManagedObjectContext+Extensions.swift in Sources */,
 				E592E51320F7E2F4006DBA90 /* NewsPlainObject.swift in Sources */,
 				E592E4EB20F7D67A006DBA90 /* NewsListStoryboardConstants.swift in Sources */,
 				E592E4D820F7873C006DBA90 /* NewsListServiceImplementation.swift in Sources */,

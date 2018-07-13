@@ -16,6 +16,8 @@ class NewsListModuleAssembly {
         let viewController = UIStoryboard(name: NewsListStoryboardName, bundle: nil).instantiateViewController(withIdentifier: NewsListViewControllerStoryboardIdentifier)
         let presenter = NewsListPresenter()
         
+        let newsListService = NewsListServiceAssembly().buildNewsListService(delegate: presenter)
+        
         guard let moduleViewController = viewController as? NewsListViewController else {
             completion(nil, nil)
             return
@@ -25,6 +27,8 @@ class NewsListModuleAssembly {
         moduleViewController.output = presenter
         presenter.view = moduleViewController
         presenter.router = moduleViewController
+        
+        presenter.newsListService = newsListService
         
         completion(moduleViewController, presenter)
         
