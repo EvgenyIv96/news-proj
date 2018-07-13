@@ -88,31 +88,41 @@ extension NewsListServiceImplementation: NewsListServiceInput {
                     
                     let newsListResponse = try self?.decodeResponseData(data)
                     
-//                    CoreDataManager.shared.save(block: { (workerContext) in
-//
-//                        let _ = newsListResponse?.response.news.map({ (newsPlainObject) -> News in
-//
-//                            let news = News.insert(into: workerContext)
-//                            news.fill(with: newsPlainObject)
-//
-//                            return news
-//
-//                        })
-//
-//                    })
-//
-                    
-                    
-                    let _ = newsListResponse?.response.news.map({ (newsPlainObject) -> News in
+                    CoreDataManager.shared.save(block: { (workerContext) in
+
+                        // Deleting old objects
                         
-                        let news = News.insert(into: CoreDataManager.shared.mainContext)
-                        news.fill(with: newsPlainObject)
+                        let fetchRequest = News.newsFetchRequest()
+                        fetchRequest.returnsObjectsAsFaults = true
+                        fetchRequest.includesPropertyValues = false
                         
-                        return news
+                        do {
+                            
+                            let oldNewsArray = try workerContext.fetch(fetchRequest)
+                            
+                            for oldNews in oldNewsArray {
+                                workerContext.delete(oldNews)
+                            }
+                            
+                        } catch {
+                            if let error = error as NSError? {
+                                print("Error occured when try to delete objects from Core Data \(error) \(error.userInfo)")
+                            }
+                        }
                         
+                        // Storing new objects
+                        
+                        let _ = newsListResponse?.response.news.map({ (newsPlainObject) -> News in
+
+                            let news = News.insert(into: workerContext)
+                            news.fill(with: newsPlainObject)
+
+                            return news
+
+                        })
+
                     })
-                    
-                    try! CoreDataManager.shared.mainContext.save()
+
                     
                 } catch {
                     if let error = error as NSError? {

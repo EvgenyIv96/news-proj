@@ -16,6 +16,7 @@ class NewsListViewController: UIViewController {
     
     @IBOutlet fileprivate var tableView: UITableView!
     
+    
     // MARK: Life Cycle
     override func viewDidLoad() {
 
@@ -73,7 +74,6 @@ extension NewsListViewController: UITableViewDataSource {
         return newsListCell
         
     }
-
     
 }
 

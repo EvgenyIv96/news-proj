@@ -30,20 +30,7 @@ extension NewsListPresenter: NewsListViewOutput {
         view.setupInitialState()
         
         newsListService.prepare()
-//        let cachedNews = newsListService.loadCachedNews()
-        
-//        let cachedNewsPlainObjects = cachedNews?.map({ (news) -> NewsPlainObject in
-//            let newsPlainObject = NewsPlainObject(with: news)
-//            return newsPlainObject
-//        })
-//        if let cachedNewsPlainObjects = cachedNewsPlainObjects {
-//            newsPlainObjects = cachedNewsPlainObjects
-//            cellModels = newsPlainObjects.map({ (newsPlainObject) -> NewsListCellModel in
-//                let newsListCellModel = NewsListCellModel(with: newsPlainObject)
-//                return newsListCellModel
-//            })
-//        }
-        
+
         newsListService.reloadNews(pageSize: PageSize)
 
     }
@@ -86,8 +73,6 @@ extension NewsListPresenter: NewsListServiceDelegate {
     }
 
     func newsListServiceDidChangeNews(changeType: NewsListChangeType, indexPath: IndexPath?, newIndexPath: IndexPath?) {
-        
-//        let cellModel = NewsListCellModel(with: newsPlainObject)
         
         switch changeType {
         case .insert:
