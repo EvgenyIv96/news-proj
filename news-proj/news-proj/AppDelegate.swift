@@ -15,19 +15,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
-        let service = NewsListServiceAssembly().buildNewsListService(output: nil)
-        service.reloadNews(pageSize: 20)
-        
-        NewsListModuleAssembly().buildNewsListModule { (viewController, moduleInput) in
+        CoreDataManager.shared.createCoreDataStack {
             
-            window = UIWindow(frame: UIScreen.main.bounds)
-            
-            if let window = self.window, let viewController = viewController {
-                let navigationController = UINavigationController(rootViewController: viewController)
-                window.rootViewController = navigationController
-                window.makeKeyAndVisible()
+            NewsListModuleAssembly().buildNewsListModule { (viewController, moduleInput) in
+                
+                self.window = UIWindow(frame: UIScreen.main.bounds)
+                
+                if let window = self.window, let viewController = viewController {
+                    let navigationController = UINavigationController(rootViewController: viewController)
+                    window.rootViewController = navigationController
+                    window.makeKeyAndVisible()
+                }
+                
             }
-
         }
         
         return true
@@ -53,6 +53,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        CoreDataManager.shared.saveChanges()
     }
 
 
