@@ -18,8 +18,6 @@ class NewsListPresenter {
     
     var newsListService: NewsListServiceInput!
     
-    fileprivate var newsPlainObjects = [NewsPlainObject]()
-    fileprivate var cellModels = [NewsListCellModel]()
     fileprivate var currentNewsListPage: Int = 0
 
 }
@@ -31,12 +29,41 @@ extension NewsListPresenter: NewsListViewOutput {
         
         view.setupInitialState()
         
-//        newsListService.loadCachedNews()
+        newsListService.prepare()
+//        let cachedNews = newsListService.loadCachedNews()
+        
+//        let cachedNewsPlainObjects = cachedNews?.map({ (news) -> NewsPlainObject in
+//            let newsPlainObject = NewsPlainObject(with: news)
+//            return newsPlainObject
+//        })
+//        if let cachedNewsPlainObjects = cachedNewsPlainObjects {
+//            newsPlainObjects = cachedNewsPlainObjects
+//            cellModels = newsPlainObjects.map({ (newsPlainObject) -> NewsListCellModel in
+//                let newsListCellModel = NewsListCellModel(with: newsPlainObject)
+//                return newsListCellModel
+//            })
+//        }
+        
+        newsListService.reloadNews(pageSize: PageSize)
 
     }
     
+    func numberOfItems(in section: Int) -> Int {
+        return newsListService.numberOfItems(in: section)
+    }
+
+    func cellModel(forItemAt indexPath: IndexPath) -> NewsListCellModel {
+        
+        let newsPlainObject = newsListService.newsPlainObject(at: indexPath)
+        
+        let cellModel = NewsListCellModel(with: newsPlainObject)
+        
+        return cellModel
+        
+    }
+    
     func didTriggerItemAtIndexPathSelectedEvent(_ indexPath: IndexPath) {
-        let selectedNewsPlainObject = newsPlainObjects[indexPath.row]
+        let selectedNewsPlainObject = newsListService.newsPlainObject(at: indexPath)
         print(selectedNewsPlainObject.slug)
     }
     
@@ -58,48 +85,19 @@ extension NewsListPresenter: NewsListServiceDelegate {
         view.beginTableUpdates()
     }
 
-    func newsListServiceDidChangeNews(newsPlainObject: NewsPlainObject, changeType: NewsListChangeType, index: Int?, newIndex: Int?) {
+    func newsListServiceDidChangeNews(changeType: NewsListChangeType, indexPath: IndexPath?, newIndexPath: IndexPath?) {
         
-        let cellModel = NewsListCellModel(with: newsPlainObject)
+//        let cellModel = NewsListCellModel(with: newsPlainObject)
         
         switch changeType {
         case .insert:
-            
-            newsPlainObjects.insert(newsPlainObject, at: newIndex!)
-            cellModels.insert(cellModel, at: newIndex!)
-            
-            view.updateCellModels(cellModels, shouldReloadTableView: false)
-            view.updateTableViewRow(updateType: .insert, indexPath: nil, newIndexPath: IndexPath(row: newIndex!, section: 0))
-            
+            view.updateTableViewRow(updateType: .insert, indexPath: nil, newIndexPath: newIndexPath!)
         case .delete:
-            
-            newsPlainObjects.remove(at: index!)
-            cellModels.remove(at: index!)
-            
-            view.updateCellModels(cellModels, shouldReloadTableView: false)
-            view.updateTableViewRow(updateType: .delete, indexPath: IndexPath(row: index!, section: 0), newIndexPath: nil)
-            
+            view.updateTableViewRow(updateType: .delete, indexPath: indexPath!, newIndexPath: nil)
         case .update:
-            
-            newsPlainObjects.modifyElement(atIndex: index!) { (oldNewsPlainObject) in
-                oldNewsPlainObject = newsPlainObject
-            }
-            cellModels.modifyElement(atIndex: index!) { (oldCellModel) in
-                oldCellModel = cellModel
-            }
-            
-            view.updateCellModels(cellModels, shouldReloadTableView: false)
-            view.updateTableViewRow(updateType: .reload, indexPath: IndexPath(row: index!, section: 0), newIndexPath: nil)
-            
+            view.updateTableViewRow(updateType: .reload, indexPath: indexPath!, newIndexPath: nil)
         case .move:
-            
-            newsPlainObjects.remove(at: index!)
-            newsPlainObjects.insert(newsPlainObject, at: newIndex!)
-            cellModels.remove(at: index!)
-            cellModels.insert(cellModel, at: newIndex!)
-            
-            view.updateTableViewRow(updateType: .move, indexPath: IndexPath(row: index!, section: 0), newIndexPath: IndexPath(row: newIndex!, section: 0))
-
+            view.updateTableViewRow(updateType: .move, indexPath: indexPath!, newIndexPath: newIndexPath)
         }
         
     }

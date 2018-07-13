@@ -20,14 +20,13 @@ protocol NewsListServiceDelegate: class {
     /// Method is used to notify delegate that news are about to be updated and update method will called.
     func newsListServiceWillUpdateNews()
     
-    /// Method is used to tell delegate that given news object was changed.
+    /// Method is used to tell delegate that news object for specific index was changed.
     ///
     /// - Parameters:
-    ///   - newsPlainObject: Changed object
     ///   - changeType: Change type
-    ///   - index: Index of changed news. Used in delete, update and move changes.
-    ///   - newIndex: New index of changed news. Used only in insert and move changes.
-    func newsListServiceDidChangeNews(newsPlainObject: NewsPlainObject, changeType: NewsListChangeType, index: Int?, newIndex: Int?)
+    ///   - indexPath: Index path of changed news. Used in delete, update and move changes.
+    ///   - newIndexPath: New index path of changed news. Used only in insert and move changes.
+    func newsListServiceDidChangeNews(changeType: NewsListChangeType, indexPath: IndexPath?, newIndexPath: IndexPath?)
     
     /// Method is used to notify delegate that news were updated.
     func newsListServiceDidUpdateNews()

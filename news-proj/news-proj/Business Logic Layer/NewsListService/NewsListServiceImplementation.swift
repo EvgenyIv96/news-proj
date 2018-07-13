@@ -34,12 +34,32 @@ class NewsListServiceImplementation: NSObject {
 // MARK: - NewsListServiceInput
 extension NewsListServiceImplementation: NewsListServiceInput {
     
-    func loadCachedNews() {
+    func prepare() {
+        configureFetchedResultsController()
+    }
+    
+    func numberOfItems(in section: Int) -> Int {
         
+        guard let section = fetchedResultsController?.sections?[section] else { return 0 }
+        
+        let count = section.numberOfObjects
+        return count
+    }
+    
+    func newsPlainObject(at indexPath: IndexPath) -> NewsPlainObject {
+        
+        let news = fetchedResultsController!.object(at: indexPath)
+        
+        return NewsPlainObject(with: news)
+        
+    }
+    
+    func loadCachedNews() -> [News]? {
+        return fetchedResultsController?.fetchedObjects
     }
 
     func reloadNews(pageSize: Int) {
-        
+                
         let requestData = NewsListRequestData(pageOffset: 0, pageSize: pageSize)
         var request: URLRequest!
         
@@ -68,18 +88,31 @@ extension NewsListServiceImplementation: NewsListServiceInput {
                     
                     let newsListResponse = try self?.decodeResponseData(data)
                     
-                    CoreDataManager.shared.save(block: { (workerContext) in
+//                    CoreDataManager.shared.save(block: { (workerContext) in
+//
+//                        let _ = newsListResponse?.response.news.map({ (newsPlainObject) -> News in
+//
+//                            let news = News.insert(into: workerContext)
+//                            news.fill(with: newsPlainObject)
+//
+//                            return news
+//
+//                        })
+//
+//                    })
+//
+                    
+                    
+                    let _ = newsListResponse?.response.news.map({ (newsPlainObject) -> News in
                         
-                        let _ = newsListResponse?.response.news.map({ (newsPlainObject) -> News in
-                            
-                            let news = News.insert(into: workerContext)
-                            news.fill(with: newsPlainObject)
-                            
-                            return news
-                            
-                        })
+                        let news = News.insert(into: CoreDataManager.shared.mainContext)
+                        news.fill(with: newsPlainObject)
+                        
+                        return news
                         
                     })
+                    
+                    try! CoreDataManager.shared.mainContext.save()
                     
                 } catch {
                     if let error = error as NSError? {
@@ -110,29 +143,29 @@ extension NewsListServiceImplementation: NSFetchedResultsControllerDelegate {
     
     public func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         
-        guard let news = anObject as? News else { fatalError("Invalid object type!") }
-        
-        let newsPlainObject = NewsPlainObject(with: news)
+//        guard let news = anObject as? News else { fatalError("Invalid object type!") }
+//        
+//        let newsPlainObject = NewsPlainObject(with: news)
         
         switch type {
         case .insert:
-            delegate?.newsListServiceDidChangeNews(newsPlainObject: newsPlainObject, changeType: .insert, index: nil, newIndex: newIndexPath!.row)
+            delegate?.newsListServiceDidChangeNews(changeType: .insert, indexPath: nil, newIndexPath: newIndexPath)
         case .delete:
-            delegate?.newsListServiceDidChangeNews(newsPlainObject: newsPlainObject, changeType: .delete, index: indexPath!.row, newIndex: nil)
+            delegate?.newsListServiceDidChangeNews(changeType: .delete, indexPath: indexPath, newIndexPath: nil)
         case .update:
-            delegate?.newsListServiceDidChangeNews(newsPlainObject: newsPlainObject, changeType: .update, index: indexPath!.row, newIndex: nil)
+            delegate?.newsListServiceDidChangeNews(changeType: .update, indexPath: indexPath, newIndexPath: nil)
         case .move:
-            delegate?.newsListServiceDidChangeNews(newsPlainObject: newsPlainObject, changeType: .move, index: indexPath!.row, newIndex: newIndexPath!.row)
+            delegate?.newsListServiceDidChangeNews(changeType: .move, indexPath: indexPath, newIndexPath: newIndexPath)
         }
         
     }
     
     public func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        
+        delegate?.newsListServiceWillUpdateNews()
     }
     
     public func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        
+        delegate?.newsListServiceDidUpdateNews()
     }
     
 }

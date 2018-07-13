@@ -27,7 +27,7 @@ public class News: NSManagedObject {
     
     static func sortedNewsFetchRequest() -> NSFetchRequest<News> {
         let fetchRequest = NSFetchRequest<News>(entityName: News.entity().name!)
-        let sortDescriptor = NSSortDescriptor(key: "creationDate", ascending: false)
+        let sortDescriptor = NSSortDescriptor(key: "slug", ascending: false)
         fetchRequest.sortDescriptors = [sortDescriptor]
         return fetchRequest
     }

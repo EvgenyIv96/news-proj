@@ -50,7 +50,8 @@ extension NewsPlainObject: Decodable {
         slug = try container.decode(String.self, forKey: .slug)
         title = try container.decode(String.self, forKey: .title)
         text = try container.decode(String.self, forKey: .text)
-        creationDate = try container.decode(Date.self, forKey: .creationDate)
+//        creationDate = try container.decode(Date.self, forKey: .creationDate)
+        creationDate = Date()
         viewsCount = 0
         
     }

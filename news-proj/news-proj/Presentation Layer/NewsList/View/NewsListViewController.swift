@@ -14,8 +14,6 @@ class NewsListViewController: UIViewController {
     
     var output: NewsListViewOutput!
     
-    fileprivate var cellModels: [NewsListCellModel]?
-    
     @IBOutlet fileprivate var tableView: UITableView!
     
     // MARK: Life Cycle
@@ -39,7 +37,9 @@ extension NewsListViewController: UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
-        guard let newsCell = cell as? NewsListCell, let cellModel = cellModels?[indexPath.row] else { return }
+        guard let newsCell = cell as? NewsListCell else { return }
+        
+        let cellModel = output.cellModel(forItemAt: indexPath)
         
         newsCell.configure(with: cellModel)
         
@@ -63,7 +63,7 @@ extension NewsListViewController: UITableViewDelegate {
 extension NewsListViewController: UITableViewDataSource {
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cellModels?.count ?? 0
+        return output.numberOfItems(in: section)
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -81,7 +81,13 @@ extension NewsListViewController: UITableViewDataSource {
 extension NewsListViewController: NewsListViewInput {
     
     func setupInitialState() {
+        
+        // Setup navigation title
         navigationItem.title = ScreenName
+        
+        // Register cell
+        tableView.register(UINib.init(nibName: String(describing: NewsListCell.self), bundle: nil), forCellReuseIdentifier: NewsListCell.reuseIdentifier)
+        
     }
     
     func setNetworkActivityIndicatorVisible(_ visible: Bool) {
@@ -98,11 +104,7 @@ extension NewsListViewController: NewsListViewInput {
     
     func updateCellModels(_ cellModels: [NewsListCellModel], shouldReloadTableView: Bool) {
         
-        self.cellModels = cellModels
-        
-        if shouldReloadTableView {
-            tableView.reloadData()
-        }
+
         
     }
     

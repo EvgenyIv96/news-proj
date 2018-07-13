@@ -19,19 +19,26 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="rxj-rZ-w2O">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="sL2-4w-8NI" id="kb7-bY-uMv"/>
+                                    <outlet property="delegate" destination="sL2-4w-8NI" id="PV7-UI-HWZ"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="rxj-rZ-w2O" firstAttribute="top" secondItem="oKO-zE-QKu" secondAttribute="top" id="2jN-bL-vrH"/>
+                            <constraint firstItem="rxj-rZ-w2O" firstAttribute="top" secondItem="R4E-Rt-ZxQ" secondAttribute="top" id="2jN-bL-vrH"/>
                             <constraint firstItem="oKO-zE-QKu" firstAttribute="bottom" secondItem="rxj-rZ-w2O" secondAttribute="bottom" id="CP5-zH-xc6"/>
                             <constraint firstItem="oKO-zE-QKu" firstAttribute="trailing" secondItem="rxj-rZ-w2O" secondAttribute="trailing" id="QGP-Zo-wz0"/>
                             <constraint firstItem="rxj-rZ-w2O" firstAttribute="leading" secondItem="oKO-zE-QKu" secondAttribute="leading" id="Ubh-Sw-kE0"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="oKO-zE-QKu"/>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="rxj-rZ-w2O" id="1Dw-Eu-jRI"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fD6-eM-MTp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
