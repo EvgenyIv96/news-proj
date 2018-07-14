@@ -87,18 +87,6 @@ class InfiniteScrollingController: NSObject {
     
     // MARK: - Observing
     
-    func addScrollViewObserving(_ scrollView: UIScrollView?) {
-        scrollView?.addObserver(self, forKeyPath: #keyPath(UIScrollView.contentOffset), options: .new, context: &KVOContext)
-        scrollView?.addObserver(self, forKeyPath: #keyPath(UIScrollView.contentInset), options: .new, context: &KVOContext)
-        scrollView?.addObserver(self, forKeyPath: #keyPath(UIScrollView.contentSize), options: .new, context: &KVOContext)
-    }
-    
-    func removeScrollViewObserving(_ scrollView: UIScrollView?) {
-        scrollView?.removeObserver(self, forKeyPath: #keyPath(UIScrollView.contentOffset), context: &KVOContext)
-        scrollView?.removeObserver(self, forKeyPath: #keyPath(UIScrollView.contentInset), context: &KVOContext)
-        scrollView?.removeObserver(self, forKeyPath: #keyPath(UIScrollView.contentSize), context: &KVOContext)
-    }
-    
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
         guard context == &KVOContext else {
@@ -145,6 +133,18 @@ class InfiniteScrollingController: NSObject {
     }
     
     // MARK: - Private
+    fileprivate func addScrollViewObserving(_ scrollView: UIScrollView?) {
+        scrollView?.addObserver(self, forKeyPath: #keyPath(UIScrollView.contentOffset), options: .new, context: &KVOContext)
+        scrollView?.addObserver(self, forKeyPath: #keyPath(UIScrollView.contentInset), options: .new, context: &KVOContext)
+        scrollView?.addObserver(self, forKeyPath: #keyPath(UIScrollView.contentSize), options: .new, context: &KVOContext)
+    }
+    
+    fileprivate func removeScrollViewObserving(_ scrollView: UIScrollView?) {
+        scrollView?.removeObserver(self, forKeyPath: #keyPath(UIScrollView.contentOffset), context: &KVOContext)
+        scrollView?.removeObserver(self, forKeyPath: #keyPath(UIScrollView.contentInset), context: &KVOContext)
+        scrollView?.removeObserver(self, forKeyPath: #keyPath(UIScrollView.contentSize), context: &KVOContext)
+    }
+    
     fileprivate func adjustLoadingViewFrame() {
         
         var frame = loadingView.frame
