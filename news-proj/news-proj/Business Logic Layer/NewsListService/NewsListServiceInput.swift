@@ -10,13 +10,8 @@ import Foundation
 
 protocol NewsListServiceInput: class {
     
-    /// Method is used to prepare service for working. Call this method once before using.
+    /// Method is used to prepare service for working. Call this method once before using. After prepearing service automatically will give cached news using appropriate delegate methods.
     func prepare()
-    
-    /// Method is used to load cached news from local storage.
-    ///
-    /// - Returns: Cached news array.
-//    func loadCachedNews() -> [News]?
     
     /// Method asks service for news items count in given section.
     ///

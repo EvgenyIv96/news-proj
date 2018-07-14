@@ -53,25 +53,19 @@ extension NewsListServiceImplementation: NewsListServiceInput {
         return NewsPlainObject(with: news)
         
     }
-    
-    func loadCachedNews() -> [News]? {
-        return fetchedResultsController?.fetchedObjects
-    }
 
     func reloadNews(pageSize: Int) {
-                
-        let requestData = NewsListRequestData(pageOffset: 0, pageSize: pageSize)
-        var request: URLRequest!
         
+        var request: URLRequest?
         do {
-            request = try requestBuilder.buildRequest(with: requestData)
+            request = try createWebRequest(with: 0, pageSize: pageSize)
         } catch {
-            if let error = error as NSError? {
-                fatalError("\(error) \(error.userInfo)")
-            }
+            
         }
         
-        networkComponent.makeRequest(request: request) { [weak self] (task, data, response, error) in
+        guard let webRequest = request else { return }
+        
+        networkComponent.makeRequest(request: webRequest) { [weak self] (task, data, response, error) in
             
             guard task?.state != .canceling else { return }
             
@@ -83,55 +77,48 @@ extension NewsListServiceImplementation: NewsListServiceInput {
 ////                httpURLResponse.
 //            }
             
-            if let data = data {
-                do {
-                    
-                    let newsListResponse = try self?.decodeResponseData(data)
-                    
-                    CoreDataManager.shared.save(block: { (workerContext) in
+            guard let responseData = data else { return }
+            
+            do {
+                
+                let newsListResponse = try self?.decodeResponseData(responseData)
+                
+                CoreDataManager.shared.save(block: { (workerContext) in
 
-                        // Deleting old objects
+                    // Deleting old objects
+                    let fetchRequest = News.newsFetchRequest()
+                    fetchRequest.returnsObjectsAsFaults = true
+                    fetchRequest.includesPropertyValues = false
+                    
+                    do {
+                        let oldNewsArray = try workerContext.fetch(fetchRequest)
                         
-                        let fetchRequest = News.newsFetchRequest()
-                        fetchRequest.returnsObjectsAsFaults = true
-                        fetchRequest.includesPropertyValues = false
-                        
-                        do {
-                            
-                            let oldNewsArray = try workerContext.fetch(fetchRequest)
-                            
-                            for oldNews in oldNewsArray {
-                                workerContext.delete(oldNews)
-                            }
-                            
-                        } catch {
-                            if let error = error as NSError? {
-                                print("Error occured when try to delete objects from Core Data \(error) \(error.userInfo)")
-                            }
+                        for oldNews in oldNewsArray {
+                            workerContext.delete(oldNews)
                         }
-                        
-                        // Storing new objects
-                        
-                        let _ = newsListResponse?.response.news.map({ (newsPlainObject) -> News in
+                    } catch {
+                        if let error = error as NSError? {
+                            print("Error occured when try to delete objects from Core Data \(error) \(error.userInfo)")
+                        }
+                    }
+                    
+                    // Storing new objects
+                    let _ = newsListResponse?.response.news.map({ (newsPlainObject) -> News in
 
-                            let news = News.insert(into: workerContext)
-                            news.fill(with: newsPlainObject)
+                        let news = News.insert(into: workerContext)
+                        news.fill(with: newsPlainObject)
 
-                            return news
-
-                        })
+                        return news
 
                     })
 
-                    
-                } catch {
-                    if let error = error as NSError? {
-                        print(error)
-                    }
-                    
+                })
+                
+            } catch {
+                if let error = error as NSError? {
+                    print(error)
                 }
             }
-            
         }
         
     }
@@ -152,10 +139,6 @@ extension NewsListServiceImplementation: NewsListServiceInput {
 extension NewsListServiceImplementation: NSFetchedResultsControllerDelegate {
     
     public func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        
-//        guard let news = anObject as? News else { fatalError("Invalid object type!") }
-//        
-//        let newsPlainObject = NewsPlainObject(with: news)
         
         switch type {
         case .insert:
@@ -188,6 +171,24 @@ extension NewsListServiceImplementation {
         decoder.dateDecodingStrategy = .iso8601
         let newsListResponse = try decoder.decode(NewsListResponse.self, from: data)
         return newsListResponse
+    }
+    
+    fileprivate func createWebRequest(with pageOffset: Int, pageSize: Int) throws -> URLRequest?  {
+        
+        let requestData = NewsListRequestData(pageOffset: pageOffset, pageSize: pageSize)
+        
+        var request: URLRequest?
+        
+        do {
+            request = try requestBuilder.buildRequest(with: requestData)
+        } catch {
+            if let error = error as NSError? {
+                fatalError("\(error) \(error.userInfo)")
+            }
+        }
+        
+        return request
+        
     }
     
 }
