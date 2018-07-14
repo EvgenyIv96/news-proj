@@ -14,8 +14,9 @@ class NewsListViewController: UIViewController {
     
     var output: NewsListViewOutput!
     
-    @IBOutlet fileprivate var tableView: UITableView!
-    fileprivate var refreshControl: UIRefreshControl!
+    @IBOutlet fileprivate weak var tableView: UITableView!
+    fileprivate weak var refreshControl: UIRefreshControl!
+    fileprivate var infiniteScrollingController: InfiniteScrollingController?
     
     // MARK: Life Cycle
     override func viewDidLoad() {
@@ -50,6 +51,9 @@ extension NewsListViewController: NewsListViewInput {
         // Register cell
         tableView.register(UINib.init(nibName: String(describing: NewsListCell.self), bundle: nil), forCellReuseIdentifier: NewsListCell.reuseIdentifier)
         
+        // Infinity scrolling
+        infiniteScrollingController = InfiniteScrollingController.infiniteScrollingController(on: tableView)
+        
     }
     
     func setNetworkActivityIndicatorVisible(_ visible: Bool) {
@@ -67,10 +71,16 @@ extension NewsListViewController: NewsListViewInput {
     }
     
     func setInfinityScrollingEnabled(_ enabled: Bool) {
-        
+        infiniteScrollingController?.infinityScrollingEnabled = enabled
     }
     
     func setBottomLoadingIndicatorVisible(_ visible: Bool) {
+        
+        if visible {
+            infiniteScrollingController?.startAnimating()
+        } else {
+            infiniteScrollingController?.stopAnimation()
+        }
         
     }
     
