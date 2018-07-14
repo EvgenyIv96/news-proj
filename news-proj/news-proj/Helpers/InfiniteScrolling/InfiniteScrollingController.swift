@@ -23,6 +23,7 @@ class InfiniteScrollingController: NSObject {
     var infinityScrollingEnabled = true
     
     fileprivate var state = InfiniteScrollingControllerState.stopped
+    fileprivate var action: (() -> ())?
     
     fileprivate var originalBottomInset: CGFloat = 0.0
     fileprivate var scrollView: UIScrollView! {
@@ -52,9 +53,10 @@ class InfiniteScrollingController: NSObject {
     
     // MARK: - Class constructor
 
-    public static func infiniteScrollingController(on scrollView: UIScrollView) -> InfiniteScrollingController {
+    public static func infiniteScrollingController(on scrollView: UIScrollView, actionHandler: @escaping () -> ()) -> InfiniteScrollingController {
         let infinityScrollController = InfiniteScrollingController()
         infinityScrollController.scrollView = scrollView
+        infinityScrollController.action = actionHandler
         return infinityScrollController
     }
     
@@ -71,7 +73,7 @@ class InfiniteScrollingController: NSObject {
         state = .animating
         adjustContentInset(for: state)
         loadingView.isHidden = false
-        print("loading view frame: \(loadingView.frame)")
+        print("InfiniteScrollingController did start animating.")
         
     }
     
@@ -82,6 +84,8 @@ class InfiniteScrollingController: NSObject {
         state = .stopped
         adjustContentInset(for: state)
         loadingView.isHidden = true
+        print("InfiniteScrollingController did stop animating.")
+
         
     }
     
@@ -119,8 +123,9 @@ class InfiniteScrollingController: NSObject {
                 
                 let contentHeight = scrollView.contentSize.height
                 
-                if offset.y > contentHeight - scrollView.frame.height {
+                if infinityScrollingEnabled, state != .animating, scrollView.contentSize.height > 0, offset.y > contentHeight - scrollView.frame.height {
                     startAnimating()
+                    action?()
                 }
                 
             }

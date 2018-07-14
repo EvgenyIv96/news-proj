@@ -52,7 +52,9 @@ extension NewsListViewController: NewsListViewInput {
         tableView.register(UINib.init(nibName: String(describing: NewsListCell.self), bundle: nil), forCellReuseIdentifier: NewsListCell.reuseIdentifier)
         
         // Infinity scrolling
-        infiniteScrollingController = InfiniteScrollingController.infiniteScrollingController(on: tableView)
+        infiniteScrollingController = InfiniteScrollingController.infiniteScrollingController(on: tableView, actionHandler: {
+            print("Infinite scrolling action")
+        })
         
     }
     
