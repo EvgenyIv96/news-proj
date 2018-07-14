@@ -66,13 +66,11 @@ extension NewsListViewController: NewsListViewInput {
         
     }
     
-    func setBottomLoadingIndicatorVisible(_ visible: Bool) {
+    func setInfinityScrollingEnabled(_ enabled: Bool) {
         
     }
     
-    func updateCellModels(_ cellModels: [NewsListCellModel], shouldReloadTableView: Bool) {
-        
-        
+    func setBottomLoadingIndicatorVisible(_ visible: Bool) {
         
     }
     

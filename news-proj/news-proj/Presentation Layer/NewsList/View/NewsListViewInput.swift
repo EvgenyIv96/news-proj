@@ -39,14 +39,10 @@ protocol NewsListViewInput: class {
     /// - Parameter visible: Visibility flag. True if loading indicator should be showed, otherwise false.
     func setBottomLoadingIndicatorVisible(_ visible: Bool)
     
-    // MARK: Table view updates
-    
-    /// Method is used to update cell models array.
+    /// Method is used to turn on/turn off infinity scrolling.
     ///
-    /// - Parameters:
-    ///   - cellModels: Cell models array.
-    ///   - shouldReloadTableView: Table view reload flag.
-    func updateCellModels(_ cellModels: [NewsListCellModel], shouldReloadTableView: Bool)
+    /// - Parameter enabled: Enabled flag. True if infinity scrolling should be turned on, otherwise false.
+    func setInfinityScrollingEnabled(_ enabled: Bool)
     
     /// Method tells to start update news list table
     func beginTableUpdates()
