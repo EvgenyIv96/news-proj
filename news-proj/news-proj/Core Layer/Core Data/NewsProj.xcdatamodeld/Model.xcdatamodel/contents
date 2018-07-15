@@ -6,11 +6,8 @@
         <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="viewsCount" attributeType="Integer 16" minValueString="0" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <fetchIndex name="byPropertyIndex">
-            <fetchIndexElement property="creationDate" type="Binary" order="descending"/>
-        </fetchIndex>
     </entity>
     <elements>
-        <element name="News" positionX="-36" positionY="9" width="128" height="118"/>
+        <element name="News" positionX="-36" positionY="9" width="128" height="120"/>
     </elements>
 </model>
