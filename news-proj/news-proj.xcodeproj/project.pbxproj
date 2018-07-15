@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		E527408B20FA47E10000E593 /* InfiniteScrollingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E527408A20FA47E10000E593 /* InfiniteScrollingController.swift */; };
 		E527408F20FB7B530000E593 /* DateFormatter+iso8601Full.swift in Sources */ = {isa = PBXBuildFile; fileRef = E527408E20FB7B530000E593 /* DateFormatter+iso8601Full.swift */; };
+		E527409320FBBC9B0000E593 /* NewsDetailStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E527409220FBBC9B0000E593 /* NewsDetailStoryboard.storyboard */; };
+		E527409520FBBCA70000E593 /* NewsDetailStoryboardConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E527409420FBBCA70000E593 /* NewsDetailStoryboardConstants.swift */; };
 		E556460220F7F7A3002EF0E6 /* NewsListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E556460120F7F7A3002EF0E6 /* NewsListResponse.swift */; };
 		E556460520F80B4B002EF0E6 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E556460420F80B4B002EF0E6 /* CoreDataManager.swift */; };
 		E556460920F882D2002EF0E6 /* NSManagedObjectContext+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E556460820F882D2002EF0E6 /* NSManagedObjectContext+Extensions.swift */; };
@@ -51,6 +53,8 @@
 /* Begin PBXFileReference section */
 		E527408A20FA47E10000E593 /* InfiniteScrollingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfiniteScrollingController.swift; sourceTree = "<group>"; };
 		E527408E20FB7B530000E593 /* DateFormatter+iso8601Full.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+iso8601Full.swift"; sourceTree = "<group>"; };
+		E527409220FBBC9B0000E593 /* NewsDetailStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NewsDetailStoryboard.storyboard; sourceTree = "<group>"; };
+		E527409420FBBCA70000E593 /* NewsDetailStoryboardConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailStoryboardConstants.swift; sourceTree = "<group>"; };
 		E556460120F7F7A3002EF0E6 /* NewsListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsListResponse.swift; sourceTree = "<group>"; };
 		E556460420F80B4B002EF0E6 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		E556460820F882D2002EF0E6 /* NSManagedObjectContext+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+Extensions.swift"; sourceTree = "<group>"; };
@@ -125,6 +129,23 @@
 				E527408E20FB7B530000E593 /* DateFormatter+iso8601Full.swift */,
 			);
 			path = DateFormatter;
+			sourceTree = "<group>";
+		};
+		E527409020FBBC650000E593 /* NewsDetail */ = {
+			isa = PBXGroup;
+			children = (
+				E527409120FBBC8A0000E593 /* Storyboard */,
+			);
+			path = NewsDetail;
+			sourceTree = "<group>";
+		};
+		E527409120FBBC8A0000E593 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				E527409220FBBC9B0000E593 /* NewsDetailStoryboard.storyboard */,
+				E527409420FBBCA70000E593 /* NewsDetailStoryboardConstants.swift */,
+			);
+			path = Storyboard;
 			sourceTree = "<group>";
 		};
 		E556460020F7F78F002EF0E6 /* NewsList */ = {
@@ -271,6 +292,7 @@
 			isa = PBXGroup;
 			children = (
 				E592E4E620F7D631006DBA90 /* NewsList */,
+				E527409020FBBC650000E593 /* NewsDetail */,
 			);
 			path = "Presentation Layer";
 			sourceTree = "<group>";
@@ -506,6 +528,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E592E4A020F680DE006DBA90 /* LaunchScreen.storyboard in Resources */,
+				E527409320FBBC9B0000E593 /* NewsDetailStoryboard.storyboard in Resources */,
 				E592E49D20F680DE006DBA90 /* Assets.xcassets in Resources */,
 				E592E51B20F7EC43006DBA90 /* NewsListCell.xib in Resources */,
 				E592E4E920F7D64E006DBA90 /* NewsListStoryboard.storyboard in Resources */,
@@ -523,6 +546,7 @@
 				E592E50920F7DB74006DBA90 /* NewsListViewInput.swift in Sources */,
 				E592E50720F7DB74006DBA90 /* NewsListViewOutput.swift in Sources */,
 				E592E4D620F7872F006DBA90 /* NewsListServiceDelegate.swift in Sources */,
+				E527409520FBBCA70000E593 /* NewsDetailStoryboardConstants.swift in Sources */,
 				E592E4CE20F76531006DBA90 /* ApplicationConstants.swift in Sources */,
 				E592E4BB20F6A9AE006DBA90 /* WebRequestData.swift in Sources */,
 				E527408B20FA47E10000E593 /* InfiniteScrollingController.swift in Sources */,
