@@ -10,4 +10,7 @@ import Foundation
 
 protocol NewsDetailModuleRouting: class {
     
+    /// Method is used to close current module
+    func close()
+    
 }

@@ -82,4 +82,8 @@ extension NewsDetailViewController {
 // MARK: - NewsDetailModuleRouting
 extension NewsDetailViewController: NewsDetailModuleRouting {
     
+    func close() {
+        dismiss(animated: true, completion: nil)
+    }
+    
 }

@@ -19,6 +19,11 @@ class NewsDetailServiceImplementation: NSObject {
     var newsManagedObjectID: NSManagedObjectID!
     var news: News?
     
+    deinit {
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.removeObserver(self)
+    }
+    
 }
 
 // MARK: - NewsDetailServiceInput
@@ -27,6 +32,7 @@ extension NewsDetailServiceImplementation: NewsDetailServiceInput {
     func setup(with newsObjectID: NSManagedObjectID) {
         newsManagedObjectID = newsObjectID
         news = CoreDataManager.shared.mainContext.object(with: newsObjectID) as? News
+        setupObserving()
     }
     
     func incrementViewsCount() {
@@ -70,7 +76,9 @@ extension NewsDetailServiceImplementation: NewsDetailServiceInput {
                 let updatedNewsPlainObject = NewsPlainObject(with: newsDetailRespone!.response, viewsCount: newsPlainObject.viewsCount)
                 
                 CoreDataManager.shared.mainContext.perform { [weak self] in
+                    
                     self?.news?.fill(with: updatedNewsPlainObject)
+                    
                     CoreDataManager.shared.saveChanges(completion: { (success, error) in
                         DispatchQueue.main.async {
                             if success {
@@ -103,6 +111,33 @@ extension NewsDetailServiceImplementation: NewsDetailServiceInput {
 extension NewsDetailServiceImplementation {
     
     fileprivate func setupObserving() {
+        
+        let context = CoreDataManager.shared.mainContext
+        
+        let notificationCenter = NotificationCenter.default
+
+        notificationCenter.addObserver(self, selector: #selector(managedObjectContextObjectsDidChange), name: NSNotification.Name.NSManagedObjectContextObjectsDidChange, object: context)
+        
+    }
+    
+    @objc fileprivate func managedObjectContextObjectsDidChange(notification: Notification) {
+
+        guard let userInfo = notification.userInfo, let news = news else { return }
+
+        if let updated = userInfo[NSUpdatedObjectsKey] as? Set<NSManagedObject>, updated.contains(news) {
+            let newsPlainObject = obtainNewsPlainObject()
+            delegate?.newsObjectWasUpdated(updatedNewsPlainObject: newsPlainObject)
+        }
+
+        if let deleted = userInfo[NSDeletedObjectsKey] as? Set<NSManagedObject>, deleted.contains(news) {
+            delegate?.newsObjectWasDeleted()
+        }
+        
+        if userInfo[NSInvalidatedAllObjectsKey] != nil{
+            delegate?.newsObjectWasDeleted()
+        } else if let invalidated = userInfo[NSInvalidatedObjectsKey] as? Set<NSManagedObject>, invalidated.contains(news) {
+            delegate?.newsObjectWasDeleted()
+        }
         
     }
     

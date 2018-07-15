@@ -16,7 +16,7 @@ class NewsDetailPresenter {
     weak var router: NewsDetailModuleRouting!
     
     var newsDetailService: NewsDetailServiceInput!
-    
+        
 }
 
 // MARK: - NewsDetailViewOutput
@@ -27,9 +27,7 @@ extension NewsDetailPresenter: NewsDetailViewOutput {
         view.setupInitialState()
         
         let newsPlainObject = newsDetailService.obtainNewsPlainObject()
-        
-        let screenName = newsPlainObject.title ?? ""
-        view.configure(screenName: screenName)
+        view.configure(screenName: newsPlainObject.title ?? "")
         view.configure(htmlText: newsPlainObject.text ?? "")
         
         newsDetailService.incrementViewsCount()
@@ -57,6 +55,15 @@ extension NewsDetailPresenter: NewsDetailModuleInput {
 
 // MARK: - NewsDetailServiceDelegate
 extension NewsDetailPresenter: NewsDetailServiceDelegate {
+    
+    func newsObjectWasUpdated(updatedNewsPlainObject: NewsPlainObject) {
+        view.configure(screenName: updatedNewsPlainObject.title ?? "")
+        view.configure(htmlText: updatedNewsPlainObject.text ?? "")
+    }
+    
+    func newsObjectWasDeleted() {
+        router.close()
+    }
     
 }
 

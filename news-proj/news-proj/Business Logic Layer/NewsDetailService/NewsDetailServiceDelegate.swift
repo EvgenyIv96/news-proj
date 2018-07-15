@@ -10,4 +10,12 @@ import Foundation
 
 protocol NewsDetailServiceDelegate: class {
     
+    /// Method tells delegate that news object was updated
+    ///
+    /// - Parameter updatedNewsPlainObject: Updated version of news plain object
+    func newsObjectWasUpdated(updatedNewsPlainObject: NewsPlainObject)
+    
+    /// Method tells delegate that news object was deleted
+    func newsObjectWasDeleted()
+    
 }
