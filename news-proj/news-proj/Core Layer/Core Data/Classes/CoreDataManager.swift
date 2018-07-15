@@ -9,6 +9,8 @@
 import Foundation
 import CoreData
 
+public typealias CoreDataManagerSaveCompletion = (_ contextDidSave: Bool, _ error: Error?) -> ()
+
 public class CoreDataManager {
     
     static let shared = CoreDataManager()
@@ -65,30 +67,55 @@ public class CoreDataManager {
         
     }
     
-    public func saveChanges() {
+    /// Method is used to save changes which was made in main context.
+    ///
+    /// - Parameter completion: Completion closure.
+    public func saveChanges(completion: CoreDataManagerSaveCompletion? = nil) {
         
         mainContext.perform {
             
             do {
                 if self.mainContext.hasChanges {
                     try self.mainContext.save()
+                } else {
+                    DispatchQueue.main.async {
+                        completion?(false, nil)
+                    }
                 }
             } catch {
                 if let error = error as NSError? {
                     print(error)
                 }
+                DispatchQueue.main.async {
+                    completion?(false, nil)
+                }
             }
             
             
             self.backgroundWriterContext.perform {
+                
                 do {
+                    
                     if self.backgroundWriterContext.hasChanges {
                         try self.backgroundWriterContext.save()
+                        DispatchQueue.main.async {
+                            completion?(true, nil)
+                        }
+                    } else {
+                        DispatchQueue.main.async {
+                            completion?(false, nil)
+                        }
                     }
+                    
                 } catch {
+                    
                     if let error = error as NSError? {
                         print(error)
                     }
+                    DispatchQueue.main.async {
+                        completion?(false, nil)
+                    }
+                    
                 }
                 
             }
@@ -97,7 +124,12 @@ public class CoreDataManager {
        
     }
     
-    public func save(block: @escaping (_ workerContext: NSManagedObjectContext)->()) {
+    /// Method is used to make changes in new background context and save it.
+    ///
+    /// - Parameters:
+    ///   - block: Closure with changes.
+    ///   - completion: Completion closure.
+    public func save(block: @escaping (_ workerContext: NSManagedObjectContext)->(), completion: CoreDataManagerSaveCompletion? = nil) {
         
         let context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         context.parent = mainContext
@@ -107,13 +139,26 @@ public class CoreDataManager {
             block(context)
             
             do {
-                try context.save()
-                try self.mainContext.save()
-                try self.backgroundWriterContext.save()
+                
+                if context.hasChanges {
+                    try context.save()
+                } else {
+                    DispatchQueue.main.async {
+                        completion?(false, nil)
+                    }
+                }
+                
+                self.saveChanges(completion: completion)
+
             } catch {
+                
                 if let error = error as NSError? {
                     print(error)
                 }
+                DispatchQueue.main.async {
+                    completion?(false, error)
+                }
+                
             }
 
         }
