@@ -95,14 +95,14 @@ extension NewsListViewController: NewsListViewInput {
         
         switch updateType {
         case .insert:
-            tableView.insertRows(at: [newIndexPath!], with: .left)
+            tableView.insertRows(at: [newIndexPath!], with: .top)
         case .delete:
             tableView.deleteRows(at: [indexPath!], with: .top)
         case .reload:
             tableView.reloadRows(at: [indexPath!], with: .fade)
         case .move:
             tableView.deleteRows(at: [indexPath!], with: .top)
-            tableView.insertRows(at: [newIndexPath!], with: .left)
+            tableView.insertRows(at: [newIndexPath!], with: .top)
         }
         
     }
