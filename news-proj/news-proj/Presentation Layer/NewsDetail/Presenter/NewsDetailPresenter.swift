@@ -36,6 +36,16 @@ extension NewsDetailPresenter: NewsDetailViewOutput {
         
         newsDetailService.getNewsData { [weak self] (result) in
             
+            switch result {
+            case .success:
+                break
+            case .failure(let error, let errorMessage):
+                if let error = error as NSError? {
+                    print("\(error) \(error.userInfo)")
+                }
+                self?.view.showErrorMessage(errorMessage)
+            }
+            
             self?.view.setNetworkActivityIndicatorVisible(false)
             
         }

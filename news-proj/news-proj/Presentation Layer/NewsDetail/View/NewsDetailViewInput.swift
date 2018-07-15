@@ -28,4 +28,9 @@ protocol NewsDetailViewInput: class {
     /// - Parameter visible: Visibility flag. True if network activity indicator should be showed, otherwise false.
     func setNetworkActivityIndicatorVisible(_ visible: Bool)
     
+    /// Method is used to show error message
+    ///
+    /// - Parameter message: Error message
+    func showErrorMessage(_ message: String)
+    
 }

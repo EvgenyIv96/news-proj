@@ -24,6 +24,7 @@
 		E52740AE20FBC7290000E593 /* NewsDetailServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52740AD20FBC7290000E593 /* NewsDetailServiceDelegate.swift */; };
 		E52740B320FBE9310000E593 /* NewsDetailRequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52740B220FBE9310000E593 /* NewsDetailRequestData.swift */; };
 		E52740B620FBEA240000E593 /* NewsDetailResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52740B520FBEA240000E593 /* NewsDetailResponse.swift */; };
+		E52740B920FC0D180000E593 /* UIViewController+ErrorAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52740B820FC0D180000E593 /* UIViewController+ErrorAlert.swift */; };
 		E556460220F7F7A3002EF0E6 /* NewsListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E556460120F7F7A3002EF0E6 /* NewsListResponse.swift */; };
 		E556460520F80B4B002EF0E6 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E556460420F80B4B002EF0E6 /* CoreDataManager.swift */; };
 		E556460920F882D2002EF0E6 /* NSManagedObjectContext+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E556460820F882D2002EF0E6 /* NSManagedObjectContext+Extensions.swift */; };
@@ -81,6 +82,7 @@
 		E52740AD20FBC7290000E593 /* NewsDetailServiceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailServiceDelegate.swift; sourceTree = "<group>"; };
 		E52740B220FBE9310000E593 /* NewsDetailRequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailRequestData.swift; sourceTree = "<group>"; };
 		E52740B520FBEA240000E593 /* NewsDetailResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailResponse.swift; sourceTree = "<group>"; };
+		E52740B820FC0D180000E593 /* UIViewController+ErrorAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ErrorAlert.swift"; sourceTree = "<group>"; };
 		E556460120F7F7A3002EF0E6 /* NewsListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsListResponse.swift; sourceTree = "<group>"; };
 		E556460420F80B4B002EF0E6 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		E556460820F882D2002EF0E6 /* NSManagedObjectContext+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+Extensions.swift"; sourceTree = "<group>"; };
@@ -221,6 +223,14 @@
 			path = NewsDetail;
 			sourceTree = "<group>";
 		};
+		E52740B720FC0CFE0000E593 /* UIViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E52740B820FC0D180000E593 /* UIViewController+ErrorAlert.swift */,
+			);
+			path = UIViewController;
+			sourceTree = "<group>";
+		};
 		E556460020F7F78F002EF0E6 /* NewsList */ = {
 			isa = PBXGroup;
 			children = (
@@ -248,6 +258,7 @@
 		E556460A20F895BC002EF0E6 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				E52740B720FC0CFE0000E593 /* UIViewController */,
 				E527408D20FB7B4C0000E593 /* DateFormatter */,
 				E556461120FA44C2002EF0E6 /* Array */,
 			);
@@ -653,6 +664,7 @@
 				E592E4E220F790E9006DBA90 /* URLParameterEncoder.swift in Sources */,
 				E592E49620F680DC006DBA90 /* AppDelegate.swift in Sources */,
 				E592E50B20F7DB74006DBA90 /* NewsListModuleAssembly.swift in Sources */,
+				E52740B920FC0D180000E593 /* UIViewController+ErrorAlert.swift in Sources */,
 				E592E4B220F6A15C006DBA90 /* NewsProj.xcdatamodeld in Sources */,
 				E592E4C020F6AAEC006DBA90 /* HTTPParametersEncoder.swift in Sources */,
 				E592E4E120F790E9006DBA90 /* URLRequestBuilder.swift in Sources */,

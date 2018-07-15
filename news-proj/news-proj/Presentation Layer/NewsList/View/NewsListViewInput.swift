@@ -44,6 +44,8 @@ protocol NewsListViewInput: class {
     /// - Parameter enabled: Enabled flag. True if infinity scrolling should be turned on, otherwise false.
     func setInfinityScrollingEnabled(_ enabled: Bool)
     
+    // MARK: Table view updates
+    
     /// Method tells to start update news list table
     func beginTableUpdates()
     
@@ -57,5 +59,12 @@ protocol NewsListViewInput: class {
     
     /// Method tells to end update news list table
     func endTableUpdates()
+    
+    // MARK: Errors
+    
+    /// Method is used to show error message
+    ///
+    /// - Parameter message: Error message
+    func showErrorMessage(_ message: String)
     
 }

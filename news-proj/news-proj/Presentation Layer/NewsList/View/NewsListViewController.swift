@@ -112,6 +112,10 @@ extension NewsListViewController: NewsListViewInput {
         tableView.endUpdates()
     }
     
+    func showErrorMessage(_ message: String) {
+        showAlert(errorMessage: message)
+    }
+    
 }
 
 // MARK: - UITableViewDelegate

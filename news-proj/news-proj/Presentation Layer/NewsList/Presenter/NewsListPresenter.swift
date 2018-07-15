@@ -78,6 +78,10 @@ extension NewsListPresenter: NewsListViewOutput {
             case .success(let nextPage):
                 self?.nextNewsListPage = nextPage
             case .failure(let error, let humanReadableErrorText):
+                if let error = error as NSError? {
+                    print(error)
+                }
+                self?.view.showErrorMessage(humanReadableErrorText)
                 break
             }
             
@@ -101,6 +105,10 @@ extension NewsListPresenter: NewsListViewOutput {
             case .success(let nextPage):
                 self?.nextNewsListPage = nextPage
             case .failure(let error, let humanReadableErrorText):
+                if let error = error as NSError? {
+                    print(error)
+                }
+                self?.view.showErrorMessage(humanReadableErrorText)
                 break
             }
             

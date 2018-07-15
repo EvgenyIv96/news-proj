@@ -54,6 +54,10 @@ extension NewsDetailViewController: NewsDetailViewInput {
         UIApplication.shared.isNetworkActivityIndicatorVisible = visible
     }
     
+    func showErrorMessage(_ message: String) {
+        showAlert(errorMessage: message)
+    }
+    
 }
 
 // MARK: - Private
