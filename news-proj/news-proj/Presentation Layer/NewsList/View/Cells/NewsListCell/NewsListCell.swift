@@ -14,16 +14,18 @@ class NewsListCell: UITableViewCell {
     static let height: CGFloat = 44.0
 
     @IBOutlet weak var titleLabel: UILabel!
-//    @IBOutlet weak var viewsCountLabel: UILabel!
+    @IBOutlet weak var viewsCountLabel: UILabel!
     
     // MARK: - Configuration
     func configure(with cellModel: NewsListCellModel) {
         titleLabel.text = cellModel.title
+        viewsCountLabel.text = cellModel.viewsCountString
     }
     
     // MARK: - Private
     override func prepareForReuse() {
         super.prepareForReuse()
         titleLabel.text = ""
+        viewsCountLabel.text = "0"
     }
 }
