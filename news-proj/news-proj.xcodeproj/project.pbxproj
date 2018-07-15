@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		E527408B20FA47E10000E593 /* InfiniteScrollingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E527408A20FA47E10000E593 /* InfiniteScrollingController.swift */; };
+		E527408F20FB7B530000E593 /* DateFormatter+iso8601Full.swift in Sources */ = {isa = PBXBuildFile; fileRef = E527408E20FB7B530000E593 /* DateFormatter+iso8601Full.swift */; };
 		E556460220F7F7A3002EF0E6 /* NewsListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E556460120F7F7A3002EF0E6 /* NewsListResponse.swift */; };
 		E556460520F80B4B002EF0E6 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E556460420F80B4B002EF0E6 /* CoreDataManager.swift */; };
 		E556460920F882D2002EF0E6 /* NSManagedObjectContext+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E556460820F882D2002EF0E6 /* NSManagedObjectContext+Extensions.swift */; };
@@ -49,6 +50,7 @@
 
 /* Begin PBXFileReference section */
 		E527408A20FA47E10000E593 /* InfiniteScrollingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfiniteScrollingController.swift; sourceTree = "<group>"; };
+		E527408E20FB7B530000E593 /* DateFormatter+iso8601Full.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+iso8601Full.swift"; sourceTree = "<group>"; };
 		E556460120F7F7A3002EF0E6 /* NewsListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsListResponse.swift; sourceTree = "<group>"; };
 		E556460420F80B4B002EF0E6 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		E556460820F882D2002EF0E6 /* NSManagedObjectContext+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+Extensions.swift"; sourceTree = "<group>"; };
@@ -117,6 +119,14 @@
 			path = InfiniteScrolling;
 			sourceTree = "<group>";
 		};
+		E527408D20FB7B4C0000E593 /* DateFormatter */ = {
+			isa = PBXGroup;
+			children = (
+				E527408E20FB7B530000E593 /* DateFormatter+iso8601Full.swift */,
+			);
+			path = DateFormatter;
+			sourceTree = "<group>";
+		};
 		E556460020F7F78F002EF0E6 /* NewsList */ = {
 			isa = PBXGroup;
 			children = (
@@ -144,6 +154,7 @@
 		E556460A20F895BC002EF0E6 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				E527408D20FB7B4C0000E593 /* DateFormatter */,
 				E556461120FA44C2002EF0E6 /* Array */,
 			);
 			path = Extensions;
@@ -532,6 +543,7 @@
 				E592E4B220F6A15C006DBA90 /* NewsProj.xcdatamodeld in Sources */,
 				E592E4C020F6AAEC006DBA90 /* HTTPParametersEncoder.swift in Sources */,
 				E592E4E120F790E9006DBA90 /* URLRequestBuilder.swift in Sources */,
+				E527408F20FB7B530000E593 /* DateFormatter+iso8601Full.swift in Sources */,
 				E592E4B520F6A377006DBA90 /* News+CoreDataClass.swift in Sources */,
 				E592E4E320F790E9006DBA90 /* JSONParameterEncoder.swift in Sources */,
 				E556461520FA44C2002EF0E6 /* Array+Extensions.swift in Sources */,
@@ -680,6 +692,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 54GU5F9Z34;
 				INFOPLIST_FILE = "news-proj/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -698,6 +711,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 54GU5F9Z34;
 				INFOPLIST_FILE = "news-proj/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
