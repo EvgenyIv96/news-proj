@@ -49,7 +49,7 @@ public class CoreDataManager {
             guard let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last else {
                 fatalError("Unable to get document directory")
             }
-            let storeURL = documentDirectory.appendingPathComponent(ApplicationConstants.CoreDataConstants.storeFolderName)
+            let storeURL = documentDirectory.appendingPathComponent(ApplicationConstants.CoreDataConstants.storeName)
             
             do {
                 try self.persistentStoreCoordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: storeURL, options: [:])

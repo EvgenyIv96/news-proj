@@ -18,7 +18,7 @@ public enum ApplicationConstants {
     }
     
     struct CoreDataConstants {
-        static let storeFolderName = "Storage"
+        static let storeName = "Storage"
         static let modelName = "NewsProj"
     }
     
