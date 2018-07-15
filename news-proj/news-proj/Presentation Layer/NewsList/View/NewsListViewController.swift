@@ -52,8 +52,9 @@ extension NewsListViewController: NewsListViewInput {
         tableView.register(UINib.init(nibName: String(describing: NewsListCell.self), bundle: nil), forCellReuseIdentifier: NewsListCell.reuseIdentifier)
         
         // Infinity scrolling
-        infiniteScrollingController = InfiniteScrollingController.infiniteScrollingController(on: tableView, actionHandler: {
+        infiniteScrollingController = InfiniteScrollingController.infiniteScrollingController(on: tableView, actionHandler: { [unowned self] in
             print("Infinite scrolling action")
+            self.infiniteScrollAction()
         })
         
     }
@@ -161,6 +162,10 @@ extension NewsListViewController {
     
     @objc func refreshControlAction(_ refreshControl: UIRefreshControl) {
         output.didTriggerPullToRefreshAction()
+    }
+    
+    func infiniteScrollAction() {
+        output.didTriggerInfiniteScrollingAction()
     }
     
 }

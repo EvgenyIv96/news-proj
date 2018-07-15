@@ -33,6 +33,7 @@ protocol NewsListViewOutput: class {
     /// Method is used to tell presenter that pull to refresh action was triggered.
     func didTriggerPullToRefreshAction()
     
-    
+    /// Method tells presenter that infinite scrolling action was triggered.
+    func didTriggerInfiniteScrollingAction()
     
 }

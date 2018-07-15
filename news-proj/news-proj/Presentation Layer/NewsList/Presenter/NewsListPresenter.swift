@@ -18,7 +18,7 @@ class NewsListPresenter {
     
     var newsListService: NewsListServiceInput!
     
-    fileprivate var currentNewsListPage: Int = 0
+    fileprivate var currentNewsListPage: Int? = 0
 
 }
 
@@ -58,6 +58,14 @@ extension NewsListPresenter: NewsListViewOutput {
     func didTriggerPullToRefreshAction() {
         view.setNetworkActivityIndicatorVisible(true)
         view.setPullToRefreshLoadingIndicatorVisible(true)
+        view.setBottomLoadingIndicatorVisible(false)
+        view.setInfinityScrollingEnabled(false)
+    }
+    
+    func didTriggerInfiniteScrollingAction() {
+        view.setNetworkActivityIndicatorVisible(true)
+        view.setBottomLoadingIndicatorVisible(true)
+        view.setInfinityScrollingEnabled(false)
     }
     
 }
