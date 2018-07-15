@@ -74,6 +74,8 @@ extension NewsListPresenter: NewsListViewOutput {
         
         newsListService.reloadNews(pageSize: PageSize) { [weak self] (result) in
             
+            self?.hideLoadingIndicators()
+            
             switch result {
             case .success(let nextPage):
                 self?.nextNewsListPage = nextPage
@@ -84,8 +86,6 @@ extension NewsListPresenter: NewsListViewOutput {
                 self?.view.showErrorMessage(humanReadableErrorText)
                 break
             }
-            
-            self?.hideLoadingIndicators()
             
         }
         
@@ -101,6 +101,8 @@ extension NewsListPresenter: NewsListViewOutput {
         
         newsListService.obtainNews(pageOffset: nextPage, pageSize: PageSize) { [weak self] (result) in
             
+            self?.hideLoadingIndicators()
+            
             switch result {
             case .success(let nextPage):
                 self?.nextNewsListPage = nextPage
@@ -111,8 +113,6 @@ extension NewsListPresenter: NewsListViewOutput {
                 self?.view.showErrorMessage(humanReadableErrorText)
                 break
             }
-            
-            self?.hideLoadingIndicators()
             
         }
         

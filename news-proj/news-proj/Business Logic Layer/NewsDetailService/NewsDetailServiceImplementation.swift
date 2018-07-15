@@ -59,12 +59,21 @@ extension NewsDetailServiceImplementation: NewsDetailServiceInput {
         // Cancelling previous request
         networkComponent.cancel()
         
+        if !Reachability.isConnectedToNetwork() {
+            DispatchQueue.main.async {
+                completion(.failure(error: nil, humanReadableErrorText: ApplicationConstants.WebConstants.internetConnectionError))
+            }
+        }
+        
         networkComponent.makeRequest(request: webRequest) { [weak self] (task, data, response, error) in
             
             guard task?.state != .canceling else { return }
 
             if let error = error as NSError? {
                 print(error)
+                DispatchQueue.main.async {
+                    completion(.failure(error: error, humanReadableErrorText: ApplicationConstants.WebConstants.error))
+                }
             }
             
             guard let responseData = data else { return }
