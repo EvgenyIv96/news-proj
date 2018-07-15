@@ -14,9 +14,13 @@ class NewsDetailServiceAssembly {
         
         // Creating components
         let newsDetailService = NewsDetailServiceImplementation()
+        let networkComponent = NetworkComponent()
+        let requestBuilder = URLRequestBuilder()
         
         // Injecting properties
         newsDetailService.delegate = delegate
+        newsDetailService.networkComponent = networkComponent
+        newsDetailService.requestBuilder = requestBuilder
         
         return newsDetailService
         
