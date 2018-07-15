@@ -84,7 +84,9 @@ extension NewsDetailServiceImplementation: NewsDetailServiceInput {
                             if success {
                                 completion(.success)
                             } else {
-                                if let error = error {
+                                if let error = error as NSError?, error.code == ApplicationConstants.Errors.codes.ContextHasNoChangesErrorCode {
+                                    completion(.success)
+                                } else if let error = error as NSError? {
                                     completion(.failure(error: error, humanReadableErrorText: ApplicationConstants.WebConstants.error))
                                 }
                             }

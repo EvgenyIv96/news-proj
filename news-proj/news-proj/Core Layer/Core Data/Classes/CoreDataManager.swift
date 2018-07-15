@@ -81,6 +81,8 @@ extension CoreDataManager {
     /// - Parameter completion: Completion closure.
     public func saveChanges(completion: CoreDataManagerSaveCompletion? = nil) {
         
+        let contextHasNoChangesError = NSError(domain: ApplicationConstants.Errors.domain, code: ApplicationConstants.Errors.codes.ContextHasNoChangesErrorCode, userInfo: nil)
+        
         mainContext.perform {
             
             do {
@@ -88,7 +90,7 @@ extension CoreDataManager {
                     try self.mainContext.save()
                 } else {
                     DispatchQueue.main.async {
-                        completion?(false, nil)
+                        completion?(false, contextHasNoChangesError)
                     }
                 }
             } catch {
@@ -112,7 +114,7 @@ extension CoreDataManager {
                         }
                     } else {
                         DispatchQueue.main.async {
-                            completion?(false, nil)
+                            completion?(false, contextHasNoChangesError)
                         }
                     }
                     
@@ -140,6 +142,8 @@ extension CoreDataManager {
     ///   - completion: Completion closure.
     public func save(block: @escaping (_ workerContext: NSManagedObjectContext)->(), completion: CoreDataManagerSaveCompletion? = nil) {
         
+        let contextHasNoChangesError = NSError(domain: ApplicationConstants.Errors.domain, code: ApplicationConstants.Errors.codes.ContextHasNoChangesErrorCode, userInfo: nil)
+        
         let context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         context.parent = mainContext
         
@@ -153,7 +157,7 @@ extension CoreDataManager {
                     try context.save()
                 } else {
                     DispatchQueue.main.async {
-                        completion?(false, nil)
+                        completion?(false, contextHasNoChangesError)
                     }
                 }
                 

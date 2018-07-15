@@ -22,4 +22,11 @@ public enum ApplicationConstants {
         static let modelName = "NewsProj"
     }
     
+    struct Errors {
+        static let domain = "ru.eivanov.news-proj.errors"
+        struct codes {
+            static let ContextHasNoChangesErrorCode = 567
+        }
+    }
+    
 }
