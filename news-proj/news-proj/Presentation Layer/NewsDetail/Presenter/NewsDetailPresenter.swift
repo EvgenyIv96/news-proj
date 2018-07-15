@@ -30,6 +30,7 @@ extension NewsDetailPresenter: NewsDetailViewOutput {
         
         let screenName = newsPlainObject.title ?? ""
         view.configure(screenName: screenName)
+        view.configure(htmlText: newsPlainObject.text ?? "")
         
         newsDetailService.incrementViewsCount()
         

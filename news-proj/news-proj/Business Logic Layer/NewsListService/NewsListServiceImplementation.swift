@@ -119,7 +119,7 @@ extension NewsListServiceImplementation: NewsListServiceInput {
                         if success {
                             completion(.success(nextPage: nextPage))
                         } else {
-                            completion(.failure(error: error!, humanReadableErrorText: ApplicationConstants.WebConstants.error))
+                            completion(.failure(error: error, humanReadableErrorText: ApplicationConstants.WebConstants.error))
                         }
                     }
                     
@@ -175,7 +175,7 @@ extension NewsListServiceImplementation: NewsListServiceInput {
                             if success {
                                 completion(.success(nextPage: nextPage))
                             } else {
-                                completion(.failure(error: error!, humanReadableErrorText: ApplicationConstants.WebConstants.error))
+                                completion(.failure(error: error, humanReadableErrorText: ApplicationConstants.WebConstants.error))
                             }
                         }
                 })

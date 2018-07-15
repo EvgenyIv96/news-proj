@@ -11,7 +11,7 @@ import CoreData
 
 class NewsDetailServiceImplementation: NSObject {
     
-    var delegate: NewsDetailServiceDelegate?
+    weak var delegate: NewsDetailServiceDelegate?
     
     var networkComponent: NetworkComponent!
     var requestBuilder: URLRequestBuilder!
@@ -65,17 +65,20 @@ extension NewsDetailServiceImplementation: NewsDetailServiceInput {
             
             do {
                 
-                let decoder = JSONDecoder()
-                let newsDetailRespone = try decoder.decode(NewsDetailResponse.self, from: responseData)
+                let newsDetailRespone = try self?.decodeResponseData(responseData)
+                
+                let updatedNewsPlainObject = NewsPlainObject(with: newsDetailRespone!.response, viewsCount: newsPlainObject.viewsCount)
                 
                 CoreDataManager.shared.mainContext.perform { [weak self] in
-                    self?.news?.fill(with: newsDetailRespone.news)
+                    self?.news?.fill(with: updatedNewsPlainObject)
                     CoreDataManager.shared.saveChanges(completion: { (success, error) in
                         DispatchQueue.main.async {
                             if success {
                                 completion(.success)
                             } else {
-                                completion(.failure(error: error!, humanReadableErrorText: ApplicationConstants.WebConstants.error))
+                                if let error = error {
+                                    completion(.failure(error: error, humanReadableErrorText: ApplicationConstants.WebConstants.error))
+                                }
                             }
                         }
                     })
@@ -119,6 +122,13 @@ extension NewsDetailServiceImplementation {
         
         return request
         
+    }
+    
+    fileprivate func decodeResponseData(_ data: Data) throws -> NewsDetailResponse {
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .formatted(DateFormatter.iso8601Full())
+        let newsDetailResponse = try decoder.decode(NewsDetailResponse.self, from: data)
+        return newsDetailResponse
     }
     
 }

@@ -11,7 +11,7 @@ import CoreData
 
 enum NewsListServiceResult {
     case success(nextPage: Int?)
-    case failure(error: Error, humanReadableErrorText: String)
+    case failure(error: Error?, humanReadableErrorText: String)
 }
 
 protocol NewsListServiceInput: class {
