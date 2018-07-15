@@ -11,7 +11,7 @@ import CoreData
 
 protocol NewsDetailModuleInput: class {
 
-    /// Method is used to configure module with given news object managed object identifier.
+    /// Method is used to configure module with given news object managed object identifier. WARNING: Expected permanent managed object id!
     ///
     /// - Parameter newsObjectID: Managed object ID.
     func configureModule(with newsObjectID: NSManagedObjectID)

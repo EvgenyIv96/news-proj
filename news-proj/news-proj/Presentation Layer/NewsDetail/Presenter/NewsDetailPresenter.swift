@@ -14,8 +14,8 @@ class NewsDetailPresenter {
     weak var view: NewsDetailViewInput!
     
     weak var router: NewsDetailModuleRouting!
-
-    var news: News?
+    
+    var newsDetailService: NewsDetailServiceInput!
     
 }
 
@@ -26,14 +26,20 @@ extension NewsDetailPresenter: NewsDetailViewOutput {
         
         view.setupInitialState()
         
-        guard let news = news else { return }
-        let newsPlainObject = NewsPlainObject(with: news)
+        let newsPlainObject = newsDetailService.obtainNewsPlainObject()
         
         let screenName = newsPlainObject.title ?? ""
         view.configure(screenName: screenName)
         
+        newsDetailService.incrementViewsCount()
+        
         view.setNetworkActivityIndicatorVisible(true)
-        updateNews(news: news)
+        
+        newsDetailService.getNewsData { [weak self] (result) in
+            
+            self?.view.setNetworkActivityIndicatorVisible(false)
+            
+        }
         
     }
     
@@ -43,16 +49,17 @@ extension NewsDetailPresenter: NewsDetailViewOutput {
 extension NewsDetailPresenter: NewsDetailModuleInput {
 
     func configureModule(with newsObjectID: NSManagedObjectID) {
-        news = CoreDataManager.shared.mainContext.object(with: newsObjectID) as? News
+        newsDetailService.setup(with: newsObjectID)
     }
 
 }
 
+// MARK: - NewsDetailServiceDelegate
+extension NewsDetailPresenter: NewsDetailServiceDelegate {
+    
+}
+
 // MARK: - Private
 extension NewsDetailPresenter {
-    
-    fileprivate func updateNews(news: News) {
-        
-    }
     
 }

@@ -15,6 +15,7 @@ class NewsDetailModuleAssembly {
         // Creating module components
         let viewController = UIStoryboard(name: NewsDetailStoryboardName, bundle: nil).instantiateViewController(withIdentifier: NewsDetailViewControllerStoryboardIdentifier)
         let presenter = NewsDetailPresenter()
+        let newsDetailService = NewsDetailServiceAssembly().buildNewsDetailService(delegate: presenter)
         
         guard let moduleViewController = viewController as? NewsDetailViewController else {
             completion(nil, nil)
@@ -25,6 +26,7 @@ class NewsDetailModuleAssembly {
         moduleViewController.output = presenter
         presenter.view = moduleViewController
         presenter.router = moduleViewController
+        presenter.newsDetailService = newsDetailService
         
         completion(moduleViewController, presenter)
         
