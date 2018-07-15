@@ -62,8 +62,8 @@ extension NewsListPresenter: NewsListViewOutput {
     }
     
     func didTriggerItemAtIndexPathSelectedEvent(_ indexPath: IndexPath) {
-        let selectedNewsPlainObject = newsListService.newsPlainObject(at: indexPath)
-        print(selectedNewsPlainObject.slug)
+        let selectedNewsObjectID = newsListService.newsObjectIDForObject(at: indexPath)
+        router.openNewsDetailModule(with: selectedNewsObjectID)
     }
     
     func didTriggerPullToRefreshAction() {

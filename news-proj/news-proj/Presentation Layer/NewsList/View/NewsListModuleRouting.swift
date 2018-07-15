@@ -7,7 +7,13 @@
 //
 
 import Foundation
+import CoreData
 
 protocol NewsListModuleRouting: class {
+    
+    /// Method is used to open news detail module and configure it with given permanent news managed object id.
+    ///
+    /// - Parameter newsObjectID: Permanent managed object id.
+    func openNewsDetailModule(with newsObjectID: NSManagedObjectID)
     
 }

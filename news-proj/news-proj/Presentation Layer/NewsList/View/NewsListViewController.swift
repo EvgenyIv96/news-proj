@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 fileprivate let ScreenName = "Новости"
 
@@ -172,5 +173,14 @@ extension NewsListViewController {
 
 // MARK: - NewsListModuleRouting
 extension NewsListViewController: NewsListModuleRouting {
+    
+    func openNewsDetailModule(with newsObjectID: NSManagedObjectID) {
+        
+        NewsDetailModuleAssembly().buildNewsDetailModule { (viewController, moduleInput) in
+            moduleInput?.configureModule(with: newsObjectID)
+            self.navigationController?.pushViewController(viewController!, animated: true)
+        }
+        
+    }
     
 }
