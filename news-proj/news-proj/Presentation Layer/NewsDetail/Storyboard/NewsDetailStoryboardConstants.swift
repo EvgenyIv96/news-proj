@@ -9,4 +9,4 @@
 import Foundation
 
 let NewsDetailStoryboardName = "NewsDetailStoryboard"
-
+let NewsDetailViewControllerStoryboardIdentifier = "NewsDetailViewControllerStoryboardIdentifier"
