@@ -15,11 +15,17 @@ public class CoreDataManager {
     
     static let shared = CoreDataManager()
     
-    private var persistentStoreCoordinator: NSPersistentStoreCoordinator!
+    fileprivate var persistentStoreCoordinator: NSPersistentStoreCoordinator!
     
-    private(set) var mainContext: NSManagedObjectContext!
-    private var backgroundWriterContext: NSManagedObjectContext!
+    fileprivate(set) var mainContext: NSManagedObjectContext!
+    fileprivate var backgroundWriterContext: NSManagedObjectContext!
     
+}
+
+// MARK: - PUBLIC
+extension CoreDataManager {
+    
+    // MARK: Core data stack
     public func createCoreDataStack(completion: @escaping () -> () ) {
         
         // Model initialization
@@ -66,6 +72,9 @@ public class CoreDataManager {
         }
         
     }
+    
+    
+    // MARK: Saving
     
     /// Method is used to save changes which was made in main context.
     ///
@@ -121,7 +130,7 @@ public class CoreDataManager {
             }
             
         }
-       
+        
     }
     
     /// Method is used to make changes in new background context and save it.
@@ -149,7 +158,7 @@ public class CoreDataManager {
                 }
                 
                 self.saveChanges(completion: completion)
-
+                
             } catch {
                 
                 if let error = error as NSError? {
@@ -160,8 +169,30 @@ public class CoreDataManager {
                 }
                 
             }
-
+            
         }
+        
+    }
+    
+    // MARK: Other
+    public func permanentObjectID(for object: NSManagedObject) -> NSManagedObjectID? {
+        
+        guard !object.objectID.isTemporaryID else { return object.objectID }
+        
+        var objectID: NSManagedObjectID?
+        
+        backgroundWriterContext.performAndWait { [unowned self] in
+            do {
+                try self.backgroundWriterContext.obtainPermanentIDs(for: [object])
+                objectID = object.objectID
+            } catch {
+                if let error = error as NSError? {
+                    print("Can't obtain permanent object id \(error) \(error.userInfo)")
+                }
+            }
+        }
+        
+        return objectID
         
     }
     
