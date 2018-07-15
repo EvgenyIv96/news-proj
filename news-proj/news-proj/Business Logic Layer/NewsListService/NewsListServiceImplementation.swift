@@ -225,7 +225,7 @@ extension NewsListServiceImplementation {
     
     fileprivate func decodeResponseData(_ data: Data) throws -> NewsListResponse {
         let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .iso8601
+        decoder.dateDecodingStrategy = .formatted(DateFormatter.iso8601Full())
         let newsListResponse = try decoder.decode(NewsListResponse.self, from: data)
         return newsListResponse
     }
