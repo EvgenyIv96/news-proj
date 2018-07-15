@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreData
 
 enum NewsListServiceResult {
     case success(nextPage: Int?)
@@ -29,6 +30,12 @@ protocol NewsListServiceInput: class {
     /// - Parameter indexPath: Index path
     /// - Returns: News plain object for given index path.
     func newsPlainObject(at indexPath: IndexPath) -> NewsPlainObject
+    
+    /// Method is used to obtain permanent managed object id for news object at given index path.
+    ///
+    /// - Parameter indexPath: Index path.
+    /// - Returns: Permanent managed object id.
+    func newsObjectIDForObject(at indexPath: IndexPath) -> NSManagedObjectID
 
     /// Method is used to reload all news. Method will obtain first part of the news list for given page size, obtained part of news will be cached. Also method removes all previosly obtained news and clears old cache. All previous runned obtaining operations will be cancelled.
     ///

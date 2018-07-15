@@ -61,18 +61,19 @@ extension NewsListServiceImplementation: NewsListServiceInput {
         
     }
 
+    func newsObjectIDForObject(at indexPath: IndexPath) -> NSManagedObjectID {
+        
+        let news = fetchedResultsController!.object(at: indexPath)
+        
+        return CoreDataManager.shared.permanentObjectID(for: news)!
+        
+    }
+    
     func reloadNews(pageSize: Int, completion: @escaping (NewsListServiceResult) -> ()) {
 
         let pageOffset = 0
         
-        var request: URLRequest?
-        do {
-            request = try createWebRequest(with: pageOffset, pageSize: pageSize)
-        } catch {
-            completion(.failure(error: error, humanReadableErrorText: ApplicationConstants.WebConstants.error))
-        }
-        
-        guard let webRequest = request else { return }
+        guard let webRequest = createWebRequest(with: pageOffset, pageSize: pageSize) else { return }
         
         // Cancelling previous request
         networkComponent.cancel()
@@ -128,7 +129,9 @@ extension NewsListServiceImplementation: NewsListServiceInput {
                 if let error = error as NSError? {
                     print("Decoding response data error: \(error) \(error.userInfo)")
                 }
-                completion(.failure(error: error, humanReadableErrorText: ApplicationConstants.WebConstants.error))
+                DispatchQueue.main.async {
+                    completion(.failure(error: error, humanReadableErrorText: ApplicationConstants.WebConstants.error))
+                }
             }
         }
         
@@ -136,14 +139,12 @@ extension NewsListServiceImplementation: NewsListServiceInput {
 
     func obtainNews(pageOffset: Int, pageSize: Int, completion: @escaping (NewsListServiceResult) -> ()) {
         
-        let requestData = NewsListRequestData(pageOffset: pageOffset, pageSize: pageSize)
-        
-        let request = try! requestBuilder.buildRequest(with: requestData)
+        guard let webRequest = createWebRequest(with: pageOffset, pageSize: pageSize) else { return }
         
         // Cancelling previous request
         networkComponent.cancel()
         
-        networkComponent.makeRequest(request: request) { [weak self] (task, data, response, error) in
+        networkComponent.makeRequest(request: webRequest) { [weak self] (task, data, response, error) in
             
             guard task?.state != .canceling else { return }
 
@@ -183,7 +184,9 @@ extension NewsListServiceImplementation: NewsListServiceInput {
                 if let error = error as NSError? {
                     print("Decoding response data error: \(error) \(error.userInfo)")
                 }
-                completion(.failure(error: error, humanReadableErrorText: ApplicationConstants.WebConstants.error))
+                DispatchQueue.main.async {
+                    completion(.failure(error: error, humanReadableErrorText: ApplicationConstants.WebConstants.error))
+                }
             }
             
         }
@@ -230,7 +233,7 @@ extension NewsListServiceImplementation {
         return newsListResponse
     }
     
-    fileprivate func createWebRequest(with pageOffset: Int, pageSize: Int) throws -> URLRequest?  {
+    fileprivate func createWebRequest(with pageOffset: Int, pageSize: Int) -> URLRequest?  {
         
         let requestData = NewsListRequestData(pageOffset: pageOffset, pageSize: pageSize)
         
