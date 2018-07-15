@@ -8,6 +8,14 @@
 
 import Foundation
 
+//typealias NewsListServiceSuccess = () -> ()
+//typealias NewsListServiceFailure = () -> ()
+
+enum NewsListServiceResult {
+    case success(nextPage: Int?)
+    case failure(error: Error, humanReadableErrorText: String)
+}
+
 protocol NewsListServiceInput: class {
     
     /// Method is used to prepare service for working. Call this method once before using. After prepearing service automatically will give cached news using appropriate delegate methods.
@@ -27,14 +35,17 @@ protocol NewsListServiceInput: class {
 
     /// Method is used to reload all news. Method will obtain first part of the news list for given page size, obtained part of news will be cached. Also method removes all previosly obtained news and clears old cache. All previous runned obtaining operations will be cancelled.
     ///
+    /// - Parameters:
     /// - Parameter pageSize: Page size
-    func reloadNews(pageSize: Int)
+    ///   - completion: Completion handler. In success case next page number may be nil if there are not next pages with news.
+    func reloadNews(pageSize: Int, completion: @escaping (NewsListServiceResult) -> ())
     
     /// Method is used to obtain news with given page offset and page size. Obtained news will be cached. All previous runned obtaining operations will be cancelled.
     ///
     /// - Parameters:
     ///   - pageOffset: Page offset
     ///   - pageSize: Page size
-    func obtainNews(pageOffset: Int, pageSize: Int)
+    ///   - completion: Completion handler. In success case next page number may be nil if there are not next pages with news.
+    func obtainNews(pageOffset: Int, pageSize: Int, completion: @escaping (NewsListServiceResult) -> ())
 
 }

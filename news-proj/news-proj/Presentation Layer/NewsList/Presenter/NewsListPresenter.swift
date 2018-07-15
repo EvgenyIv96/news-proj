@@ -31,7 +31,9 @@ extension NewsListPresenter: NewsListViewOutput {
         
         newsListService.prepare()
 
-        newsListService.reloadNews(pageSize: PageSize)
+        newsListService.reloadNews(pageSize: PageSize) { (result) in
+            
+        }
 
     }
     
