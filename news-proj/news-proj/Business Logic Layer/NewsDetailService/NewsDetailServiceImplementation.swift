@@ -85,7 +85,9 @@ extension NewsDetailServiceImplementation: NewsDetailServiceInput {
                 if let error = error as NSError? {
                     print("Decoding response data error: \(error) \(error.userInfo)")
                 }
-                completion(.failure(error: error, humanReadableErrorText: ApplicationConstants.WebConstants.error))
+                DispatchQueue.main.async {
+                    completion(.failure(error: error, humanReadableErrorText: ApplicationConstants.WebConstants.error))
+                }
             }
             
         }
