@@ -8,9 +8,6 @@
 
 import Foundation
 
-//typealias NewsListServiceSuccess = () -> ()
-//typealias NewsListServiceFailure = () -> ()
-
 enum NewsListServiceResult {
     case success(nextPage: Int?)
     case failure(error: Error, humanReadableErrorText: String)

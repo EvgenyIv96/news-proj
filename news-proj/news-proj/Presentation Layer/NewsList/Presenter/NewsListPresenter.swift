@@ -18,7 +18,17 @@ class NewsListPresenter {
     
     var newsListService: NewsListServiceInput!
     
-    fileprivate var currentNewsListPage: Int? = 0
+    fileprivate var nextNewsListPage: Int? = 0 {
+        
+        didSet {
+            if let _ = nextNewsListPage {
+                view.setInfinityScrollingEnabled(true)
+            } else {
+                view.setInfinityScrollingEnabled(false)
+            }
+        }
+        
+    }
 
 }
 
@@ -27,13 +37,12 @@ extension NewsListPresenter: NewsListViewOutput {
     
     func didTriggerViewReadyEvent() {
         
+        // Prepare view for working
         view.setupInitialState()
-        
+        // Prepare news list service for working and load cached news
         newsListService.prepare()
-
-        newsListService.reloadNews(pageSize: PageSize) { (result) in
-            
-        }
+        // Refresh news list
+        didTriggerPullToRefreshAction()
 
     }
     
@@ -62,12 +71,43 @@ extension NewsListPresenter: NewsListViewOutput {
         view.setPullToRefreshLoadingIndicatorVisible(true)
         view.setBottomLoadingIndicatorVisible(false)
         view.setInfinityScrollingEnabled(false)
+        
+        newsListService.reloadNews(pageSize: PageSize) { [weak self] (result) in
+            
+            switch result {
+            case .success(let nextPage):
+                self?.nextNewsListPage = nextPage
+            case .failure(let error, let humanReadableErrorText):
+                break
+            }
+            
+            self?.hideLoadingIndicators()
+            
+        }
+        
     }
     
     func didTriggerInfiniteScrollingAction() {
+        
+        guard let nextPage = nextNewsListPage else { return }
+        
         view.setNetworkActivityIndicatorVisible(true)
         view.setBottomLoadingIndicatorVisible(true)
         view.setInfinityScrollingEnabled(false)
+        
+        newsListService.obtainNews(pageOffset: nextPage, pageSize: PageSize) { [weak self] (result) in
+            
+            switch result {
+            case .success(let nextPage):
+                self?.nextNewsListPage = nextPage
+            case .failure(let error, let humanReadableErrorText):
+                break
+            }
+            
+            self?.hideLoadingIndicators()
+            
+        }
+        
     }
     
 }
@@ -105,6 +145,17 @@ extension NewsListPresenter: NewsListServiceDelegate {
     
     func newsListServiceDidUpdateNews() {
         view.endTableUpdates()
+    }
+    
+}
+
+// MARK: - Private
+extension NewsListPresenter {
+    
+    fileprivate func hideLoadingIndicators() {
+        view.setBottomLoadingIndicatorVisible(false)
+        view.setNetworkActivityIndicatorVisible(false)
+        view.setPullToRefreshLoadingIndicatorVisible(false)
     }
     
 }
