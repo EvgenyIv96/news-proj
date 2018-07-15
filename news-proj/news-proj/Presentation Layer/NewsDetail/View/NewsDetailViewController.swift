@@ -87,7 +87,7 @@ extension NewsDetailViewController {
 extension NewsDetailViewController: NewsDetailModuleRouting {
     
     func close() {
-        dismiss(animated: true, completion: nil)
+        navigationController?.popViewController(animated: true)
     }
     
 }
