@@ -26,6 +26,9 @@
 		E52740B620FBEA240000E593 /* NewsDetailResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52740B520FBEA240000E593 /* NewsDetailResponse.swift */; };
 		E52740B920FC0D180000E593 /* UIViewController+ErrorAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52740B820FC0D180000E593 /* UIViewController+ErrorAlert.swift */; };
 		E52740BC20FC15FD0000E593 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52740BB20FC15FD0000E593 /* Reachability.swift */; };
+		E52740BF20FC192D0000E593 /* SplashScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52740BE20FC192D0000E593 /* SplashScreenViewController.swift */; };
+		E52740C220FC19770000E593 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E52740C120FC19770000E593 /* SplashScreen.storyboard */; };
+		E52740C420FC1A240000E593 /* SplashScreenStoryboardConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52740C320FC1A240000E593 /* SplashScreenStoryboardConstants.swift */; };
 		E556460220F7F7A3002EF0E6 /* NewsListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E556460120F7F7A3002EF0E6 /* NewsListResponse.swift */; };
 		E556460520F80B4B002EF0E6 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E556460420F80B4B002EF0E6 /* CoreDataManager.swift */; };
 		E556460920F882D2002EF0E6 /* NSManagedObjectContext+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E556460820F882D2002EF0E6 /* NSManagedObjectContext+Extensions.swift */; };
@@ -85,6 +88,9 @@
 		E52740B520FBEA240000E593 /* NewsDetailResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailResponse.swift; sourceTree = "<group>"; };
 		E52740B820FC0D180000E593 /* UIViewController+ErrorAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ErrorAlert.swift"; sourceTree = "<group>"; };
 		E52740BB20FC15FD0000E593 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		E52740BE20FC192D0000E593 /* SplashScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenViewController.swift; sourceTree = "<group>"; };
+		E52740C120FC19770000E593 /* SplashScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SplashScreen.storyboard; sourceTree = "<group>"; };
+		E52740C320FC1A240000E593 /* SplashScreenStoryboardConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenStoryboardConstants.swift; sourceTree = "<group>"; };
 		E556460120F7F7A3002EF0E6 /* NewsListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsListResponse.swift; sourceTree = "<group>"; };
 		E556460420F80B4B002EF0E6 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		E556460820F882D2002EF0E6 /* NSManagedObjectContext+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+Extensions.swift"; sourceTree = "<group>"; };
@@ -242,6 +248,24 @@
 			path = Reachability;
 			sourceTree = "<group>";
 		};
+		E52740BD20FC19180000E593 /* SplashScreen */ = {
+			isa = PBXGroup;
+			children = (
+				E52740C020FC196B0000E593 /* Storyboard */,
+				E52740BE20FC192D0000E593 /* SplashScreenViewController.swift */,
+			);
+			path = SplashScreen;
+			sourceTree = "<group>";
+		};
+		E52740C020FC196B0000E593 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				E52740C120FC19770000E593 /* SplashScreen.storyboard */,
+				E52740C320FC1A240000E593 /* SplashScreenStoryboardConstants.swift */,
+			);
+			path = Storyboard;
+			sourceTree = "<group>";
+		};
 		E556460020F7F78F002EF0E6 /* NewsList */ = {
 			isa = PBXGroup;
 			children = (
@@ -386,6 +410,7 @@
 		E592E4AD20F6A11B006DBA90 /* Presentation Layer */ = {
 			isa = PBXGroup;
 			children = (
+				E52740BD20FC19180000E593 /* SplashScreen */,
 				E592E4E620F7D631006DBA90 /* NewsList */,
 				E527409020FBBC650000E593 /* NewsDetail */,
 			);
@@ -629,6 +654,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E592E4A020F680DE006DBA90 /* LaunchScreen.storyboard in Resources */,
+				E52740C220FC19770000E593 /* SplashScreen.storyboard in Resources */,
 				E527409320FBBC9B0000E593 /* NewsDetailStoryboard.storyboard in Resources */,
 				E592E49D20F680DE006DBA90 /* Assets.xcassets in Resources */,
 				E592E51B20F7EC43006DBA90 /* NewsListCell.xib in Resources */,
@@ -650,6 +676,7 @@
 				E52740B620FBEA240000E593 /* NewsDetailResponse.swift in Sources */,
 				E52740AA20FBC6FC0000E593 /* NewsDetailServiceImplementation.swift in Sources */,
 				E592E4D620F7872F006DBA90 /* NewsListServiceDelegate.swift in Sources */,
+				E52740C420FC1A240000E593 /* SplashScreenStoryboardConstants.swift in Sources */,
 				E527409520FBBCA70000E593 /* NewsDetailStoryboardConstants.swift in Sources */,
 				E592E4CE20F76531006DBA90 /* ApplicationConstants.swift in Sources */,
 				E52740A220FBBDAE0000E593 /* NewsDetailViewController.swift in Sources */,
@@ -685,6 +712,7 @@
 				E592E4B520F6A377006DBA90 /* News+CoreDataClass.swift in Sources */,
 				E592E4E320F790E9006DBA90 /* JSONParameterEncoder.swift in Sources */,
 				E556461520FA44C2002EF0E6 /* Array+Extensions.swift in Sources */,
+				E52740BF20FC192D0000E593 /* SplashScreenViewController.swift in Sources */,
 				E592E50D20F7DB74006DBA90 /* NewsListPresenter.swift in Sources */,
 				E592E50A20F7DB74006DBA90 /* NewsListViewController.swift in Sources */,
 				E556460920F882D2002EF0E6 /* NSManagedObjectContext+Extensions.swift in Sources */,

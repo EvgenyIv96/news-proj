@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Splash Screen View Controller-->
+        <scene sceneID="FIj-Of-8WR">
+            <objects>
+                <viewController storyboardIdentifier="SplashScreenViewControllerStoryboardIdentifier" id="E8M-pr-t2t" customClass="SplashScreenViewController" customModule="news_proj" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="vvs-po-Zdv">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="News" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ylR-uh-GuX">
+                                <rect key="frame" x="129.5" y="305" width="116.5" height="57.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="48"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Идёт загрузка..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fwn-sc-nWs">
+                                <rect key="frame" x="140.5" y="412.5" width="128" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="JsG-i9-q37">
+                                <rect key="frame" x="112" y="413" width="20" height="20"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Fwn-sc-nWs" firstAttribute="centerX" secondItem="vvs-po-Zdv" secondAttribute="centerX" constant="17" id="J4P-NM-J8e"/>
+                            <constraint firstItem="ylR-uh-GuX" firstAttribute="centerX" secondItem="vvs-po-Zdv" secondAttribute="centerX" id="JTj-r3-7QV"/>
+                            <constraint firstItem="Fwn-sc-nWs" firstAttribute="leading" secondItem="JsG-i9-q37" secondAttribute="trailing" constant="8" id="QBd-m0-Tz0"/>
+                            <constraint firstItem="JsG-i9-q37" firstAttribute="centerY" secondItem="Fwn-sc-nWs" secondAttribute="centerY" id="QQQ-Bq-LEu"/>
+                            <constraint firstItem="Fwn-sc-nWs" firstAttribute="top" secondItem="ylR-uh-GuX" secondAttribute="bottom" constant="50" id="Y4d-dM-6cM"/>
+                            <constraint firstItem="ylR-uh-GuX" firstAttribute="centerY" secondItem="vvs-po-Zdv" secondAttribute="centerY" id="sMr-L7-anU"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="hgC-FU-bZa"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OVk-1q-Sjk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="414" y="-168"/>
+        </scene>
+    </scenes>
+</document>

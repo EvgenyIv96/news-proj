@@ -15,19 +15,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        
+        let splashScreenViewController = SplashScreenViewController.splashScreenViewController()
+        
+        let navigationController = UINavigationController(rootViewController: splashScreenViewController)
+        
+        if let window = self.window {
+            window.rootViewController = navigationController
+            window.makeKeyAndVisible()
+        }
+        
         CoreDataManager.shared.createCoreDataStack {
             
             NewsListModuleAssembly().buildNewsListModule { (viewController, moduleInput) in
-                
-                self.window = UIWindow(frame: UIScreen.main.bounds)
-                
-                if let window = self.window, let viewController = viewController {
-                    let navigationController = UINavigationController(rootViewController: viewController)
-                    window.rootViewController = navigationController
-                    window.makeKeyAndVisible()
-                }
-                
+                navigationController.setViewControllers([viewController!], animated: true)
             }
+            
         }
         
         return true
