@@ -18,10 +18,10 @@ class NewsListPresenter {
     
     var newsListService: NewsListServiceInput!
     
-    fileprivate var nextNewsListPage: Int? = 0 {
+    fileprivate var nextNewsListPageOffset: Int? = 0 {
         
         didSet {
-            if let _ = nextNewsListPage {
+            if let _ = nextNewsListPageOffset {
                 view.setInfinityScrollingEnabled(true)
             } else {
                 view.setInfinityScrollingEnabled(false)
@@ -77,8 +77,8 @@ extension NewsListPresenter: NewsListViewOutput {
             self?.hideLoadingIndicators()
             
             switch result {
-            case .success(let nextPage):
-                self?.nextNewsListPage = nextPage
+            case .success(let nextPageOffset):
+                self?.nextNewsListPageOffset = nextPageOffset
             case .failure(let error, let humanReadableErrorText):
                 if let error = error as NSError? {
                     print(error)
@@ -93,19 +93,19 @@ extension NewsListPresenter: NewsListViewOutput {
     
     func didTriggerInfiniteScrollingAction() {
         
-        guard let nextPage = nextNewsListPage else { return }
+        guard let pageOffset = nextNewsListPageOffset else { return }
         
         view.setNetworkActivityIndicatorVisible(true)
         view.setBottomLoadingIndicatorVisible(true)
         view.setInfinityScrollingEnabled(false)
         
-        newsListService.obtainNews(pageOffset: nextPage, pageSize: PageSize) { [weak self] (result) in
+        newsListService.obtainNews(pageOffset: pageOffset, pageSize: PageSize) { [weak self] (result) in
             
             self?.hideLoadingIndicators()
             
             switch result {
-            case .success(let nextPage):
-                self?.nextNewsListPage = nextPage
+            case .success(let nextPageOffset):
+                self?.nextNewsListPageOffset = nextPageOffset
             case .failure(let error, let humanReadableErrorText):
                 if let error = error as NSError? {
                     print(error)

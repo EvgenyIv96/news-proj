@@ -120,13 +120,13 @@ extension NewsListServiceImplementation: NewsListServiceInput {
                     
                     guard (self != nil) else { return }
                     
-                    let isAllContentShowed = self!.isAllContentShowed(for: decodedResponse.response.totalCount, pageSize: pageSize, currentOffset: pageOffset)
+                    let isAllContentShowed = self!.isAllContentShowed(for: decodedResponse.response.totalCount, loadedCount: pageOffset + pageSize)
                     
-                    let nextPage = isAllContentShowed ? nil : pageOffset + 1
+                    let nextPageOffset = isAllContentShowed ? nil : pageOffset + pageSize
                     
                     DispatchQueue.main.async {
                         if success {
-                            completion(.success(nextPage: nextPage))
+                            completion(.success(nextPageOffset: nextPageOffset))
                         } else {
                             completion(.failure(error: error, humanReadableErrorText: ApplicationConstants.WebConstants.error))
                         }
@@ -185,13 +185,13 @@ extension NewsListServiceImplementation: NewsListServiceInput {
                         
                         guard (self != nil) else { return }
                         
-                        let isAllContentShowed = self!.isAllContentShowed(for: decodedResponse.response.totalCount, pageSize: pageSize, currentOffset: pageOffset)
+                        let isAllContentShowed = self!.isAllContentShowed(for: decodedResponse.response.totalCount, loadedCount: pageOffset + pageSize)
                         
-                        let nextPage = isAllContentShowed ? nil : pageOffset + 1
+                        let nextPageOffset = isAllContentShowed ? nil : pageOffset + pageSize
                         
                         DispatchQueue.main.async {
                             if success {
-                                completion(.success(nextPage: nextPage))
+                                completion(.success(nextPageOffset: nextPageOffset))
                             } else {
                                 completion(.failure(error: error, humanReadableErrorText: ApplicationConstants.WebConstants.error))
                             }
@@ -296,9 +296,7 @@ extension NewsListServiceImplementation {
         
     }
     
-    fileprivate func isAllContentShowed(for totalCount: Int, pageSize: Int, currentOffset: Int) -> Bool {
-        
-        let loadedCount = (currentOffset + 1) * pageSize
+    fileprivate func isAllContentShowed(for totalCount: Int, loadedCount: Int) -> Bool {
         
         if totalCount - loadedCount > 0 {
             return false

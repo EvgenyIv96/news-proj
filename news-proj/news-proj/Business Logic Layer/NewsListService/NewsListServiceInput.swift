@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 enum NewsListServiceResult {
-    case success(nextPage: Int?)
+    case success(nextPageOffset: Int?)
     case failure(error: Error?, humanReadableErrorText: String)
 }
 
@@ -41,7 +41,7 @@ protocol NewsListServiceInput: class {
     ///
     /// - Parameters:
     /// - Parameter pageSize: Page size
-    ///   - completion: Completion handler. In success case next page number may be nil if there are not next pages with news.
+    ///   - completion: Completion handler. In success case next page offset may be nil if all news has already loaded.
     func reloadNews(pageSize: Int, completion: @escaping (NewsListServiceResult) -> ())
     
     /// Method is used to obtain news with given page offset and page size. Obtained news will be cached. All previous runned obtaining operations will be cancelled.
@@ -49,7 +49,7 @@ protocol NewsListServiceInput: class {
     /// - Parameters:
     ///   - pageOffset: Page offset
     ///   - pageSize: Page size
-    ///   - completion: Completion handler. In success case next page number may be nil if there are not next pages with news.
+    ///   - completion: Completion handler. In success case next page offset may be nil if all news has already loaded.
     func obtainNews(pageOffset: Int, pageSize: Int, completion: @escaping (NewsListServiceResult) -> ())
 
 }
