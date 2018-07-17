@@ -32,7 +32,7 @@ public class News: NSManagedObject {
     
     static func sortedNewsFetchRequest() -> NSFetchRequest<News> {
         let fetchRequest = newsFetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: "slug", ascending: false)
+        let sortDescriptor = NSSortDescriptor(key: "creationDate", ascending: false)
         fetchRequest.sortDescriptors = [sortDescriptor]
         return fetchRequest
     }
