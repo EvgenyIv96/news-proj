@@ -8,19 +8,13 @@
 
 import Foundation
 
-class NewsDetailServiceAssembly {
+final class NewsDetailServiceAssembly {
     
     func buildNewsDetailService(delegate: NewsDetailServiceDelegate? = nil) -> NewsDetailServiceInput {
         
-        // Creating components
-        let newsDetailService = NewsDetailServiceImplementation()
         let networkComponent = NetworkComponent()
         let requestBuilder = URLRequestBuilder()
-        
-        // Injecting properties
-        newsDetailService.delegate = delegate
-        newsDetailService.networkComponent = networkComponent
-        newsDetailService.requestBuilder = requestBuilder
+        let newsDetailService = NewsDetailServiceImplementation(networkComponent: networkComponent, requestBuilder: requestBuilder, delegate: delegate)
         
         return newsDetailService
         

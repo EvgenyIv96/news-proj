@@ -13,11 +13,18 @@ class NewsDetailServiceImplementation: NSObject {
     
     weak var delegate: NewsDetailServiceDelegate?
     
-    var networkComponent: NetworkComponent!
-    var requestBuilder: URLRequestBuilder!
+    var networkComponent: NetworkComponent
+    var requestBuilder: URLRequestBuilder
     
     var newsManagedObjectID: NSManagedObjectID!
     var news: News?
+    
+    // MARK: - Initialization
+    init(networkComponent: NetworkComponent, requestBuilder: URLRequestBuilder, delegate: NewsDetailServiceDelegate? = nil) {
+        self.networkComponent = networkComponent
+        self.requestBuilder = requestBuilder
+        self.delegate = delegate
+    }
     
     deinit {
         let notificationCenter = NotificationCenter.default
