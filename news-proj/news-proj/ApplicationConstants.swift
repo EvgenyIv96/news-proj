@@ -10,19 +10,19 @@ import Foundation
 
 public enum ApplicationConstants {
     
-    struct WebConstants {
+    enum WebConstants {
         static let baseURLString = "https://cfg.tinkoff.ru/news/public/api/platform/v1/"
         static let timeoutInterval: TimeInterval = 5
         static let error = "Произошла ошибка"
         static let internetConnectionError = "Ошибка интернет-соединения"
     }
     
-    struct CoreDataConstants {
+    enum CoreDataConstants {
         static let storeName = "Storage"
         static let modelName = "NewsProj"
     }
     
-    struct Errors {
+    enum Errors {
         static let domain = "ru.eivanov.news-proj.errors"
         struct codes {
             static let ContextHasNoChangesErrorCode = 567
