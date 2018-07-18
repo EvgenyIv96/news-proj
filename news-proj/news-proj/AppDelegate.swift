@@ -11,25 +11,23 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    var window: UIWindow?
+    lazy var window: UIWindow? = {
+        return UIWindow(frame: UIScreen.main.bounds)
+    }()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-
-        self.window = UIWindow(frame: UIScreen.main.bounds)
         
         let splashScreenViewController = SplashScreenViewController.splashScreenViewController()
         
         let navigationController = UINavigationController(rootViewController: splashScreenViewController)
         
-        if let window = self.window {
-            window.rootViewController = navigationController
-            window.makeKeyAndVisible()
-        }
+        window?.rootViewController = navigationController
+        window?.makeKeyAndVisible()
         
         CoreDataManager.shared.createCoreDataStack {
             
-            NewsListModuleAssembly().buildNewsListModule { (viewController, moduleInput) in
-                navigationController.setViewControllers([viewController!], animated: true)
+            NewsListModuleAssembly().buildNewsListModule { viewController, _ in
+                navigationController.setViewControllers([viewController], animated: true)
             }
             
         }

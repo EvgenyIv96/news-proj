@@ -10,27 +10,23 @@ import UIKit
 
 class NewsListModuleAssembly {
     
-    func buildNewsListModule(_ completion: (UIViewController?, NewsListModuleInput?) -> Void) {
+    func buildNewsListModule(_ completion: (UIViewController, NewsListModuleInput) -> Void) {
         
         // Creating module components
-        let viewController = UIStoryboard(name: NewsListStoryboardName, bundle: nil).instantiateViewController(withIdentifier: NewsListViewControllerStoryboardIdentifier)
+        let viewController = UIStoryboard(name: NewsListStoryboardName, bundle: nil).instantiateViewController(withIdentifier: NewsListViewControllerStoryboardIdentifier) as! NewsListViewController
+        
         let presenter = NewsListPresenter()
         
         let newsListService = NewsListServiceAssembly().buildNewsListService(delegate: presenter)
         
-        guard let moduleViewController = viewController as? NewsListViewController else {
-            completion(nil, nil)
-            return
-        }
-        
         // Inject properties
-        moduleViewController.output = presenter
-        presenter.view = moduleViewController
-        presenter.router = moduleViewController
+        viewController.output = presenter
+        presenter.view = viewController
+        presenter.router = viewController
         
         presenter.newsListService = newsListService
         
-        completion(moduleViewController, presenter)
+        completion(viewController, presenter)
         
     }
     
