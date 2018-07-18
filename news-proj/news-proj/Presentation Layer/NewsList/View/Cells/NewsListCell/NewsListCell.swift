@@ -13,8 +13,8 @@ class NewsListCell: UITableViewCell {
     static let reuseIdentifier = "NewsListCellReuseIdentifier"
     static let height: CGFloat = 44.0
 
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var viewsCountLabel: UILabel!
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var viewsCountLabel: UILabel!
     
     // MARK: - Configuration
     func configure(with cellModel: NewsListCellModel) {
@@ -22,7 +22,7 @@ class NewsListCell: UITableViewCell {
         viewsCountLabel.text = cellModel.viewsCountString
     }
     
-    // MARK: - Private
+    // MARK: - Life cycle
     override func prepareForReuse() {
         super.prepareForReuse()
         titleLabel.text = ""
