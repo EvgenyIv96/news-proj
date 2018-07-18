@@ -11,6 +11,20 @@ import CoreData
 
 public typealias CoreDataManagerSaveCompletion = (_ contextDidSave: Bool, _ error: Error?) -> ()
 
+enum CoreDataConstants {
+    
+    fileprivate static let storeName = "Storage"
+    fileprivate static let modelName = "NewsProj"
+    
+    enum Errors {
+        enum Codes {
+            static let ContextHasNoChangesErrorCode = 567
+        }
+    }
+    
+}
+
+
 public class CoreDataManager {
     
     static let shared = CoreDataManager()
@@ -29,7 +43,7 @@ extension CoreDataManager {
     public func createCoreDataStack(completion: @escaping () -> () ) {
         
         // Model initialization
-        let modelURL = Bundle.main.url(forResource: ApplicationConstants.CoreDataConstants.modelName, withExtension: "momd")!
+        let modelURL = Bundle.main.url(forResource: CoreDataConstants.modelName, withExtension: "momd")!
         guard let model = NSManagedObjectModel(contentsOf: modelURL) else {
             fatalError("model not found")
         }
@@ -55,7 +69,7 @@ extension CoreDataManager {
             guard let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last else {
                 fatalError("Unable to get document directory")
             }
-            let storeURL = documentDirectory.appendingPathComponent(ApplicationConstants.CoreDataConstants.storeName)
+            let storeURL = documentDirectory.appendingPathComponent(CoreDataConstants.storeName)
             
             do {
                 try self.persistentStoreCoordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: storeURL, options: [:])
@@ -81,7 +95,7 @@ extension CoreDataManager {
     /// - Parameter completion: Completion closure.
     public func saveChanges(completion: CoreDataManagerSaveCompletion? = nil) {
         
-        let contextHasNoChangesError = NSError(domain: ApplicationConstants.Errors.domain, code: ApplicationConstants.Errors.codes.ContextHasNoChangesErrorCode, userInfo: nil)
+        let contextHasNoChangesError = NSError(domain: ApplicationConstants.Errors.domain, code: CoreDataConstants.Errors.Codes.ContextHasNoChangesErrorCode, userInfo: nil)
         
         mainContext.perform {
             
@@ -142,7 +156,7 @@ extension CoreDataManager {
     ///   - completion: Completion closure.
     public func save(block: @escaping (_ workerContext: NSManagedObjectContext)->(), completion: CoreDataManagerSaveCompletion? = nil) {
         
-        let contextHasNoChangesError = NSError(domain: ApplicationConstants.Errors.domain, code: ApplicationConstants.Errors.codes.ContextHasNoChangesErrorCode, userInfo: nil)
+        let contextHasNoChangesError = NSError(domain: ApplicationConstants.Errors.domain, code: CoreDataConstants.Errors.Codes.ContextHasNoChangesErrorCode, userInfo: nil)
         
         let context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         context.parent = mainContext

@@ -17,16 +17,8 @@ public enum ApplicationConstants {
         static let internetConnectionError = "Ошибка интернет-соединения"
     }
     
-    enum CoreDataConstants {
-        static let storeName = "Storage"
-        static let modelName = "NewsProj"
-    }
-    
     enum Errors {
         static let domain = "ru.eivanov.news-proj.errors"
-        struct codes {
-            static let ContextHasNoChangesErrorCode = 567
-        }
     }
     
 }
