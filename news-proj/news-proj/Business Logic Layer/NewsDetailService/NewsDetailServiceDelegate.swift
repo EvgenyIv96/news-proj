@@ -12,10 +12,10 @@ protocol NewsDetailServiceDelegate: class {
     
     /// Method tells delegate that news object was updated
     ///
-    /// - Parameter updatedNewsPlainObject: Updated version of news plain object
-    func newsObjectWasUpdated(updatedNewsPlainObject: NewsPlainObject)
+    /// - Parameter newsPlainObject: Updated news plain object
+    func didUpdate(newsPlainObject: NewsPlainObject)
     
     /// Method tells delegate that news object was deleted
-    func newsObjectWasDeleted()
+    func didDeleteNewsObject()
     
 }

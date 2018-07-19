@@ -66,15 +66,15 @@ extension NewsDetailPresenter: NewsDetailModuleInput {
 // MARK: - NewsDetailServiceDelegate
 extension NewsDetailPresenter: NewsDetailServiceDelegate {
     
-    func newsObjectWasUpdated(updatedNewsPlainObject: NewsPlainObject) {
-        view.configure(screenName: updatedNewsPlainObject.title ?? "")
-        view.configure(htmlText: updatedNewsPlainObject.text ?? "")
+    func didUpdate(newsPlainObject: NewsPlainObject) {
+        view.configure(screenName: newsPlainObject.title ?? "")
+        view.configure(htmlText: newsPlainObject.text ?? "")
     }
     
-    func newsObjectWasDeleted() {
+    func didDeleteNewsObject() {
         router.close()
     }
-    
+
 }
 
 // MARK: - Private
