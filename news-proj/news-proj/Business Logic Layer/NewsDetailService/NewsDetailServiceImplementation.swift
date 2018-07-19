@@ -171,17 +171,15 @@ extension NewsDetailServiceImplementation {
     private func createWebRequest(slug: String) -> URLRequest? {
         
         let requestData = NewsDetailRequestData(slug: slug)
-        
-        var request: URLRequest?
-        
+
         do {
-            request = try requestBuilder.buildRequest(with: requestData)
+            return try requestBuilder.buildRequest(with: requestData)
         } catch let error as NSError {
             fatalError("\(error) \(error.userInfo)")
         }
         
-        return request
-        
+        return nil
+            
     }
     
     private func decodeResponseData(_ data: Data) throws -> NewsDetailResponse {

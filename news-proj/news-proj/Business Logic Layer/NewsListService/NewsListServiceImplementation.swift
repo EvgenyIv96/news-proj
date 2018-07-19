@@ -286,7 +286,7 @@ extension NewsListServiceImplementation {
     }
     
     private func isAllContentShown(for totalCount: Int, loadedCount: Int) -> Bool {
-        return totalCount - loadedCount > 0
+        return !(totalCount - loadedCount > 0)
     }
     
 }
