@@ -98,9 +98,9 @@ extension NewsDetailServiceImplementation: NewsDetailServiceInput {
             
             do {
                 
-                let newsDetailRespone = try strongSelf.decodeResponseData(responseData)
+                let newsDetailResponse = try strongSelf.decodeResponseData(responseData)
                 
-                let updatedNewsPlainObject = NewsPlainObject(with: newsDetailRespone.response, viewsCount: newsPlainObject.viewsCount)
+                let updatedNewsPlainObject = NewsPlainObject(with: newsDetailResponse.response, viewsCount: newsPlainObject.viewsCount)
                 
                 strongSelf.coreDataManager.mainContext.perform { [weak self] in
                     
