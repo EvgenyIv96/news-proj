@@ -11,7 +11,7 @@ import CoreData
 
 fileprivate let ScreenName = "Новости"
 
-class NewsListViewController: UIViewController {
+class NewsListViewController: UIViewController, ErrorAlertPresenter {
     
     var output: NewsListViewOutput!
     

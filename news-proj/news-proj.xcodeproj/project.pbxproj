@@ -24,7 +24,6 @@
 		E52740AE20FBC7290000E593 /* NewsDetailServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52740AD20FBC7290000E593 /* NewsDetailServiceDelegate.swift */; };
 		E52740B320FBE9310000E593 /* NewsDetailRequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52740B220FBE9310000E593 /* NewsDetailRequestData.swift */; };
 		E52740B620FBEA240000E593 /* NewsDetailResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52740B520FBEA240000E593 /* NewsDetailResponse.swift */; };
-		E52740B920FC0D180000E593 /* UIViewController+ErrorAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52740B820FC0D180000E593 /* UIViewController+ErrorAlert.swift */; };
 		E52740BC20FC15FD0000E593 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52740BB20FC15FD0000E593 /* Reachability.swift */; };
 		E52740BF20FC192D0000E593 /* SplashScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52740BE20FC192D0000E593 /* SplashScreenViewController.swift */; };
 		E52740C220FC19770000E593 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E52740C120FC19770000E593 /* SplashScreen.storyboard */; };
@@ -34,6 +33,7 @@
 		E556460920F882D2002EF0E6 /* NSManagedObjectContext+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E556460820F882D2002EF0E6 /* NSManagedObjectContext+Extensions.swift */; };
 		E556461020F8A5E1002EF0E6 /* NewsListCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E556460F20F8A5E1002EF0E6 /* NewsListCellModel.swift */; };
 		E556461520FA44C2002EF0E6 /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E556461220FA44C2002EF0E6 /* Array+Extensions.swift */; };
+		E55979642100E088003871C2 /* AlertPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55979632100E088003871C2 /* AlertPresenter.swift */; };
 		E592E49620F680DC006DBA90 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E592E49520F680DC006DBA90 /* AppDelegate.swift */; };
 		E592E49D20F680DE006DBA90 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E592E49C20F680DE006DBA90 /* Assets.xcassets */; };
 		E592E4A020F680DE006DBA90 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E592E49E20F680DE006DBA90 /* LaunchScreen.storyboard */; };
@@ -86,7 +86,6 @@
 		E52740AD20FBC7290000E593 /* NewsDetailServiceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailServiceDelegate.swift; sourceTree = "<group>"; };
 		E52740B220FBE9310000E593 /* NewsDetailRequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailRequestData.swift; sourceTree = "<group>"; };
 		E52740B520FBEA240000E593 /* NewsDetailResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailResponse.swift; sourceTree = "<group>"; };
-		E52740B820FC0D180000E593 /* UIViewController+ErrorAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ErrorAlert.swift"; sourceTree = "<group>"; };
 		E52740BB20FC15FD0000E593 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		E52740BE20FC192D0000E593 /* SplashScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenViewController.swift; sourceTree = "<group>"; };
 		E52740C120FC19770000E593 /* SplashScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SplashScreen.storyboard; sourceTree = "<group>"; };
@@ -96,6 +95,7 @@
 		E556460820F882D2002EF0E6 /* NSManagedObjectContext+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+Extensions.swift"; sourceTree = "<group>"; };
 		E556460F20F8A5E1002EF0E6 /* NewsListCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsListCellModel.swift; sourceTree = "<group>"; };
 		E556461220FA44C2002EF0E6 /* Array+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
+		E55979632100E088003871C2 /* AlertPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresenter.swift; sourceTree = "<group>"; };
 		E592E49220F680DC006DBA90 /* news-proj.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "news-proj.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E592E49520F680DC006DBA90 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E592E49C20F680DE006DBA90 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -232,14 +232,6 @@
 			path = NewsDetail;
 			sourceTree = "<group>";
 		};
-		E52740B720FC0CFE0000E593 /* UIViewController */ = {
-			isa = PBXGroup;
-			children = (
-				E52740B820FC0D180000E593 /* UIViewController+ErrorAlert.swift */,
-			);
-			path = UIViewController;
-			sourceTree = "<group>";
-		};
 		E52740BA20FC15F50000E593 /* Reachability */ = {
 			isa = PBXGroup;
 			children = (
@@ -293,7 +285,6 @@
 		E556460A20F895BC002EF0E6 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				E52740B720FC0CFE0000E593 /* UIViewController */,
 				E527408D20FB7B4C0000E593 /* DateFormatter */,
 				E556461120FA44C2002EF0E6 /* Array */,
 			);
@@ -323,6 +314,15 @@
 			);
 			path = Array;
 			sourceTree = "<group>";
+		};
+		E55979622100E03E003871C2 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				E55979632100E088003871C2 /* AlertPresenter.swift */,
+			);
+			name = Protocols;
+			path = "news-proj/Core Layer/Protocols";
+			sourceTree = SOURCE_ROOT;
 		};
 		E592E48920F680DC006DBA90 = {
 			isa = PBXGroup;
@@ -367,6 +367,7 @@
 		E592E4A920F6A11B006DBA90 /* Core Layer */ = {
 			isa = PBXGroup;
 			children = (
+				E55979622100E03E003871C2 /* Protocols */,
 				E527408820FA47AE0000E593 /* Helpers */,
 				E556460A20F895BC002EF0E6 /* Extensions */,
 				E592E4AA20F6A11B006DBA90 /* Core Data */,
@@ -674,6 +675,7 @@
 				E52740A620FBBDAE0000E593 /* NewsDetailModuleAssembly.swift in Sources */,
 				E592E50720F7DB74006DBA90 /* NewsListViewOutput.swift in Sources */,
 				E52740B620FBEA240000E593 /* NewsDetailResponse.swift in Sources */,
+				E55979642100E088003871C2 /* AlertPresenter.swift in Sources */,
 				E52740AA20FBC6FC0000E593 /* NewsDetailServiceImplementation.swift in Sources */,
 				E592E4D620F7872F006DBA90 /* NewsListServiceDelegate.swift in Sources */,
 				E52740C420FC1A240000E593 /* SplashScreenStoryboardConstants.swift in Sources */,
@@ -703,7 +705,6 @@
 				E592E4E220F790E9006DBA90 /* URLParameterEncoder.swift in Sources */,
 				E592E49620F680DC006DBA90 /* AppDelegate.swift in Sources */,
 				E592E50B20F7DB74006DBA90 /* NewsListModuleAssembly.swift in Sources */,
-				E52740B920FC0D180000E593 /* UIViewController+ErrorAlert.swift in Sources */,
 				E592E4B220F6A15C006DBA90 /* NewsProj.xcdatamodeld in Sources */,
 				E592E4C020F6AAEC006DBA90 /* HTTPParametersEncoder.swift in Sources */,
 				E592E4E120F790E9006DBA90 /* URLRequestBuilder.swift in Sources */,

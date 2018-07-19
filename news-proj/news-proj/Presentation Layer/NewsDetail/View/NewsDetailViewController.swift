@@ -9,7 +9,7 @@
 import UIKit
 import WebKit
 
-class NewsDetailViewController: UIViewController {
+class NewsDetailViewController: UIViewController, ErrorAlertPresenter {
     
     var output: NewsDetailViewOutput!
     
