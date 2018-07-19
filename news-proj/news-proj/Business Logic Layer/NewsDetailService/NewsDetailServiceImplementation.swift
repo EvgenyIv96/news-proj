@@ -77,9 +77,7 @@ extension NewsDetailServiceImplementation: NewsDetailServiceInput {
         networkComponent.cancel()
                 
         if !Reachability.isConnectedToNetwork() {
-            DispatchQueue.main.async {
-                completion(.failure(error: nil, humanReadableErrorText: ApplicationConstants.WebConstants.internetConnectionError))
-            }
+            completion(.failure(error: nil, humanReadableErrorText: ApplicationConstants.WebConstants.internetConnectionError))
         }
         
         networkComponent.makeRequest(request: webRequest) { [weak self] (task, data, response, error) in
@@ -109,15 +107,13 @@ extension NewsDetailServiceImplementation: NewsDetailServiceInput {
                     strongSelf.news?.fill(with: updatedNewsPlainObject)
                     
                     strongSelf.coreDataManager.saveChanges(completion: { (success, error) in
-                        DispatchQueue.main.async {
-                            if success {
+                        if success {
+                            completion(.success)
+                        } else {
+                            if let error = error as NSError?, error.code == CoreDataConstants.Errors.Codes.ContextHasNoChangesErrorCode {
                                 completion(.success)
-                            } else {
-                                if let error = error as NSError?, error.code == CoreDataConstants.Errors.Codes.ContextHasNoChangesErrorCode {
-                                    completion(.success)
-                                } else if let error = error as NSError? {
-                                    completion(.failure(error: error, humanReadableErrorText: ApplicationConstants.WebConstants.error))
-                                }
+                            } else if let error = error as NSError? {
+                                completion(.failure(error: error, humanReadableErrorText: ApplicationConstants.WebConstants.error))
                             }
                         }
                     })

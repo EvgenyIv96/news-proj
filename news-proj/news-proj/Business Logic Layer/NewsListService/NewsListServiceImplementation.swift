@@ -66,9 +66,7 @@ extension NewsListServiceImplementation: NewsListServiceInput {
         networkComponent.cancel()
         
         if !Reachability.isConnectedToNetwork() {
-            DispatchQueue.main.async {
-                completion(.failure(error: nil, humanReadableErrorText: ApplicationConstants.WebConstants.internetConnectionError))
-            }
+            completion(.failure(error: nil, humanReadableErrorText: ApplicationConstants.WebConstants.internetConnectionError))
         }
         
         networkComponent.makeRequest(request: webRequest) { [weak self] (task, data, response, error) in
@@ -111,12 +109,10 @@ extension NewsListServiceImplementation: NewsListServiceInput {
                     
                     let nextPageOffset = isAllContentShowed ? nil : pageOffset + pageSize
                     
-                    DispatchQueue.main.async {
-                        if success {
-                            completion(.success(nextPageOffset: nextPageOffset))
-                        } else {
-                            completion(.failure(error: error, humanReadableErrorText: ApplicationConstants.WebConstants.error))
-                        }
+                    if success {
+                        completion(.success(nextPageOffset: nextPageOffset))
+                    } else {
+                        completion(.failure(error: error, humanReadableErrorText: ApplicationConstants.WebConstants.error))
                     }
                     
                 })
@@ -139,9 +135,7 @@ extension NewsListServiceImplementation: NewsListServiceInput {
         networkComponent.cancel()
         
         if !Reachability.isConnectedToNetwork() {
-            DispatchQueue.main.async {
-                completion(.failure(error: nil, humanReadableErrorText: ApplicationConstants.WebConstants.internetConnectionError))
-            }
+            completion(.failure(error: nil, humanReadableErrorText: ApplicationConstants.WebConstants.internetConnectionError))
         }
         
         networkComponent.makeRequest(request: webRequest) { [weak self] (task, data, response, error) in
@@ -167,19 +161,19 @@ extension NewsListServiceImplementation: NewsListServiceInput {
                     
                     // Storing new objects
                     strongSelf.storeNews(from: newsListResponse, into: workerContext)
+                    
                     }, completion: { (success, error) in
                         
                         let isAllContentShowed = strongSelf.isAllContentShown(for: newsListResponse.response.totalCount, loadedCount: pageOffset + pageSize)
                         
                         let nextPageOffset = isAllContentShowed ? nil : pageOffset + pageSize
                         
-                        DispatchQueue.main.async {
-                            if success {
-                                completion(.success(nextPageOffset: nextPageOffset))
-                            } else {
-                                completion(.failure(error: error, humanReadableErrorText: ApplicationConstants.WebConstants.error))
-                            }
+                        if success {
+                            completion(.success(nextPageOffset: nextPageOffset))
+                        } else {
+                            completion(.failure(error: error, humanReadableErrorText: ApplicationConstants.WebConstants.error))
                         }
+                        
                 })
                 
             } catch let error as NSError {

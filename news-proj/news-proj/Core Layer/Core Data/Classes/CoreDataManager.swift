@@ -88,7 +88,7 @@ extension CoreDataManager {
     
     // MARK: Saving
     
-    /// Method is used to save changes which was made in main context.
+    /// Method is used to save changes which was made in main context. Completion closure will be called on the main thread.
     ///
     /// - Parameter completion: Completion closure.
     func saveChanges(completion: CoreDataManagerSaveCompletion? = nil) {
@@ -142,7 +142,7 @@ extension CoreDataManager {
         
     }
     
-    /// Method is used to make changes in new background context and save it.
+    /// Method is used to make changes in new background context and save it. Completion closure will be called on the main thread.
     ///
     /// - Parameters:
     ///   - block: Closure with changes.
