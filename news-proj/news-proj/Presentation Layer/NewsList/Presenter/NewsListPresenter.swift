@@ -46,7 +46,6 @@ extension NewsListPresenter: NewsListViewOutput {
 
     }
     
-    
     func numberOfItems(in section: Int) -> Int {
         return newsListService.numberOfItems(in: section)
     }
@@ -79,10 +78,8 @@ extension NewsListPresenter: NewsListViewOutput {
             switch result {
             case .success(let nextPageOffset):
                 self?.nextNewsListPageOffset = nextPageOffset
-            case .failure(let error, let humanReadableErrorText):
-                if let error = error as NSError? {
-                    print(error)
-                }
+            case .failure(let error as NSError, let humanReadableErrorText):
+                print(error)
                 self?.view.showErrorMessage(humanReadableErrorText)
                 break
             }
@@ -106,10 +103,8 @@ extension NewsListPresenter: NewsListViewOutput {
             switch result {
             case .success(let nextPageOffset):
                 self?.nextNewsListPageOffset = nextPageOffset
-            case .failure(let error, let humanReadableErrorText):
-                if let error = error as NSError? {
-                    print(error)
-                }
+            case .failure(let error as NSError, let humanReadableErrorText):
+                print(error)
                 self?.view.showErrorMessage(humanReadableErrorText)
                 break
             }

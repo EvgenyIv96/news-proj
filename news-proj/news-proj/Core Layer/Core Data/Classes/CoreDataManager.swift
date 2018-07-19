@@ -73,10 +73,8 @@ extension CoreDataManager {
             
             do {
                 try self.persistentStoreCoordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: storeURL, options: [:])
-            } catch {
-                if let error = error as NSError? {
-                    fatalError("Error \(error) \(error)")
-                }
+            } catch let error as NSError {
+                fatalError("Error \(error) \(error)")
             }
             
             DispatchQueue.main.async {
@@ -107,10 +105,8 @@ extension CoreDataManager {
                         completion?(false, contextHasNoChangesError)
                     }
                 }
-            } catch {
-                if let error = error as NSError? {
-                    print(error)
-                }
+            } catch let error as NSError {
+                print(error)
                 DispatchQueue.main.async {
                     completion?(false, nil)
                 }
@@ -132,11 +128,8 @@ extension CoreDataManager {
                         }
                     }
                     
-                } catch {
-                    
-                    if let error = error as NSError? {
-                        print(error)
-                    }
+                } catch let error as NSError {
+                    print(error)
                     DispatchQueue.main.async {
                         completion?(false, nil)
                     }
@@ -177,11 +170,8 @@ extension CoreDataManager {
                 
                 self.saveChanges(completion: completion)
                 
-            } catch {
-                
-                if let error = error as NSError? {
-                    print(error)
-                }
+            } catch let error as NSError {
+                print(error)
                 DispatchQueue.main.async {
                     completion?(false, error)
                 }
@@ -203,10 +193,8 @@ extension CoreDataManager {
             do {
                 try self.backgroundWriterContext.obtainPermanentIDs(for: [object])
                 objectID = object.objectID
-            } catch {
-                if let error = error as NSError? {
-                    print("Can't obtain permanent object id \(error) \(error.userInfo)")
-                }
+            } catch let error as NSError {
+                print("Can't obtain permanent object id \(error) \(error.userInfo)")
             }
         }
         

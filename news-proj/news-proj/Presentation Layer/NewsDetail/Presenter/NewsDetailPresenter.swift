@@ -39,10 +39,8 @@ extension NewsDetailPresenter: NewsDetailViewOutput {
             switch result {
             case .success:
                 break
-            case .failure(let error, let errorMessage):
-                if let error = error as NSError? {
-                    print("\(error) \(error.userInfo)")
-                }
+            case .failure(let error as NSError, let errorMessage):
+                print("\(error) \(error.userInfo)")
                 self?.view.showErrorMessage(errorMessage)
             }
             

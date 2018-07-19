@@ -123,10 +123,8 @@ extension NewsDetailServiceImplementation: NewsDetailServiceInput {
                     })
                 }
                 
-            } catch {
-                if let error = error as NSError? {
-                    print("Decoding response data error: \(error) \(error.userInfo)")
-                }
+            } catch let error as NSError {
+                print("Decoding response data error: \(error) \(error.userInfo)")
                 DispatchQueue.main.async {
                     completion(.failure(error: error, humanReadableErrorText: ApplicationConstants.WebConstants.error))
                 }
@@ -178,10 +176,8 @@ extension NewsDetailServiceImplementation {
         
         do {
             request = try requestBuilder.buildRequest(with: requestData)
-        } catch {
-            if let error = error as NSError? {
-                fatalError("\(error) \(error.userInfo)")
-            }
+        } catch let error as NSError {
+            fatalError("\(error) \(error.userInfo)")
         }
         
         return request
