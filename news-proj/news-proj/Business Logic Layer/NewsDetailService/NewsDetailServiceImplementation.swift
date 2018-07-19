@@ -9,25 +9,29 @@
 import Foundation
 import CoreData
 
-class NewsDetailServiceImplementation: NSObject {
+final class NewsDetailServiceImplementation {
     
-    weak var delegate: NewsDetailServiceDelegate?
+    private weak var delegate: NewsDetailServiceDelegate?
     
-    var networkComponent: NetworkComponent
-    var requestBuilder: URLRequestBuilder
+    private let networkComponent: NetworkComponent
+    private let requestBuilder: URLRequestBuilder
+    private let coreDataManager: CoreDataManager
     
-    var newsManagedObjectID: NSManagedObjectID!
-    var news: News?
+    private let notificationCenter: NotificationCenter
+    
+    private var newsManagedObjectID: NSManagedObjectID!
+    private var news: News?
     
     // MARK: - Initialization
-    init(networkComponent: NetworkComponent, requestBuilder: URLRequestBuilder, delegate: NewsDetailServiceDelegate? = nil) {
+    init(networkComponent: NetworkComponent, requestBuilder: URLRequestBuilder, notificationCenter: NotificationCenter, coreDataManager: CoreDataManager, delegate: NewsDetailServiceDelegate? = nil) {
         self.networkComponent = networkComponent
         self.requestBuilder = requestBuilder
+        self.notificationCenter = notificationCenter
+        self.coreDataManager = coreDataManager
         self.delegate = delegate
     }
     
     deinit {
-        let notificationCenter = NotificationCenter.default
         notificationCenter.removeObserver(self)
     }
     
@@ -38,15 +42,21 @@ extension NewsDetailServiceImplementation: NewsDetailServiceInput {
     
     func setup(with newsObjectID: NSManagedObjectID) {
         newsManagedObjectID = newsObjectID
-        news = CoreDataManager.shared.mainContext.object(with: newsObjectID) as? News
+        news = coreDataManager.mainContext.object(with: newsObjectID) as? News
         setupObserving()
     }
     
     func incrementViewsCount() {
-        CoreDataManager.shared.mainContext.perform { [weak self] in
-            self?.news?.viewsCount += 1
-            CoreDataManager.shared.saveChanges()
+        
+        coreDataManager.mainContext.perform { [weak self] in
+            
+            guard let strongSelf = self else { return }
+            
+            strongSelf.news?.viewsCount += 1
+            strongSelf.coreDataManager.saveChanges()
+            
         }
+        
     }
 
     func obtainNewsPlainObject() -> NewsPlainObject {
@@ -74,6 +84,7 @@ extension NewsDetailServiceImplementation: NewsDetailServiceInput {
         
         networkComponent.makeRequest(request: webRequest) { [weak self] (task, data, response, error) in
             
+            guard let strongSelf = self else { return }
             guard task?.state != .canceling else { return }
 
             if let error = error as NSError? {
@@ -87,15 +98,17 @@ extension NewsDetailServiceImplementation: NewsDetailServiceInput {
             
             do {
                 
-                let newsDetailRespone = try self?.decodeResponseData(responseData)
+                let newsDetailRespone = try strongSelf.decodeResponseData(responseData)
                 
-                let updatedNewsPlainObject = NewsPlainObject(with: newsDetailRespone!.response, viewsCount: newsPlainObject.viewsCount)
+                let updatedNewsPlainObject = NewsPlainObject(with: newsDetailRespone.response, viewsCount: newsPlainObject.viewsCount)
                 
-                CoreDataManager.shared.mainContext.perform { [weak self] in
+                strongSelf.coreDataManager.mainContext.perform { [weak self] in
                     
-                    self?.news?.fill(with: updatedNewsPlainObject)
+                    guard let strongSelf = self else { return }
                     
-                    CoreDataManager.shared.saveChanges(completion: { (success, error) in
+                    strongSelf.news?.fill(with: updatedNewsPlainObject)
+                    
+                    strongSelf.coreDataManager.saveChanges(completion: { (success, error) in
                         DispatchQueue.main.async {
                             if success {
                                 completion(.success)
@@ -130,10 +143,8 @@ extension NewsDetailServiceImplementation {
     
     fileprivate func setupObserving() {
         
-        let context = CoreDataManager.shared.mainContext
+        let context = coreDataManager.mainContext
         
-        let notificationCenter = NotificationCenter.default
-
         notificationCenter.addObserver(self, selector: #selector(managedObjectContextObjectsDidChange), name: NSNotification.Name.NSManagedObjectContextObjectsDidChange, object: context)
         
     }
@@ -144,17 +155,17 @@ extension NewsDetailServiceImplementation {
 
         if let updated = userInfo[NSUpdatedObjectsKey] as? Set<NSManagedObject>, updated.contains(news) {
             let newsPlainObject = obtainNewsPlainObject()
-            delegate?.newsObjectWasUpdated(updatedNewsPlainObject: newsPlainObject)
+            delegate?.didUpdate(newsPlainObject: newsPlainObject)
         }
 
         if let deleted = userInfo[NSDeletedObjectsKey] as? Set<NSManagedObject>, deleted.contains(news) {
-            delegate?.newsObjectWasDeleted()
+            delegate?.didDeleteNewsObject()
         }
         
         if userInfo[NSInvalidatedAllObjectsKey] != nil{
-            delegate?.newsObjectWasDeleted()
+            delegate?.didDeleteNewsObject()
         } else if let invalidated = userInfo[NSInvalidatedObjectsKey] as? Set<NSManagedObject>, invalidated.contains(news) {
-            delegate?.newsObjectWasDeleted()
+            delegate?.didDeleteNewsObject()
         }
         
     }

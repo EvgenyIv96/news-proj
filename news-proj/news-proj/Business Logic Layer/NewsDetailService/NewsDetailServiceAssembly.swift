@@ -14,7 +14,9 @@ final class NewsDetailServiceAssembly {
         
         let networkComponent = NetworkComponent()
         let requestBuilder = URLRequestBuilder()
-        let newsDetailService = NewsDetailServiceImplementation(networkComponent: networkComponent, requestBuilder: requestBuilder, delegate: delegate)
+        let notificationCenter = NotificationCenter.default
+        let coreDataManager = CoreDataManager.shared
+        let newsDetailService = NewsDetailServiceImplementation(networkComponent: networkComponent, requestBuilder: requestBuilder, notificationCenter: notificationCenter, coreDataManager: coreDataManager, delegate: delegate)
         
         return newsDetailService
         
