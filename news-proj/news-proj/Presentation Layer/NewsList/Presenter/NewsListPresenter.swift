@@ -8,7 +8,9 @@
 
 import Foundation
 
-fileprivate let PageSize = 20
+private enum Constants {
+    static let pageSize = 20
+}
 
 class NewsListPresenter {
     
@@ -18,16 +20,10 @@ class NewsListPresenter {
     
     var newsListService: NewsListServiceInput!
     
-    fileprivate var nextNewsListPageOffset: Int? = 0 {
-        
+    private var nextNewsListPageOffset: Int? = 0 {
         didSet {
-            if let _ = nextNewsListPageOffset {
-                view.setInfinityScrollingEnabled(true)
-            } else {
-                view.setInfinityScrollingEnabled(false)
-            }
+            view.setInfinityScrollingEnabled(nextNewsListPageOffset != nil)
         }
-        
     }
 
 }
@@ -71,7 +67,7 @@ extension NewsListPresenter: NewsListViewOutput {
         view.setBottomLoadingIndicatorVisible(false)
         view.setInfinityScrollingEnabled(false)
         
-        newsListService.reloadNews(pageSize: PageSize) { [weak self] (result) in
+        newsListService.reloadNews(pageSize: Constants.pageSize) { [weak self] (result) in
             
             self?.hideLoadingIndicators()
             
@@ -96,7 +92,7 @@ extension NewsListPresenter: NewsListViewOutput {
         view.setBottomLoadingIndicatorVisible(true)
         view.setInfinityScrollingEnabled(false)
         
-        newsListService.obtainNews(pageOffset: pageOffset, pageSize: PageSize) { [weak self] (result) in
+        newsListService.obtainNews(pageOffset: pageOffset, pageSize: Constants.pageSize) { [weak self] (result) in
             
             self?.hideLoadingIndicators()
             
