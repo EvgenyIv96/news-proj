@@ -9,32 +9,23 @@
 import Foundation
 import CoreData
 
-class NewsListServiceImplementation: NSObject {
+final class NewsListServiceImplementation: NSObject {
     
-    weak var delegate: NewsListServiceDelegate?
+    private weak var delegate: NewsListServiceDelegate?
     
-    var networkComponent: NetworkComponent!
-    var requestBuilder: URLRequestBuilder!
+    private let networkComponent: NetworkComponent
+    private let requestBuilder: URLRequestBuilder
+    private let coreDataManager: CoreDataManager
     
-    fileprivate var fetchedResultsController: NSFetchedResultsController<News>?
+    private var fetchedResultsController: NSFetchedResultsController<News>?
     
-    func configureFetchedResultsController() {
-        
-        let fetchRequest = News.sortedNewsFetchRequest()
-        fetchRequest.returnsObjectsAsFaults = false
-        
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.mainContext, sectionNameKeyPath: nil, cacheName: nil)
-        fetchedResultsController?.delegate = self
-        do {
-            try fetchedResultsController?.performFetch()
-        } catch {
-            if let error = error as NSError? {
-                fatalError("Fetched results controller fetch error \(error) \(error.userInfo)")
-            }
-        }
-        
+    init(networkComponent: NetworkComponent, requestBuilder: URLRequestBuilder, coreDataManager: CoreDataManager, delegate: NewsListServiceDelegate?) {
+        self.networkComponent = networkComponent
+        self.requestBuilder = requestBuilder
+        self.coreDataManager = coreDataManager
+        self.delegate = delegate
     }
-    
+
 }
 
 // MARK: - NewsListServiceInput
@@ -65,7 +56,7 @@ extension NewsListServiceImplementation: NewsListServiceInput {
         
         let news = fetchedResultsController!.object(at: indexPath)
         
-        return CoreDataManager.shared.permanentObjectID(for: news)!
+        return coreDataManager.permanentObjectID(for: news)!
         
     }
     
@@ -86,6 +77,8 @@ extension NewsListServiceImplementation: NewsListServiceInput {
         
         networkComponent.makeRequest(request: webRequest) { [weak self] (task, data, response, error) in
             
+            guard let strongSelf = self else { return }
+            
             guard task?.state != .canceling else { return }
             
             if let error = error as NSError? {
@@ -103,24 +96,24 @@ extension NewsListServiceImplementation: NewsListServiceInput {
                 
                 guard let decodedResponse = newsListResponse else { return }
                 
-                CoreDataManager.shared.save(block: { [weak self] (workerContext) in
+                strongSelf.coreDataManager.save(block: { [weak self] (workerContext) in
+                    
+                    guard let strongSelf = self else { return }
                     
                     // Deleting old objects
                     do {
-                        try self?.deleteAllNews(in: workerContext)
+                        try strongSelf.deleteAllNews(in: workerContext)
                     } catch {
                         
                         return
                     }
                     
                     // Storing new objects
-                    self?.storeNews(from: decodedResponse, into: workerContext)
+                    strongSelf.storeNews(from: decodedResponse, into: workerContext)
                     
                 }, completion: { (success, error) in
                     
-                    guard (self != nil) else { return }
-                    
-                    let isAllContentShowed = self!.isAllContentShowed(for: decodedResponse.response.totalCount, loadedCount: pageOffset + pageSize)
+                    let isAllContentShowed = strongSelf.isAllContentShowed(for: decodedResponse.response.totalCount, loadedCount: pageOffset + pageSize)
                     
                     let nextPageOffset = isAllContentShowed ? nil : pageOffset + pageSize
                     
@@ -161,6 +154,8 @@ extension NewsListServiceImplementation: NewsListServiceInput {
         
         networkComponent.makeRequest(request: webRequest) { [weak self] (task, data, response, error) in
             
+            guard let strongSelf = self else { return }
+            
             guard task?.state != .canceling else { return }
 
             if let error = error as NSError? {
@@ -174,18 +169,17 @@ extension NewsListServiceImplementation: NewsListServiceInput {
             
             do {
                 
-                let newsListResponse = try self?.decodeResponseData(responseData)
+                let newsListResponse = try strongSelf.decodeResponseData(responseData)
                 
-                guard let decodedResponse = newsListResponse else { return }
-                
-                CoreDataManager.shared.save(block: { [weak self] (workerContext) in
+                strongSelf.coreDataManager.save(block: { [weak self] (workerContext) in
+                    
+                    guard let strongSelf = self else { return }
+                    
                     // Storing new objects
-                    self?.storeNews(from: decodedResponse, into: workerContext)
+                    strongSelf.storeNews(from: newsListResponse, into: workerContext)
                     }, completion: { (success, error) in
                         
-                        guard (self != nil) else { return }
-                        
-                        let isAllContentShowed = self!.isAllContentShowed(for: decodedResponse.response.totalCount, loadedCount: pageOffset + pageSize)
+                        let isAllContentShowed = strongSelf.isAllContentShowed(for: newsListResponse.response.totalCount, loadedCount: pageOffset + pageSize)
                         
                         let nextPageOffset = isAllContentShowed ? nil : pageOffset + pageSize
                         
@@ -244,14 +238,32 @@ extension NewsListServiceImplementation: NSFetchedResultsControllerDelegate {
 // MARK: - Private
 extension NewsListServiceImplementation {
     
-    fileprivate func decodeResponseData(_ data: Data) throws -> NewsListResponse {
+    private func configureFetchedResultsController() {
+        
+        let fetchRequest = News.sortedNewsFetchRequest()
+        fetchRequest.returnsObjectsAsFaults = false
+        
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: coreDataManager.mainContext, sectionNameKeyPath: nil, cacheName: nil)
+        fetchedResultsController?.delegate = self
+        do {
+            try fetchedResultsController?.performFetch()
+        } catch {
+            if let error = error as NSError? {
+                fatalError("Fetched results controller fetch error \(error) \(error.userInfo)")
+            }
+        }
+        
+    }
+    
+    
+    private func decodeResponseData(_ data: Data) throws -> NewsListResponse {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .formatted(DateFormatter.iso8601Full())
         let newsListResponse = try decoder.decode(NewsListResponse.self, from: data)
         return newsListResponse
     }
     
-    fileprivate func createWebRequest(with pageOffset: Int, pageSize: Int) -> URLRequest?  {
+    private func createWebRequest(with pageOffset: Int, pageSize: Int) -> URLRequest?  {
         
         let requestData = NewsListRequestData(pageOffset: pageOffset, pageSize: pageSize)
         
@@ -269,7 +281,7 @@ extension NewsListServiceImplementation {
         
     }
     
-    fileprivate func storeNews(from response: NewsListResponse, into context: NSManagedObjectContext) {
+    private func storeNews(from response: NewsListResponse, into context: NSManagedObjectContext) {
         
         let _ = response.response.news.map({ (newsPlainObject) -> News in
             
@@ -282,7 +294,7 @@ extension NewsListServiceImplementation {
         
     }
     
-    fileprivate func deleteAllNews(in context: NSManagedObjectContext) throws {
+    private func deleteAllNews(in context: NSManagedObjectContext) throws {
         
         let fetchRequest = News.newsFetchRequest()
         fetchRequest.returnsObjectsAsFaults = true
@@ -296,7 +308,7 @@ extension NewsListServiceImplementation {
         
     }
     
-    fileprivate func isAllContentShowed(for totalCount: Int, loadedCount: Int) -> Bool {
+    private func isAllContentShowed(for totalCount: Int, loadedCount: Int) -> Bool {
         
         if totalCount - loadedCount > 0 {
             return false

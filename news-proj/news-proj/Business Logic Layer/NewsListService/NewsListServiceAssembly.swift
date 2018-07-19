@@ -8,19 +8,14 @@
 
 import Foundation
 
-class NewsListServiceAssembly {
+final class NewsListServiceAssembly {
     
     func buildNewsListService(delegate: NewsListServiceDelegate?) -> NewsListServiceInput {
         
-        // Creating components
-        let newsListService = NewsListServiceImplementation()
         let networkComponent = NetworkComponent()
         let requestBuilder = URLRequestBuilder()
-        
-        // Injecting properties
-        newsListService.delegate = delegate
-        newsListService.networkComponent = networkComponent
-        newsListService.requestBuilder = requestBuilder
+        let coreDataManager = CoreDataManager.shared
+        let newsListService = NewsListServiceImplementation(networkComponent: networkComponent, requestBuilder: requestBuilder, coreDataManager: coreDataManager, delegate: delegate)
         
         return newsListService
         
