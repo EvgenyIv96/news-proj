@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-protocol NewsListModuleRouting: class {
+protocol NewsListModuleRouting: AnyObject {
     
     /// Method is used to open news detail module and configure it with given permanent news managed object id.
     ///

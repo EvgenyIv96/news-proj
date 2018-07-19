@@ -14,7 +14,7 @@ enum NewsListServiceResult {
     case failure(error: Error?, humanReadableErrorText: String)
 }
 
-protocol NewsListServiceInput: class {
+protocol NewsListServiceInput: AnyObject {
     
     /// Method is used to prepare service for working. Call this method once before using. After prepearing service automatically will give cached news using appropriate delegate methods.
     func prepare()

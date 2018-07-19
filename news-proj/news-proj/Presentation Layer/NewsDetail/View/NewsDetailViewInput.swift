@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol NewsDetailViewInput: class {
+protocol NewsDetailViewInput: AnyObject {
     
     /// Method is used to set up view initial state.
     func setupInitialState()

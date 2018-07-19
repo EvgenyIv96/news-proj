@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-protocol NewsDetailModuleInput: class {
+protocol NewsDetailModuleInput: AnyObject {
 
     /// Method is used to configure module with given news object managed object identifier. WARNING: Expected permanent managed object id!
     ///

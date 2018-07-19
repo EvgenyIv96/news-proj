@@ -141,7 +141,7 @@ extension NewsDetailServiceImplementation: NewsDetailServiceInput {
 // MARK: - Private
 extension NewsDetailServiceImplementation {
     
-    fileprivate func setupObserving() {
+    private func setupObserving() {
         
         let context = coreDataManager.mainContext
         
@@ -149,7 +149,7 @@ extension NewsDetailServiceImplementation {
         
     }
     
-    @objc fileprivate func managedObjectContextObjectsDidChange(notification: Notification) {
+    @objc private func managedObjectContextObjectsDidChange(notification: Notification) {
 
         guard let userInfo = notification.userInfo, let news = news else { return }
 
@@ -170,7 +170,7 @@ extension NewsDetailServiceImplementation {
         
     }
     
-    fileprivate func createWebRequest(slug: String) -> URLRequest? {
+    private func createWebRequest(slug: String) -> URLRequest? {
         
         let requestData = NewsDetailRequestData(slug: slug)
         
@@ -188,7 +188,7 @@ extension NewsDetailServiceImplementation {
         
     }
     
-    fileprivate func decodeResponseData(_ data: Data) throws -> NewsDetailResponse {
+    private func decodeResponseData(_ data: Data) throws -> NewsDetailResponse {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .formatted(DateFormatter.iso8601Full())
         let newsDetailResponse = try decoder.decode(NewsDetailResponse.self, from: data)

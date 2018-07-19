@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol NewsDetailModuleRouting: class {
+protocol NewsDetailModuleRouting: AnyObject {
     
     /// Method is used to close current module
     func close()

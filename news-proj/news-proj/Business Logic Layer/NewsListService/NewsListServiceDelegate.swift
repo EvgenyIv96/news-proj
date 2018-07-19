@@ -15,7 +15,7 @@ enum NewsListChangeType {
     case move
 }
 
-protocol NewsListServiceDelegate: class {
+protocol NewsListServiceDelegate: AnyObject {
     
     /// Method is used to notify delegate that news are about to be updated and update method will called.
     func newsListServiceWillUpdateNews()

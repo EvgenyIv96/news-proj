@@ -14,7 +14,7 @@ enum NewsDetailServiceResult {
     case failure(error: Error?, humanReadableErrorText: String)
 }
 
-protocol NewsDetailServiceInput: class {
+protocol NewsDetailServiceInput: AnyObject {
     
     /// Method is used to set up service before usage. WARNING: Expected permanent managed object id!
     ///

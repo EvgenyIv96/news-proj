@@ -15,7 +15,7 @@ enum NewsListTableViewRowUpdateType {
     case reload
 }
 
-protocol NewsListViewInput: class {
+protocol NewsListViewInput: AnyObject {
     
     // MARK: Setup
     

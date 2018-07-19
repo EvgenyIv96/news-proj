@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol NewsListModuleInput: class {
+protocol NewsListModuleInput: AnyObject {
 
     /// Method is used to configure module.
     func configureModule()

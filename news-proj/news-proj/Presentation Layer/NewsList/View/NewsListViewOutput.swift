@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol NewsListViewOutput: class {
+protocol NewsListViewOutput: AnyObject {
     
     /// Method is used to tell presenter that view ready for work.
     func didTriggerViewReadyEvent()

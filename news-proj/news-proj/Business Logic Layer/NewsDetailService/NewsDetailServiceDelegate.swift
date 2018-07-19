@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol NewsDetailServiceDelegate: class {
+protocol NewsDetailServiceDelegate: AnyObject {
     
     /// Method tells delegate that news object was updated
     ///
