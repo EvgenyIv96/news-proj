@@ -36,12 +36,8 @@ extension NewsListServiceImplementation: NewsListServiceInput {
     }
     
     func numberOfItems(in section: Int) -> Int {
-        
-        guard let section = fetchedResultsController?.sections?[section] else { return 0 }
-        let count = section.numberOfObjects
-        
+        guard let count = fetchedResultsController?.sections?[section].numberOfObjects else { return 0 }
         return count
-        
     }
     
     func newsPlainObject(at indexPath: IndexPath) -> NewsPlainObject {
@@ -77,9 +73,7 @@ extension NewsListServiceImplementation: NewsListServiceInput {
         
         networkComponent.makeRequest(request: webRequest) { [weak self] (task, data, response, error) in
             
-            guard let strongSelf = self else { return }
-            
-            guard task?.state != .canceling else { return }
+            guard let strongSelf = self, task?.state != .canceling else { return }
             
             if let error = error as NSError? {
                 print(error)
@@ -113,7 +107,7 @@ extension NewsListServiceImplementation: NewsListServiceInput {
                     
                 }, completion: { (success, error) in
                     
-                    let isAllContentShowed = strongSelf.isAllContentShowed(for: decodedResponse.response.totalCount, loadedCount: pageOffset + pageSize)
+                    let isAllContentShowed = strongSelf.isAllContentShown(for: decodedResponse.response.totalCount, loadedCount: pageOffset + pageSize)
                     
                     let nextPageOffset = isAllContentShowed ? nil : pageOffset + pageSize
                     
@@ -152,10 +146,8 @@ extension NewsListServiceImplementation: NewsListServiceInput {
         
         networkComponent.makeRequest(request: webRequest) { [weak self] (task, data, response, error) in
             
-            guard let strongSelf = self else { return }
+            guard let strongSelf = self, task?.state != .canceling else { return }
             
-            guard task?.state != .canceling else { return }
-
             if let error = error as NSError? {
                 print(error)
                 DispatchQueue.main.async {
@@ -177,7 +169,7 @@ extension NewsListServiceImplementation: NewsListServiceInput {
                     strongSelf.storeNews(from: newsListResponse, into: workerContext)
                     }, completion: { (success, error) in
                         
-                        let isAllContentShowed = strongSelf.isAllContentShowed(for: newsListResponse.response.totalCount, loadedCount: pageOffset + pageSize)
+                        let isAllContentShowed = strongSelf.isAllContentShown(for: newsListResponse.response.totalCount, loadedCount: pageOffset + pageSize)
                         
                         let nextPageOffset = isAllContentShowed ? nil : pageOffset + pageSize
                         
@@ -249,7 +241,6 @@ extension NewsListServiceImplementation {
         
     }
     
-    
     private func decodeResponseData(_ data: Data) throws -> NewsListResponse {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .formatted(DateFormatter.iso8601Full())
@@ -261,28 +252,22 @@ extension NewsListServiceImplementation {
         
         let requestData = NewsListRequestData(pageOffset: pageOffset, pageSize: pageSize)
         
-        var request: URLRequest?
-        
         do {
-            request = try requestBuilder.buildRequest(with: requestData)
+            return try requestBuilder.buildRequest(with: requestData)
         } catch let error as NSError {
             fatalError("\(error) \(error.userInfo)")
         }
         
-        return request
+        return nil
         
     }
     
     private func storeNews(from response: NewsListResponse, into context: NSManagedObjectContext) {
         
-        let _ = response.response.news.map({ (newsPlainObject) -> News in
-            
+        response.response.news.forEach {
             let news = News.insert(into: context)
-            news.fill(with: newsPlainObject)
-            
-            return news
-            
-        })
+            news.fill(with: $0)
+        }
         
     }
     
@@ -294,20 +279,14 @@ extension NewsListServiceImplementation {
     
         let oldNewsArray = try context.fetch(fetchRequest)
         
-        for oldNews in oldNewsArray {
-            context.delete(oldNews)
+        oldNewsArray.forEach {
+            context.delete($0)
         }
         
     }
     
-    private func isAllContentShowed(for totalCount: Int, loadedCount: Int) -> Bool {
-        
-        if totalCount - loadedCount > 0 {
-            return false
-        }
-        
-        return true
-        
+    private func isAllContentShown(for totalCount: Int, loadedCount: Int) -> Bool {
+        return totalCount - loadedCount > 0
     }
     
 }
