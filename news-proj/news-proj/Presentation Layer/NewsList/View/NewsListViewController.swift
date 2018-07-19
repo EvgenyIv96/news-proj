@@ -168,8 +168,8 @@ extension NewsListViewController: NewsListModuleRouting {
     func openNewsDetailModule(with newsObjectID: NSManagedObjectID) {
         
         NewsDetailModuleAssembly().buildNewsDetailModule { (viewController, moduleInput) in
-            moduleInput?.configureModule(with: newsObjectID)
-            self.navigationController?.pushViewController(viewController!, animated: true)
+            moduleInput.configureModule(with: newsObjectID)
+            self.navigationController?.pushViewController(viewController, animated: true)
         }
         
     }
