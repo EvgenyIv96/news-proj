@@ -23,7 +23,7 @@ struct NewsDetailResponse: Decodable {
 
 extension NewsDetailResponse.NewsDetailInformation: Decodable {
     
-    private enum NewsPlainObjectCodingKeys: String, CodingKey {
+    private enum NewsDetailInformationCodingKeys: String, CodingKey {
         case slug
         case title
         case text
@@ -32,7 +32,7 @@ extension NewsDetailResponse.NewsDetailInformation: Decodable {
     
     init(from decoder: Decoder) throws {
         
-        let container = try decoder.container(keyedBy: NewsPlainObjectCodingKeys.self)
+        let container = try decoder.container(keyedBy: NewsDetailInformationCodingKeys.self)
         
         slug = try container.decode(String.self, forKey: .slug)
         title = try container.decode(String.self, forKey: .title)
