@@ -47,6 +47,10 @@ extension NewsListViewController: NewsListViewInput {
         // Register cell
         tableView.register(UINib.init(nibName: String(describing: NewsListCell.self), bundle: nil), forCellReuseIdentifier: NewsListCell.reuseIdentifier)
         
+        // Cells height
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = NewsListCell.height
+        
         // Infinity scrolling
         infiniteScrollingController = InfiniteScrollingController.infiniteScrollingController(on: tableView, actionHandler: { [unowned self] in
             print("Infinite scrolling action")
@@ -111,21 +115,7 @@ extension NewsListViewController: NewsListViewInput {
 
 // MARK: - UITableViewDelegate
 extension NewsListViewController: UITableViewDelegate {
-    
-    public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        
-        guard let newsCell = cell as? NewsListCell else { return }
-        
-        let cellModel = output.cellModel(forItemAt: indexPath)
-        
-        newsCell.configure(with: cellModel)
-        
-    }
-    
-    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return NewsListCell.height
-    }
-    
+
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         tableView.deselectRow(at: indexPath, animated: true)
@@ -145,9 +135,16 @@ extension NewsListViewController: UITableViewDataSource {
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let newsListCell = tableView.dequeueReusableCell(withIdentifier: NewsListCell.reuseIdentifier, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: NewsListCell.reuseIdentifier, for: indexPath)
         
-        return newsListCell
+        if let newsListCell = cell as? NewsListCell {
+            
+            let cellModel = output.cellModel(forItemAt: indexPath)
+            
+            newsListCell.configure(with: cellModel)
+        }
+
+        return cell
         
     }
     

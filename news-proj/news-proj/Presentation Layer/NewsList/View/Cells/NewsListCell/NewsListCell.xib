@@ -19,14 +19,14 @@
                 <rect key="frame" x="0.0" y="0.0" width="286" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Заголовок новости" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nat-Ja-RLg">
-                        <rect key="frame" x="8" y="12" width="254" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Заголовок новости" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nat-Ja-RLg">
+                        <rect key="frame" x="8" y="8" width="254" height="27.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OUh-WV-NxR">
-                        <rect key="frame" x="270" y="13" width="8" height="20.5"/>
+                        <rect key="frame" x="270" y="11.5" width="8" height="20.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
@@ -37,7 +37,8 @@
                     <constraint firstItem="OUh-WV-NxR" firstAttribute="leading" secondItem="Nat-Ja-RLg" secondAttribute="trailing" constant="8" id="Ktx-Vr-1XT"/>
                     <constraint firstItem="OUh-WV-NxR" firstAttribute="centerY" secondItem="Nat-Ja-RLg" secondAttribute="centerY" id="Nt6-k1-9vO"/>
                     <constraint firstAttribute="trailing" secondItem="OUh-WV-NxR" secondAttribute="trailing" constant="8" id="Q8A-an-CaW"/>
-                    <constraint firstItem="Nat-Ja-RLg" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="zsH-l8-QCs"/>
+                    <constraint firstAttribute="bottom" secondItem="Nat-Ja-RLg" secondAttribute="bottom" constant="8" id="QEB-YF-c0u"/>
+                    <constraint firstItem="Nat-Ja-RLg" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="cpK-cc-yF4"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
