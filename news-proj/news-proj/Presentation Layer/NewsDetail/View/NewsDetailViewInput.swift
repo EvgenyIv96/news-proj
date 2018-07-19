@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol NewsDetailViewInput: AnyObject {
+protocol NewsDetailViewInput: AnyObject, NetworkActivityIndicatorController {
     
     /// Method is used to set up view initial state.
     func setupInitialState()
@@ -22,11 +22,6 @@ protocol NewsDetailViewInput: AnyObject {
     ///
     /// - Parameter htmlText: Html text string.
     func configure(htmlText: String)
-    
-    /// Method is used to show or hide network activity indicator.
-    ///
-    /// - Parameter visible: Visibility flag. True if network activity indicator should be showed, otherwise false.
-    func setNetworkActivityIndicatorVisible(_ visible: Bool)
     
     /// Method is used to show error message
     ///

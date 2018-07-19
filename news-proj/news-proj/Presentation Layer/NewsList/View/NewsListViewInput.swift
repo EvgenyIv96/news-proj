@@ -15,7 +15,7 @@ enum NewsListTableViewRowUpdateType {
     case reload
 }
 
-protocol NewsListViewInput: AnyObject {
+protocol NewsListViewInput: AnyObject, NetworkActivityIndicatorController {
     
     // MARK: Setup
     
@@ -23,11 +23,6 @@ protocol NewsListViewInput: AnyObject {
     func setupInitialState()
     
     // MARK: Loading indicators
-    
-    /// Method is used to show or hide network activity indicator.
-    ///
-    /// - Parameter visible: Visibility flag. True if network activity indicator should be showed, otherwise false.
-    func setNetworkActivityIndicatorVisible(_ visible: Bool)
     
     /// Method is used to show or hide loading indicator in the top of the table.
     ///

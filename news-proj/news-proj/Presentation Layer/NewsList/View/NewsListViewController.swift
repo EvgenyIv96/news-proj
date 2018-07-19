@@ -54,11 +54,7 @@ extension NewsListViewController: NewsListViewInput {
         })
         
     }
-    
-    func setNetworkActivityIndicatorVisible(_ visible: Bool) {
-        UIApplication.shared.isNetworkActivityIndicatorVisible = visible
-    }
-    
+
     func setPullToRefreshLoadingIndicatorVisible(_ visible: Bool) {
         
         if visible {

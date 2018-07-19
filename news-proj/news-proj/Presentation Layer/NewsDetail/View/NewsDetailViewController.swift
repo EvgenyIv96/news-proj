@@ -45,10 +45,6 @@ extension NewsDetailViewController: NewsDetailViewInput {
         webView.loadHTMLString(htmlText, baseURL: nil)
     }
 
-    func setNetworkActivityIndicatorVisible(_ visible: Bool) {
-        UIApplication.shared.isNetworkActivityIndicatorVisible = visible
-    }
-    
     func showErrorMessage(_ message: String) {
         showAlert(errorMessage: message)
     }
