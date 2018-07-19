@@ -10,11 +10,11 @@ import Foundation
 
 class URLRequestBuilder {
     
-    fileprivate var urlParameterEncoder = URLParameterEncoder()
-    fileprivate var jsonParameterEncoder = JSONParameterEncoder()
+    private var urlParameterEncoder = URLParameterEncoder()
+    private var jsonParameterEncoder = JSONParameterEncoder()
     
     func buildRequest(with requestData: WebRequestData) throws -> URLRequest {
-        
+                
         let url = requestData.baseURL.appendingPathComponent(requestData.path)
         var request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: ApplicationConstants.WebConstants.timeoutInterval)
         
@@ -31,7 +31,7 @@ class URLRequestBuilder {
         
     }
     
-    fileprivate func configureParameters(request: inout URLRequest, urlParameters: HTTPParameters, bodyParameters: HTTPParameters) throws {
+    private func configureParameters(request: inout URLRequest, urlParameters: HTTPParameters, bodyParameters: HTTPParameters) throws {
         
         do {
             try urlParameterEncoder.encode(urlRequest: &request, with: urlParameters)
@@ -42,7 +42,7 @@ class URLRequestBuilder {
         
     }
     
-    fileprivate func configureHeaders(request: inout URLRequest, headers: HTTPHeaders) {
+    private func configureHeaders(request: inout URLRequest, headers: HTTPHeaders) {
         
         guard !headers.isEmpty else { return }
         
