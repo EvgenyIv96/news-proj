@@ -9,11 +9,11 @@
 import Foundation
 import UIKit
 
-fileprivate var KVOContext = "InfiniteScrollingControllerKVOContext"
+private var KVOContext = "InfiniteScrollingControllerKVOContext"
 
-fileprivate let LoadingViewHeight: CGFloat = 60
+private let LoadingViewHeight: CGFloat = 60
 
-fileprivate enum InfiniteScrollingControllerState {
+private enum InfiniteScrollingControllerState {
     case animating
     case stopped
 }
@@ -22,21 +22,19 @@ class InfiniteScrollingController: NSObject {
     
     var infinityScrollingEnabled = true
     
-    fileprivate var state = InfiniteScrollingControllerState.stopped
-    fileprivate var action: (() -> ())?
+    private var state = InfiniteScrollingControllerState.stopped
+    private var action: (() -> ())?
     
-    fileprivate var originalBottomInset: CGFloat = 0.0
-    fileprivate var scrollView: UIScrollView! {
-        
+    private var originalBottomInset: CGFloat = 0.0
+    private var scrollView: UIScrollView! {
         didSet {
             originalBottomInset = scrollView.contentInset.bottom
             scrollView.addSubview(loadingView)
             addScrollViewObserving(scrollView)
             adjustLoadingViewFrame()
         }
-        
     }
-    fileprivate lazy var loadingView: UIView = {
+    private lazy var loadingView: UIView = {
         
         let view = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: LoadingViewHeight))
         
@@ -52,7 +50,6 @@ class InfiniteScrollingController: NSObject {
     }()
     
     // MARK: - Class constructor
-
     public static func infiniteScrollingController(on scrollView: UIScrollView, actionHandler: @escaping () -> ()) -> InfiniteScrollingController {
         let infinityScrollController = InfiniteScrollingController()
         infinityScrollController.scrollView = scrollView
@@ -65,7 +62,6 @@ class InfiniteScrollingController: NSObject {
     }
     
     // MARK: - Public
-    
     public func startAnimating() {
         
         guard infinityScrollingEnabled, state != .animating, scrollView.contentSize.height > 0 else { return }
@@ -90,7 +86,6 @@ class InfiniteScrollingController: NSObject {
     }
     
     // MARK: - Observing
-    
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
         guard context == &KVOContext else {
@@ -138,19 +133,19 @@ class InfiniteScrollingController: NSObject {
     }
     
     // MARK: - Private
-    fileprivate func addScrollViewObserving(_ scrollView: UIScrollView?) {
+    private func addScrollViewObserving(_ scrollView: UIScrollView?) {
         scrollView?.addObserver(self, forKeyPath: #keyPath(UIScrollView.contentOffset), options: .new, context: &KVOContext)
         scrollView?.addObserver(self, forKeyPath: #keyPath(UIScrollView.contentInset), options: .new, context: &KVOContext)
         scrollView?.addObserver(self, forKeyPath: #keyPath(UIScrollView.contentSize), options: .new, context: &KVOContext)
     }
     
-    fileprivate func removeScrollViewObserving(_ scrollView: UIScrollView?) {
+    private func removeScrollViewObserving(_ scrollView: UIScrollView?) {
         scrollView?.removeObserver(self, forKeyPath: #keyPath(UIScrollView.contentOffset), context: &KVOContext)
         scrollView?.removeObserver(self, forKeyPath: #keyPath(UIScrollView.contentInset), context: &KVOContext)
         scrollView?.removeObserver(self, forKeyPath: #keyPath(UIScrollView.contentSize), context: &KVOContext)
     }
     
-    fileprivate func adjustLoadingViewFrame() {
+    private func adjustLoadingViewFrame() {
         
         var frame = loadingView.frame
         frame.origin.y = scrollView.contentSize.height + originalBottomInset
@@ -159,7 +154,7 @@ class InfiniteScrollingController: NSObject {
         
     }
     
-    fileprivate func adjustContentInset(for state: InfiniteScrollingControllerState) {
+    private func adjustContentInset(for state: InfiniteScrollingControllerState) {
         
         var contentInset = scrollView.contentInset
         contentInset.bottom = bottomInset(for: state)
@@ -168,7 +163,7 @@ class InfiniteScrollingController: NSObject {
         
     }
     
-    fileprivate func bottomInset(for state: InfiniteScrollingControllerState) -> CGFloat {
+    private func bottomInset(for state: InfiniteScrollingControllerState) -> CGFloat {
         
         switch state {
         case .animating:
