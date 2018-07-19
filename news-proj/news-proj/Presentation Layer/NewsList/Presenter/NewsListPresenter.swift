@@ -75,7 +75,7 @@ extension NewsListPresenter: NewsListViewOutput {
             case .success(let nextPageOffset):
                 self?.nextNewsListPageOffset = nextPageOffset
             case .failure(let error as NSError, let humanReadableErrorText):
-                print(error)
+                assertionFailure("\(error) \(error.userInfo)")
                 self?.view.showErrorMessage(humanReadableErrorText)
                 break
             }
@@ -100,7 +100,7 @@ extension NewsListPresenter: NewsListViewOutput {
             case .success(let nextPageOffset):
                 self?.nextNewsListPageOffset = nextPageOffset
             case .failure(let error as NSError, let humanReadableErrorText):
-                print(error)
+                assertionFailure("\(error) \(error.userInfo)")
                 self?.view.showErrorMessage(humanReadableErrorText)
                 break
             }

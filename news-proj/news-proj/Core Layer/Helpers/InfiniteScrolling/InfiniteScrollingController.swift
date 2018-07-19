@@ -69,7 +69,6 @@ class InfiniteScrollingController: NSObject {
         state = .animating
         adjustContentInset(for: state)
         loadingView.isHidden = false
-        print("InfiniteScrollingController did start animating.")
         
     }
     
@@ -80,8 +79,6 @@ class InfiniteScrollingController: NSObject {
         state = .stopped
         adjustContentInset(for: state)
         loadingView.isHidden = true
-        print("InfiniteScrollingController did stop animating.")
-
         
     }
     

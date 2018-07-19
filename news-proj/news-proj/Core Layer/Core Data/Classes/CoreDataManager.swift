@@ -106,7 +106,7 @@ extension CoreDataManager {
                     }
                 }
             } catch let error as NSError {
-                print(error)
+                assertionFailure("\(error) \(error.userInfo)")
                 DispatchQueue.main.async {
                     completion?(false, nil)
                 }
@@ -129,7 +129,7 @@ extension CoreDataManager {
                     }
                     
                 } catch let error as NSError {
-                    print(error)
+                    assertionFailure("\(error) \(error.userInfo)")
                     DispatchQueue.main.async {
                         completion?(false, nil)
                     }
@@ -171,7 +171,7 @@ extension CoreDataManager {
                 self.saveChanges(completion: completion)
                 
             } catch let error as NSError {
-                print(error)
+                assertionFailure("\(error) \(error.userInfo)")
                 DispatchQueue.main.async {
                     completion?(false, error)
                 }
@@ -194,7 +194,7 @@ extension CoreDataManager {
                 try self.backgroundWriterContext.obtainPermanentIDs(for: [object])
                 objectID = object.objectID
             } catch let error as NSError {
-                print("Can't obtain permanent object id \(error) \(error.userInfo)")
+                assertionFailure("Can't obtain permanent object id \(error) \(error.userInfo)")
             }
         }
         

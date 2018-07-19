@@ -53,7 +53,6 @@ extension NewsListViewController: NewsListViewInput {
         
         // Infinity scrolling
         infiniteScrollingController = InfiniteScrollingController.infiniteScrollingController(on: tableView, actionHandler: { [unowned self] in
-            print("Infinite scrolling action")
             self.infiniteScrollAction()
         })
         

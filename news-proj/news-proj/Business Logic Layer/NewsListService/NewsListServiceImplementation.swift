@@ -76,7 +76,7 @@ extension NewsListServiceImplementation: NewsListServiceInput {
             guard let strongSelf = self, task?.state != .canceling else { return }
             
             if let error = error as NSError? {
-                print(error)
+                assertionFailure("\(error) \(error.userInfo)")
                 DispatchQueue.main.async {
                     completion(.failure(error: error, humanReadableErrorText: ApplicationConstants.WebConstants.error))
                 }
@@ -122,7 +122,7 @@ extension NewsListServiceImplementation: NewsListServiceInput {
                 })
                 
             } catch let error as NSError {
-                print("Decoding response data error: \(error) \(error.userInfo)")
+                assertionFailure("Decoding response data error: \(error) \(error.userInfo)")
                 DispatchQueue.main.async {
                     completion(.failure(error: error, humanReadableErrorText: ApplicationConstants.WebConstants.error))
                 }
@@ -149,7 +149,7 @@ extension NewsListServiceImplementation: NewsListServiceInput {
             guard let strongSelf = self, task?.state != .canceling else { return }
             
             if let error = error as NSError? {
-                print(error)
+                assertionFailure("\(error) \(error.userInfo)")
                 DispatchQueue.main.async {
                     completion(.failure(error: error, humanReadableErrorText: ApplicationConstants.WebConstants.error))
                 }
@@ -183,7 +183,7 @@ extension NewsListServiceImplementation: NewsListServiceInput {
                 })
                 
             } catch let error as NSError {
-                print("Decoding response data error: \(error) \(error.userInfo)")
+                assertionFailure("Decoding response data error: \(error) \(error.userInfo)")
                 DispatchQueue.main.async {
                     completion(.failure(error: error, humanReadableErrorText: ApplicationConstants.WebConstants.error))
                 }
@@ -236,7 +236,7 @@ extension NewsListServiceImplementation {
         do {
             try fetchedResultsController?.performFetch()
         } catch let error as NSError {
-            fatalError("Fetched results controller fetch error \(error) \(error.userInfo)")
+            assertionFailure("Fetched results controller fetch error: \(error) \(error.userInfo)")
         }
         
     }
@@ -255,7 +255,7 @@ extension NewsListServiceImplementation {
         do {
             return try requestBuilder.buildRequest(with: requestData)
         } catch let error as NSError {
-            fatalError("\(error) \(error.userInfo)")
+            assertionFailure("\(error) \(error.userInfo)")
         }
         
         return nil

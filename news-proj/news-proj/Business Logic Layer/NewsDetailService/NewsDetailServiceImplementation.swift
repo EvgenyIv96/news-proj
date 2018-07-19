@@ -75,7 +75,7 @@ extension NewsDetailServiceImplementation: NewsDetailServiceInput {
         
         // Cancelling previous request
         networkComponent.cancel()
-        
+                
         if !Reachability.isConnectedToNetwork() {
             DispatchQueue.main.async {
                 completion(.failure(error: nil, humanReadableErrorText: ApplicationConstants.WebConstants.internetConnectionError))
@@ -124,7 +124,7 @@ extension NewsDetailServiceImplementation: NewsDetailServiceInput {
                 }
                 
             } catch let error as NSError {
-                print("Decoding response data error: \(error) \(error.userInfo)")
+                assertionFailure("Decoding response data error: \(error) \(error.userInfo)")
                 DispatchQueue.main.async {
                     completion(.failure(error: error, humanReadableErrorText: ApplicationConstants.WebConstants.error))
                 }
@@ -175,7 +175,7 @@ extension NewsDetailServiceImplementation {
         do {
             return try requestBuilder.buildRequest(with: requestData)
         } catch let error as NSError {
-            fatalError("\(error) \(error.userInfo)")
+            assertionFailure("\(error) \(error.userInfo)")
         }
         
         return nil
