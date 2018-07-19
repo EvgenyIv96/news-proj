@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol HTTPParametersEncoder {
+protocol HTTPParametersEncoder {
     
     /// Method is used to encode HTTP parameters and append it to the given url request. Method also will append appropriate headers for the request if they haven't already set. If given HTTP parameters parameter will be empty method doesn't make any changes.
     ///

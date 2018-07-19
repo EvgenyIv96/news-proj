@@ -50,7 +50,7 @@ class InfiniteScrollingController: NSObject {
     }()
     
     // MARK: - Class constructor
-    public static func infiniteScrollingController(on scrollView: UIScrollView, actionHandler: @escaping () -> ()) -> InfiniteScrollingController {
+    static func infiniteScrollingController(on scrollView: UIScrollView, actionHandler: @escaping () -> ()) -> InfiniteScrollingController {
         let infinityScrollController = InfiniteScrollingController()
         infinityScrollController.scrollView = scrollView
         infinityScrollController.action = actionHandler
@@ -62,7 +62,7 @@ class InfiniteScrollingController: NSObject {
     }
     
     // MARK: - Public
-    public func startAnimating() {
+    func startAnimating() {
         
         guard infinityScrollingEnabled, state != .animating, scrollView.contentSize.height > 0 else { return }
         
@@ -73,7 +73,7 @@ class InfiniteScrollingController: NSObject {
         
     }
     
-    public func stopAnimation() {
+    func stopAnimation() {
         
         guard state != .stopped else { return }
         

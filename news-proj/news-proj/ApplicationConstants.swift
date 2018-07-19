@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum ApplicationConstants {
+enum ApplicationConstants {
     
     enum WebConstants {
         static let baseURLString = "https://cfg.tinkoff.ru/news/public/api/platform/v1/"

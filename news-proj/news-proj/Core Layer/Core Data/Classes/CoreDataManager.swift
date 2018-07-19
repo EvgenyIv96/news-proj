@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-public typealias CoreDataManagerSaveCompletion = (_ contextDidSave: Bool, _ error: Error?) -> ()
+typealias CoreDataManagerSaveCompletion = (_ contextDidSave: Bool, _ error: Error?) -> ()
 
 enum CoreDataConstants {
     
@@ -25,7 +25,7 @@ enum CoreDataConstants {
 }
 
 
-public class CoreDataManager {
+class CoreDataManager {
     
     static let shared = CoreDataManager()
     
@@ -40,7 +40,7 @@ public class CoreDataManager {
 extension CoreDataManager {
     
     // MARK: Core data stack
-    public func createCoreDataStack(completion: @escaping () -> () ) {
+    func createCoreDataStack(completion: @escaping () -> () ) {
         
         // Model initialization
         let modelURL = Bundle.main.url(forResource: CoreDataConstants.modelName, withExtension: "momd")!
@@ -91,7 +91,7 @@ extension CoreDataManager {
     /// Method is used to save changes which was made in main context.
     ///
     /// - Parameter completion: Completion closure.
-    public func saveChanges(completion: CoreDataManagerSaveCompletion? = nil) {
+    func saveChanges(completion: CoreDataManagerSaveCompletion? = nil) {
         
         let contextHasNoChangesError = NSError(domain: ApplicationConstants.Errors.domain, code: CoreDataConstants.Errors.Codes.ContextHasNoChangesErrorCode, userInfo: nil)
         
@@ -147,7 +147,7 @@ extension CoreDataManager {
     /// - Parameters:
     ///   - block: Closure with changes.
     ///   - completion: Completion closure.
-    public func save(block: @escaping (_ workerContext: NSManagedObjectContext)->(), completion: CoreDataManagerSaveCompletion? = nil) {
+    func save(block: @escaping (_ workerContext: NSManagedObjectContext)->(), completion: CoreDataManagerSaveCompletion? = nil) {
         
         let contextHasNoChangesError = NSError(domain: ApplicationConstants.Errors.domain, code: CoreDataConstants.Errors.Codes.ContextHasNoChangesErrorCode, userInfo: nil)
         
@@ -183,7 +183,7 @@ extension CoreDataManager {
     }
     
     // MARK: Other
-    public func permanentObjectID(for object: NSManagedObject) -> NSManagedObjectID? {
+    func permanentObjectID(for object: NSManagedObject) -> NSManagedObjectID? {
         
         guard !object.objectID.isTemporaryID else { return object.objectID }
         

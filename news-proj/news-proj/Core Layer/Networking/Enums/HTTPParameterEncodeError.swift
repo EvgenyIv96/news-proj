@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum HTTPParameterEncodeError: String, Error {
+enum HTTPParameterEncodeError: String, Error {
     case encodingFailed = "Parameter encoding failed."
     case missingURL = "URL is nil."
 }

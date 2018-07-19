@@ -8,10 +8,10 @@
 
 import Foundation
 
-public typealias HTTPParameters = [String: Any]
-public typealias HTTPHeaders = [String: String]
+typealias HTTPParameters = [String: Any]
+typealias HTTPHeaders = [String: String]
 
-public protocol WebRequestData {
+protocol WebRequestData {
     var baseURL: URL { get }
     var path: String { get }
     var httpMethod: HTTPMethod { get }

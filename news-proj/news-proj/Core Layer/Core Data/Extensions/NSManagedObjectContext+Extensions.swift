@@ -11,7 +11,7 @@ import CoreData
 
 extension NSManagedObjectContext {
     
-    public func insertObject<ManagedObject: NSManagedObject>() -> ManagedObject {
+    func insertObject<ManagedObject: NSManagedObject>() -> ManagedObject {
         
         guard let entityName = ManagedObject.entity().name else {
             fatalError("Can't get entity name when inserting object")
