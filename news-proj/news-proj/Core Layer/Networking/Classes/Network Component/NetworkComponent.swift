@@ -8,9 +8,9 @@
 
 import Foundation
 
-public typealias NetworkComponentCompletion = (_ dataTask: URLSessionTask?, _ data: Data?,_ response: URLResponse?,_ error: Error?) -> ()
+typealias NetworkComponentCompletion = (URLSessionTask?, Data?, URLResponse?, Error?) -> ()
 
-public class NetworkComponent {
+class NetworkComponent {
     
     private let session = URLSession(configuration: .default)
     private var task: URLSessionTask?
